@@ -21,7 +21,16 @@ public class LoginFrame extends javax.swing.JFrame {
     public LoginFrame() {
         initComponents();
         textf_contra_iniciar.setEchoChar((char) 0);
-        usuarios.add(new Cuenta("Kevin", "1398"));
+        usuarios.add(new Cuenta("Kevin", "Kabm1398@"));
+        usuarios.add(new Cuenta("Samantha", "Swfc0815#"));
+        usuarios.add(new Cuenta("Hashem","Hafz0927%"));
+        usuarios.add(new Cuenta("Wilmer","Wazm1234+"));
+        usuarios.add(new Cuenta("Ana","Ayhm0709="));
+        usuarios.add(new Cuenta("Walter","Wazz1324&"));
+        usuarios.add(new Cuenta("Daysi","Dymp0602@"));
+        usuarios.add(new Cuenta("Wilfredo","Wabm0713$"));
+        usuarios.add(new Cuenta("Katie","Kabm0414#"));
+        usuarios.add(new Cuenta("Mario","Mmzz1010#"));
         jLabel3.setVisible(false);
         jLabel4.setVisible(false);
         jLabel5.setVisible(false);
@@ -499,15 +508,15 @@ public class LoginFrame extends javax.swing.JFrame {
                     verC = 1;
                 }
             }
-            if (verU == 0 && verC == 0) {
+            if (verU == 1 && verC == 1) {
                 JOptionPane.showMessageDialog(this, "Ingresado Exitosamente", "Ingresado", 1);
                 new MenuPrincipal(textf_usuario_iniciar.getText(), textf_contra_iniciar.getText()).setVisible(true);
-            } else if (verC == 1) {
+            } else if (verU == 0) {
                 jLabel3.setVisible(true);
                 jLabel4.setVisible(false);
                 jLabel5.setVisible(false);
                 jLabel6.setVisible(false);
-            } else if (verC == 1) {
+            } else if (verC == 0) {
                 jLabel6.setVisible(true);
                 jLabel4.setVisible(false);
                 jLabel5.setVisible(false);
@@ -550,7 +559,6 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
         setCursor(Cursor.HAND_CURSOR);
-
     }//GEN-LAST:event_jLabel1MouseEntered
 
     private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
