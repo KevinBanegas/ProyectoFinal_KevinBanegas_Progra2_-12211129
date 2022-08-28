@@ -13,24 +13,14 @@ import java.util.regex.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class LoginFrame extends javax.swing.JFrame {
+public class DefaultLoginFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginFrame
      */
-    public LoginFrame() {
+    public DefaultLoginFrame(ArrayList<Cuenta> cuenta) {
         initComponents();
         textf_contra_iniciar.setEchoChar((char) 0);
-        usuarios.add(new Cuenta("Kevin", "Kabm1398@"));
-        usuarios.add(new Cuenta("Samantha", "Swfc0815#"));
-        usuarios.add(new Cuenta("Hashem","Hafz0927%"));
-        usuarios.add(new Cuenta("Wilmer","Wazm1234+"));
-        usuarios.add(new Cuenta("Ana","Ayhm0709="));
-        usuarios.add(new Cuenta("Walter","Wazz1324&"));
-        usuarios.add(new Cuenta("Daysi","Dymp0602@"));
-        usuarios.add(new Cuenta("Wilfredo","Wabm0713$"));
-        usuarios.add(new Cuenta("Katie","Kabm0414#"));
-        usuarios.add(new Cuenta("Mario","Mmzz1010#"));
         jLabel3.setVisible(false);
         jLabel4.setVisible(false);
         jLabel5.setVisible(false);
@@ -500,7 +490,7 @@ public class LoginFrame extends javax.swing.JFrame {
             jLabel6.setVisible(false);
         } else {
             int verU = 0, verC = 0;
-            for (Cuenta usuario : usuarios) {
+            for (Cuenta usuario : cuentas) {
                 if (usuario.getUser().equals(textf_usuario_iniciar.getText())) {
                     verU = 1;
                 }
@@ -510,7 +500,7 @@ public class LoginFrame extends javax.swing.JFrame {
             }
             if (verU == 1 && verC == 1) {
                 JOptionPane.showMessageDialog(this, "Ingresado Exitosamente", "Ingresado", 1);
-                new MenuPrincipal(textf_usuario_iniciar.getText(), textf_contra_iniciar.getText()).setVisible(true);
+                new MenuPrincipal(textf_usuario_iniciar.getText(), textf_contra_iniciar.getText(), cuentas).setVisible(true);
             } else if (verU == 0) {
                 jLabel3.setVisible(true);
                 jLabel4.setVisible(false);
@@ -566,7 +556,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseExited
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        new NewUser(usuarios).setVisible(true);
+        new NewUser(cuentas).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
 
@@ -587,24 +577,27 @@ public class LoginFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DefaultLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DefaultLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DefaultLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DefaultLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginFrame().setVisible(true);
+                new DefaultLoginFrame(cuentas).setVisible(true);
             }
         });
     }
-    private ArrayList<Cuenta> usuarios = new ArrayList();
+    private static ArrayList<Cuenta> cuentas;
     private int xMouse;
     private int yMouse;
     private int bruh = 0;

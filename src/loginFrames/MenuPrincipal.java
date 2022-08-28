@@ -5,6 +5,8 @@
  */
 package loginFrames;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Usuario
@@ -14,10 +16,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal(String usuario, String contra) {
+    public MenuPrincipal(String usuario, String contra, ArrayList<Cuenta> cuentas) {
         initComponents();
         this.usuario = usuario;
         this.contra = contra;
+        this.cuentas = cuentas;
         jLabel1.setText(usuario);
         jLabel2.setText(contra);
     }
@@ -94,12 +97,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal(usuario, contra).setVisible(true);
+                new MenuPrincipal(usuario, contra, cuentas).setVisible(true);
             }
         });
     }
     private static String usuario;
     private static String contra;
+    private static ArrayList<Cuenta> cuentas;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -6,34 +6,35 @@
 package loginFrames;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import static java.awt.event.KeyEvent.VK_ENTER;
 import java.util.ArrayList;
 import java.util.regex.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Usuario
- */
-public class NewUser extends javax.swing.JFrame {
+public class FirstLoginFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewUser
-     *
-     * @param usuarios
+     * Creates new form LoginFrame
      */
-    public NewUser(ArrayList<Cuenta> usuarios) {
+    public FirstLoginFrame() {
         initComponents();
-        this.cuentas = usuarios;
         textf_contra_iniciar.setEchoChar((char) 0);
-        textf_contraVer_crear.setEchoChar((char) 0);
-        jLabel1.setVisible(false);
-        jLabel2.setVisible(false);
+        cuentas.add(new Cuenta("Kevin", "Kabm1398@"));
+        cuentas.add(new Cuenta("Samantha", "Swfc0815#"));
+        cuentas.add(new Cuenta("Hashem","Hafz0927%"));
+        cuentas.add(new Cuenta("Wilmer","Wazm1234+"));
+        cuentas.add(new Cuenta("Ana","Ayhm0709="));
+        cuentas.add(new Cuenta("Walter","Wazz1324&"));
+        cuentas.add(new Cuenta("Daysi","Dymp0602@"));
+        cuentas.add(new Cuenta("Wilfredo","Wabm0713$"));
+        cuentas.add(new Cuenta("Katie","Kabm0414#"));
+        cuentas.add(new Cuenta("Mario","Mmzz1010#"));
         jLabel3.setVisible(false);
         jLabel4.setVisible(false);
         jLabel5.setVisible(false);
-        jLabel12.setVisible(false);
+        jLabel6.setVisible(false);
     }
 
     /**
@@ -63,23 +64,11 @@ public class NewUser extends javax.swing.JFrame {
         icon_usuario_iniciar = new javax.swing.JLabel();
         panel_ingresar_iniciar = new javax.swing.JPanel();
         label_ingresar_iniciar = new javax.swing.JLabel();
-        panel_contra_iniciar1 = new javax.swing.JPanel();
-        textf_contraVer_crear = new javax.swing.JPasswordField();
-        icon_contra_iniciar1 = new javax.swing.JLabel();
-        icon_visualize_iniciar1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -168,7 +157,7 @@ public class NewUser extends javax.swing.JFrame {
         header_iniciarLayout.setHorizontalGroup(
             header_iniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header_iniciarLayout.createSequentialGroup()
-                .addGap(0, 434, Short.MAX_VALUE)
+                .addGap(0, 334, Short.MAX_VALUE)
                 .addComponent(panel_minimize_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_exit_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -183,14 +172,15 @@ public class NewUser extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        panel_bg_iniciar.add(header_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 30));
+        panel_bg_iniciar.add(header_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 30));
 
         panel_iniciarSesion.setBackground(new java.awt.Color(178, 112, 162));
+        panel_iniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
 
         label_iniciarSesion.setFont(new java.awt.Font("Litera-Serial", 0, 30)); // NOI18N
         label_iniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
         label_iniciarSesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_iniciarSesion.setText("Crear Usuario");
+        label_iniciarSesion.setText("INICIAR SESION");
 
         javax.swing.GroupLayout panel_iniciarSesionLayout = new javax.swing.GroupLayout(panel_iniciarSesion);
         panel_iniciarSesion.setLayout(panel_iniciarSesionLayout);
@@ -206,11 +196,11 @@ public class NewUser extends javax.swing.JFrame {
             .addComponent(label_iniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        panel_bg_iniciar.add(panel_iniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 270, 50));
+        panel_bg_iniciar.add(panel_iniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 270, 50));
 
         img_myOffice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resized-removebg-preview.png"))); // NOI18N
         img_myOffice.setText("jLabel5");
-        panel_bg_iniciar.add(img_myOffice, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 140, 130));
+        panel_bg_iniciar.add(img_myOffice, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 140, 130));
 
         panel_contra_iniciar.setBackground(new java.awt.Color(204, 153, 255));
 
@@ -255,7 +245,7 @@ public class NewUser extends javax.swing.JFrame {
             .addGroup(panel_contra_iniciarLayout.createSequentialGroup()
                 .addComponent(icon_contra_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textf_contra_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textf_contra_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(icon_visualize_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -267,12 +257,12 @@ public class NewUser extends javax.swing.JFrame {
                     .addComponent(textf_contra_iniciar, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_contra_iniciarLayout.createSequentialGroup()
                         .addGap(0, 2, Short.MAX_VALUE)
-                        .addComponent(icon_contra_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(icon_contra_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(icon_visualize_iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(2, 2, 2))
-            .addComponent(icon_visualize_iniciar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        panel_bg_iniciar.add(panel_contra_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 220, 30));
+        panel_bg_iniciar.add(panel_contra_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 210, 30));
 
         panel_usuario_iniciar.setBackground(new java.awt.Color(204, 153, 255));
 
@@ -313,8 +303,7 @@ public class NewUser extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_usuario_iniciarLayout.createSequentialGroup()
                 .addComponent(icon_usuario_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addComponent(textf_usuario_iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(textf_usuario_iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
         );
         panel_usuario_iniciarLayout.setVerticalGroup(
             panel_usuario_iniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,14 +312,14 @@ public class NewUser extends javax.swing.JFrame {
                 .addComponent(icon_usuario_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        panel_bg_iniciar.add(panel_usuario_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 220, 30));
+        panel_bg_iniciar.add(panel_usuario_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 210, 30));
 
         panel_ingresar_iniciar.setBackground(new java.awt.Color(178, 112, 162));
 
         label_ingresar_iniciar.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
         label_ingresar_iniciar.setForeground(new java.awt.Color(255, 255, 255));
         label_ingresar_iniciar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_ingresar_iniciar.setText("Registrar");
+        label_ingresar_iniciar.setText("INGRESAR");
         label_ingresar_iniciar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 label_ingresar_iniciarMouseClicked(evt);
@@ -354,175 +343,51 @@ public class NewUser extends javax.swing.JFrame {
         );
         panel_ingresar_iniciarLayout.setVerticalGroup(
             panel_ingresar_iniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_ingresar_iniciarLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(label_ingresar_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(label_ingresar_iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        panel_bg_iniciar.add(panel_ingresar_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 430, 90, 40));
+        panel_bg_iniciar.add(panel_ingresar_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 90, 40));
 
-        panel_contra_iniciar1.setBackground(new java.awt.Color(204, 153, 255));
-
-        textf_contraVer_crear.setBackground(new java.awt.Color(204, 153, 255));
-        textf_contraVer_crear.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
-        textf_contraVer_crear.setForeground(new java.awt.Color(255, 255, 255));
-        textf_contraVer_crear.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        textf_contraVer_crear.setText("Reingrese Contraseña");
-        textf_contraVer_crear.setBorder(null);
-        textf_contraVer_crear.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                textf_contraVer_crearMousePressed(evt);
-            }
-        });
-        textf_contraVer_crear.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                textf_contraVer_crearKeyPressed(evt);
-            }
-        });
-
-        icon_contra_iniciar1.setBackground(new java.awt.Color(255, 0, 51));
-        icon_contra_iniciar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        icon_contra_iniciar1.setForeground(new java.awt.Color(255, 255, 255));
-        icon_contra_iniciar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        icon_contra_iniciar1.setText("🔒");
-
-        icon_visualize_iniciar1.setBackground(new java.awt.Color(255, 0, 51));
-        icon_visualize_iniciar1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        icon_visualize_iniciar1.setForeground(new java.awt.Color(255, 255, 255));
-        icon_visualize_iniciar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        icon_visualize_iniciar1.setText("👁");
-        icon_visualize_iniciar1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                icon_visualize_iniciar1MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panel_contra_iniciar1Layout = new javax.swing.GroupLayout(panel_contra_iniciar1);
-        panel_contra_iniciar1.setLayout(panel_contra_iniciar1Layout);
-        panel_contra_iniciar1Layout.setHorizontalGroup(
-            panel_contra_iniciar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_contra_iniciar1Layout.createSequentialGroup()
-                .addComponent(icon_contra_iniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textf_contraVer_crear, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(icon_visualize_iniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panel_contra_iniciar1Layout.setVerticalGroup(
-            panel_contra_iniciar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_contra_iniciar1Layout.createSequentialGroup()
-                .addGroup(panel_contra_iniciar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textf_contraVer_crear, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_contra_iniciar1Layout.createSequentialGroup()
-                        .addGap(0, 2, Short.MAX_VALUE)
-                        .addComponent(icon_contra_iniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(2, 2, 2))
-            .addComponent(icon_visualize_iniciar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        panel_bg_iniciar.add(panel_contra_iniciar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 220, 30));
-
-        jLabel1.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 51, 102));
+        jLabel1.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(178, 112, 162));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Usuario Invalido. Intente de nuevo.");
-        panel_bg_iniciar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 260, -1));
-
-        jLabel2.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 51, 102));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Contraseñas no coincidían. Intente de nuevo.");
-        panel_bg_iniciar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 260, -1));
+        jLabel1.setText("No tienes cuenta? Registrate!");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel1MouseExited(evt);
+            }
+        });
+        panel_bg_iniciar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 210, -1));
 
         jLabel3.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 51, 102));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Ingrese una Contraseña.");
-        panel_bg_iniciar.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 140, -1));
+        jLabel3.setText("Usuario no Existe. Intente de Nuevo.");
+        panel_bg_iniciar.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 230, -1));
 
         jLabel4.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 51, 102));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Ingrese un Usuario");
-        panel_bg_iniciar.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 120, -1));
+        panel_bg_iniciar.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 120, -1));
 
         jLabel5.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 51, 102));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Reingrese la Contraseña");
-        panel_bg_iniciar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 140, -1));
+        jLabel5.setText("Ingrese una Contraseña.");
+        panel_bg_iniciar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 140, -1));
 
-        jPanel1.setBackground(new java.awt.Color(204, 153, 255));
-
-        jLabel6.setFont(new java.awt.Font("Litera-Serial", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 51, 102));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Condiciones Contraseña");
-
-        jLabel7.setFont(new java.awt.Font("Litera-Serial", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("1. Incluir Minusculas");
-
-        jLabel8.setFont(new java.awt.Font("Litera-Serial", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("2. Incluir Mayusculas");
-
-        jLabel9.setFont(new java.awt.Font("Litera-Serial", 0, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("3. Incluir caracteres especiales");
-
-        jLabel10.setFont(new java.awt.Font("Litera-Serial", 0, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("    ej: @#$%^&+=  (sin espacios)");
-
-        jLabel11.setFont(new java.awt.Font("Litera-Serial", 0, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("4. Debe ser 8 - 20 caracteres");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        panel_bg_iniciar.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 190, 150));
-
-        jLabel12.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 51, 102));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Contraseña no cuenta con todas las condiciones.");
-        panel_bg_iniciar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 260, -1));
+        jLabel6.setText("Contraseña Incorrecta. Intente de Nuevo.");
+        panel_bg_iniciar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 230, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -538,30 +403,34 @@ public class NewUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void label_exit_inciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciarMouseClicked
-        setVisible(false);
-        new DefaultLoginFrame(cuentas).setVisible(true);
-    }//GEN-LAST:event_label_exit_inciarMouseClicked
-
     private void label_exit_inciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciarMouseEntered
         panel_exit_iniciar.setBackground(Color.red);
     }//GEN-LAST:event_label_exit_inciarMouseEntered
-
-    private void label_exit_inciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciarMouseExited
-        panel_exit_iniciar.setBackground(header_iniciar.getBackground());
-    }//GEN-LAST:event_label_exit_inciarMouseExited
-
-    private void label_minimize_iniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_iniciarMouseClicked
-        setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_label_minimize_iniciarMouseClicked
 
     private void label_minimize_iniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_iniciarMouseEntered
         panel_minimize_iniciar.setBackground(new Color(122, 96, 149));
     }//GEN-LAST:event_label_minimize_iniciarMouseEntered
 
+    private void label_exit_inciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciarMouseExited
+        panel_exit_iniciar.setBackground(header_iniciar.getBackground());
+    }//GEN-LAST:event_label_exit_inciarMouseExited
+
     private void label_minimize_iniciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_iniciarMouseExited
         panel_minimize_iniciar.setBackground(header_iniciar.getBackground());
     }//GEN-LAST:event_label_minimize_iniciarMouseExited
+
+    private void label_exit_inciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciarMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_label_exit_inciarMouseClicked
+
+    private void label_minimize_iniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_iniciarMouseClicked
+        setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_label_minimize_iniciarMouseClicked
+
+    private void header_iniciarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciarMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_header_iniciarMousePressed
 
     private void header_iniciarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciarMouseDragged
         int x = evt.getXOnScreen();
@@ -569,67 +438,9 @@ public class NewUser extends javax.swing.JFrame {
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_header_iniciarMouseDragged
 
-    private void header_iniciarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciarMousePressed
-        xMouse = evt.getX();
-        yMouse = evt.getY();
-    }//GEN-LAST:event_header_iniciarMousePressed
-
-    private void textf_contra_iniciarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textf_contra_iniciarMousePressed
-        if (textf_usuario_iniciar.getText().isEmpty()) {
-            textf_usuario_iniciar.setText("Usuario");
-            textf_usuario_iniciar.setForeground(Color.WHITE);
-        }
-
-        if (String.valueOf(textf_contra_iniciar.getPassword()).equals("Contraseña")) {
-            textf_contra_iniciar.setText("");
-            textf_contra_iniciar.setForeground(Color.WHITE);
-            textf_contra_iniciar.setEchoChar('*');
-            bruh = 0;
-        }
-
-        if (String.valueOf(textf_contraVer_crear.getPassword()).isEmpty()) {
-            textf_contraVer_crear.setEchoChar((char) 0);
-            textf_contraVer_crear.setText("Reingrese Contraseña");
-            textf_contraVer_crear.setForeground(Color.WHITE);
-            bruh2 = 0;
-        }
-    }//GEN-LAST:event_textf_contra_iniciarMousePressed
-
-    private void textf_contra_iniciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textf_contra_iniciarKeyPressed
-        if (evt.getKeyCode() == VK_ENTER) {
-            textf_contraVer_crear.requestFocus();
-            if (textf_usuario_iniciar.getText().isEmpty()) {
-                textf_usuario_iniciar.setText("Usuario");
-                textf_usuario_iniciar.setForeground(Color.WHITE);
-            }
-
-            if (String.valueOf(textf_contra_iniciar.getPassword()).isEmpty()) {
-                textf_contra_iniciar.setText("Contraseña");
-                textf_contra_iniciar.setForeground(Color.WHITE);
-                textf_contra_iniciar.setEchoChar('*');
-                bruh = 0;
-            }
-
-            if (String.valueOf(textf_contraVer_crear.getPassword()).equals("Reingrese Contraseña")) {
-                textf_contraVer_crear.setEchoChar('*');
-                textf_contraVer_crear.setText("");
-                textf_contraVer_crear.setForeground(Color.WHITE);
-                bruh2 = 0;
-            }
-        }
-    }//GEN-LAST:event_textf_contra_iniciarKeyPressed
-
-    private void icon_visualize_iniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon_visualize_iniciarMouseClicked
-        if (bruh == 0 && !"Contraseña".equals(textf_contra_iniciar.getText())) {
-            textf_contra_iniciar.setEchoChar((char) 0);
-            bruh = 1;
-        } else if (bruh == 1 && !"Contraseña".equals(textf_contra_iniciar.getText())) {
-            textf_contra_iniciar.setEchoChar('*');
-            bruh = 0;
-        } else {
-            bruh = 0;
-        }
-    }//GEN-LAST:event_icon_visualize_iniciarMouseClicked
+    private void textf_usuario_iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textf_usuario_iniciarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textf_usuario_iniciarActionPerformed
 
     private void textf_usuario_iniciarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textf_usuario_iniciarMousePressed
         if (textf_usuario_iniciar.getText().equals("Usuario")) {
@@ -643,18 +454,21 @@ public class NewUser extends javax.swing.JFrame {
             textf_contra_iniciar.setForeground(Color.WHITE);
             bruh = 0;
         }
-
-        if (String.valueOf(textf_contraVer_crear.getPassword()).isEmpty()) {
-            textf_contraVer_crear.setEchoChar((char) 0);
-            textf_contraVer_crear.setText("Reingrese Contraseña");
-            textf_contraVer_crear.setForeground(Color.WHITE);
-            bruh2 = 0;
-        }
     }//GEN-LAST:event_textf_usuario_iniciarMousePressed
 
-    private void textf_usuario_iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textf_usuario_iniciarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textf_usuario_iniciarActionPerformed
+    private void textf_contra_iniciarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textf_contra_iniciarMousePressed
+        if (textf_usuario_iniciar.getText().isEmpty()) {
+            textf_usuario_iniciar.setText("Usuario");
+            textf_usuario_iniciar.setForeground(Color.WHITE);
+        }
+
+        if (String.valueOf(textf_contra_iniciar.getPassword()).equals("Contraseña")) {
+            textf_contra_iniciar.setText("");
+            textf_contra_iniciar.setForeground(Color.WHITE);
+            textf_contra_iniciar.setEchoChar('*');
+            bruh = 0;
+        }
+    }//GEN-LAST:event_textf_contra_iniciarMousePressed
 
     private void textf_usuario_iniciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textf_usuario_iniciarKeyPressed
         if (evt.getKeyCode() == VK_ENTER) {
@@ -670,148 +484,91 @@ public class NewUser extends javax.swing.JFrame {
                 textf_contra_iniciar.setEchoChar('*');
                 bruh = 0;
             }
-
-            if (String.valueOf(textf_contraVer_crear.getPassword()).isEmpty()) {
-                textf_contraVer_crear.setEchoChar((char) 0);
-                textf_contraVer_crear.setText("Reingrese Contraseña");
-                textf_contraVer_crear.setForeground(Color.WHITE);
-                bruh2 = 0;
-            }
-
         }
     }//GEN-LAST:event_textf_usuario_iniciarKeyPressed
 
     private void label_ingresar_iniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_ingresar_iniciarMouseClicked
-        if (textf_contra_iniciar.getText().equals(textf_contraVer_crear.getText()) && !textf_usuario_iniciar.getText().equals("Usuario") && !textf_contra_iniciar.getText().equals("Contraseña") && !textf_contraVer_crear.getText().equals("Reingrese Contraseña")) {
-            int ver = 0;
+        if (textf_usuario_iniciar.getText().isEmpty() || textf_usuario_iniciar.getText().equals("Usuario")) {
+            jLabel4.setVisible(true);
+            jLabel3.setVisible(false);
+            jLabel5.setVisible(false);
+            jLabel6.setVisible(false);
+        } else if (textf_contra_iniciar.getText().isEmpty() || textf_contra_iniciar.getText().equals("Contraseña")) {
+            jLabel5.setVisible(true);
+            jLabel3.setVisible(false);
+            jLabel4.setVisible(false);
+            jLabel6.setVisible(false);
+        } else {
+            int verU = 0, verC = 0;
             for (Cuenta usuario : cuentas) {
                 if (usuario.getUser().equals(textf_usuario_iniciar.getText())) {
-                    ver = 1;
+                    verU = 1;
+                }
+                if (usuario.getContra().equals(textf_contra_iniciar.getText())) {
+                    verC = 1;
                 }
             }
-            boolean contraVer = Regex(textf_contra_iniciar.getText());
-            if (ver == 0) {
-                if (contraVer == true) {
-                    JOptionPane.showMessageDialog(this, "Ingresado Exitosamente", "Ingresado", 1);
-                    jLabel2.setVisible(false);
-                    jLabel1.setVisible(false);
-                    new MenuPrincipal(textf_usuario_iniciar.getText(), textf_contra_iniciar.getText(),cuentas).setVisible(true);
-                } else {
-                    jLabel12.setVisible(true);
-                    jLabel1.setVisible(false);
-                    jLabel2.setVisible(false);
-                    jLabel3.setVisible(false);
-                    jLabel4.setVisible(false);
-                    jLabel5.setVisible(false);
-                }
-            } else {
-                jLabel1.setVisible(true);
-                jLabel12.setVisible(false);
-                jLabel2.setVisible(false);
-                jLabel3.setVisible(false);
-                jLabel4.setVisible(false);
-                jLabel5.setVisible(false);
-            }
-
-        } else {
-            if (textf_usuario_iniciar.getText().equals("Usuario") || textf_usuario_iniciar.getText().isEmpty()) {
-                jLabel4.setVisible(true);
-                jLabel3.setVisible(false);
-                jLabel2.setVisible(false);
-                jLabel5.setVisible(false);
-                jLabel1.setVisible(false);
-                jLabel12.setVisible(false);
-            } else if (textf_contra_iniciar.getText().equals("Contraseña") || textf_contra_iniciar.getText().isEmpty()) {
+            if (verU == 1 && verC == 1) {
+                JOptionPane.showMessageDialog(this, "Ingresado Exitosamente", "Ingresado", 1);
+                new MenuPrincipal(textf_usuario_iniciar.getText(), textf_contra_iniciar.getText(), cuentas).setVisible(true);
+            } else if (verU == 0) {
                 jLabel3.setVisible(true);
                 jLabel4.setVisible(false);
-                jLabel2.setVisible(false);
                 jLabel5.setVisible(false);
-                jLabel1.setVisible(false);
-                jLabel12.setVisible(false);
-            } else if (textf_contraVer_crear.getText().equals("Reingrese Contraseña") || textf_contraVer_crear.getText().isEmpty()) {
-                jLabel5.setVisible(true);
-                jLabel2.setVisible(false);
-                jLabel3.setVisible(false);
+                jLabel6.setVisible(false);
+            } else if (verC == 0) {
+                jLabel6.setVisible(true);
                 jLabel4.setVisible(false);
-                jLabel1.setVisible(false);
-                jLabel12.setVisible(false);
+                jLabel5.setVisible(false);
+                jLabel3.setVisible(false);
 
-            } else if (!textf_contra_iniciar.getText().equals(textf_contraVer_crear.getText()) || (textf_contra_iniciar.getText().isEmpty() && textf_contraVer_crear.getText().isEmpty())) {
-                jLabel2.setVisible(true);
-                jLabel3.setVisible(false);
-                jLabel4.setVisible(false);
-                jLabel5.setVisible(false);
-                jLabel1.setVisible(false);
-                jLabel12.setVisible(false);
             }
-
         }
+
     }//GEN-LAST:event_label_ingresar_iniciarMouseClicked
+
+    private void textf_contra_iniciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textf_contra_iniciarKeyPressed
+        if (evt.getKeyCode() == VK_ENTER) {
+            label_ingresar_iniciarMouseClicked(new java.awt.event.MouseEvent(this, 1, 1, 1, 1, 1, 1, rootPaneCheckingEnabled));
+        }
+    }//GEN-LAST:event_textf_contra_iniciarKeyPressed
 
     private void label_ingresar_iniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_ingresar_iniciarMouseEntered
         panel_ingresar_iniciar.setBackground(new Color(204, 122, 241));
     }//GEN-LAST:event_label_ingresar_iniciarMouseEntered
 
-    private void label_ingresar_iniciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_ingresar_iniciarMouseExited
-        panel_ingresar_iniciar.setBackground(new Color(178, 112, 162));
-    }//GEN-LAST:event_label_ingresar_iniciarMouseExited
-
     private void label_ingresar_iniciarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_ingresar_iniciarMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_label_ingresar_iniciarMousePressed
 
-    private void textf_contraVer_crearMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textf_contraVer_crearMousePressed
-        if (textf_usuario_iniciar.getText().isEmpty()) {
-            textf_usuario_iniciar.setText("Usuario");
-            textf_usuario_iniciar.setForeground(Color.WHITE);
-        }
+    private void label_ingresar_iniciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_ingresar_iniciarMouseExited
+        panel_ingresar_iniciar.setBackground(new Color(178, 112, 162));
+    }//GEN-LAST:event_label_ingresar_iniciarMouseExited
 
-        if (String.valueOf(textf_contra_iniciar.getPassword()).isEmpty()) {
-            textf_contra_iniciar.setText("Contraseña");
-            textf_contra_iniciar.setForeground(Color.WHITE);
+    private void icon_visualize_iniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon_visualize_iniciarMouseClicked
+        if (bruh == 0 && !"Contraseña".equals(textf_contra_iniciar.getText())) {
+            textf_contra_iniciar.setEchoChar((char) 0);
+            bruh = 1;
+        } else if (bruh == 1 && !"Contraseña".equals(textf_contra_iniciar.getText())) {
             textf_contra_iniciar.setEchoChar('*');
             bruh = 0;
-        }
-
-        if (String.valueOf(textf_contraVer_crear.getPassword()).equals("Reingrese Contraseña")) {
-            textf_contraVer_crear.setEchoChar('*');
-            textf_contraVer_crear.setText("");
-            textf_contraVer_crear.setForeground(Color.WHITE);
-            bruh2 = 0;
-        }
-    }//GEN-LAST:event_textf_contraVer_crearMousePressed
-    private boolean Regex(String contra) {
-        String regex = "^(?=.*[0-9])"
-                + "(?=.*[a-z])(?=.*[A-Z])"
-                + "(?=.*[@#$%^&+=])"
-                + "(?=\\S+$).{8,20}$";
-        Pattern p = Pattern.compile(regex);
-
-        if (contra == null) {
-            return false;
-        }
-
-        Matcher m = p.matcher(contra);
-
-        return m.matches();
-    }
-    private void textf_contraVer_crearKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textf_contraVer_crearKeyPressed
-        if (evt.getKeyCode() == VK_ENTER) {
-            label_ingresar_iniciarMouseClicked(new java.awt.event.MouseEvent(this, 1, 1, 1, 1, 1, 1, rootPaneCheckingEnabled));
-        }
-    }//GEN-LAST:event_textf_contraVer_crearKeyPressed
-
-    private void icon_visualize_iniciar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icon_visualize_iniciar1MouseClicked
-        if (bruh2 == 0 && !"Reingrese Contraseña".equals(textf_contraVer_crear.getText())) {
-            textf_contraVer_crear.setEchoChar((char) 0);
-            bruh2 = 1;
-        } else if (bruh2 == 1 && !"Reingrese Contraseña".equals(textf_contraVer_crear.getText())) {
-            textf_contraVer_crear.setEchoChar('*');
-            bruh2 = 0;
         } else {
-            bruh2 = 0;
+            bruh = 0;
         }
-    }//GEN-LAST:event_icon_visualize_iniciar1MouseClicked
+    }//GEN-LAST:event_icon_visualize_iniciarMouseClicked
+
+    private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
+        setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_jLabel1MouseEntered
+
+    private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
+        setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_jLabel1MouseExited
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        new NewUser(cuentas).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -830,62 +587,50 @@ public class NewUser extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewUser(cuentas).setVisible(true);
+                new FirstLoginFrame().setVisible(true);
             }
         });
     }
-    private int bruh = 0;
-    private int bruh2 = 0;
+    private ArrayList<Cuenta> cuentas = new ArrayList();
     private int xMouse;
     private int yMouse;
-    private static ArrayList<Cuenta> cuentas;
+    private int bruh = 0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel header_iniciar;
     private javax.swing.JLabel icon_contra_iniciar;
-    private javax.swing.JLabel icon_contra_iniciar1;
     private javax.swing.JLabel icon_usuario_iniciar;
     private javax.swing.JLabel icon_visualize_iniciar;
-    private javax.swing.JLabel icon_visualize_iniciar1;
     private javax.swing.JLabel img_myOffice;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel label_exit_inciar;
     private javax.swing.JLabel label_ingresar_iniciar;
     private javax.swing.JLabel label_iniciarSesion;
     private javax.swing.JLabel label_minimize_iniciar;
     private javax.swing.JPanel panel_bg_iniciar;
     private javax.swing.JPanel panel_contra_iniciar;
-    private javax.swing.JPanel panel_contra_iniciar1;
     private javax.swing.JPanel panel_exit_iniciar;
     private javax.swing.JPanel panel_ingresar_iniciar;
     private javax.swing.JPanel panel_iniciarSesion;
     private javax.swing.JPanel panel_minimize_iniciar;
     private javax.swing.JPanel panel_usuario_iniciar;
-    private javax.swing.JPasswordField textf_contraVer_crear;
     private javax.swing.JPasswordField textf_contra_iniciar;
     private javax.swing.JTextField textf_usuario_iniciar;
     // End of variables declaration//GEN-END:variables

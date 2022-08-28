@@ -4,7 +4,6 @@ import Correo.NewCorreo;
 import Drive.NewDrive;
 import ToDo.NewToDo;
 
-
 public class Cuenta {
     private String user;
     private String contra;
@@ -14,10 +13,26 @@ public class Cuenta {
 
     public Cuenta() {
     }
-    
+
     public Cuenta(String user, String contra) {
         this.user = user;
-        this.contra=contra;
+        this.contra = contra;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getContra() {
+        return contra;
+    }
+
+    public void setContra(String contra) {
+        this.contra = contra;
     }
 
     public NewToDo getToDo() {
@@ -44,24 +59,10 @@ public class Cuenta {
         this.correo = correo;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getContra() {
-        return contra;
-    }
-
-    public void setContra(String contra) {
-        this.contra = contra;
-    }
-
     @Override
     public String toString() {
         return "\nUsuario: " + user + "\nContraseña: " + contra;
-    }   
+    }
+    
+    
 }
