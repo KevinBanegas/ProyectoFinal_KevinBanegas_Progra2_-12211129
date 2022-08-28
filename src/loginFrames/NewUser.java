@@ -699,11 +699,11 @@ public class NewUser extends javax.swing.JFrame {
                     jLabel3.setVisible(false);
                     jLabel4.setVisible(false);
                     jLabel5.setVisible(false);
-                    
+
                     setVisible(false);
                     Cuenta newCuenta = new Cuenta(textf_usuario_iniciar.getText(), textf_contra_iniciar.getText());
                     cuentas.add(newCuenta);
-                    int indexCuenta = cuentas.size()-1;
+                    int indexCuenta = cuentas.size() - 1;
                     textf_contra_iniciar.setText("Contraseña");
                     textf_usuario_iniciar.setText("Usuario");
                     textf_contraVer_crear.setText("Reingrese Contraseña");

@@ -3,10 +3,11 @@ package ToDo;
 import java.util.ArrayList;
 
 public class NewToDo {
+
     private ArrayList<Tarea> tareasDia = new ArrayList();
     private ArrayList<Tarea> tareasImportantes = new ArrayList();
     private ArrayList<ListaTarea> listasTareas = new ArrayList();
-    private ArrayList<Tarea> tareaRealizado = new ArrayList(); 
+    private ArrayList<Tarea> tareaRealizado = new ArrayList();
 
     public NewToDo() {
     }
@@ -47,6 +48,5 @@ public class NewToDo {
     public String toString() {
         return "\nTareas del Dia: " + tareasDia + "\nTareas Importantes: " + tareasImportantes + "\nListas de Tareas: " + listasTareas + "\nTareas Realizadas=" + tareaRealizado;
     }
-    
-    
+
 }

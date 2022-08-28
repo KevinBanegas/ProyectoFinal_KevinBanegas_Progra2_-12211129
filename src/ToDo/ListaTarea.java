@@ -3,6 +3,7 @@ package ToDo;
 import java.util.ArrayList;
 
 public class ListaTarea {
+
     private ArrayList<Tarea> listaTareas = new ArrayList();
     private String nombreLista;
 
@@ -33,7 +34,5 @@ public class ListaTarea {
     public String toString() {
         return "\nNombre de Lista:" + nombreLista + "\nLista de Tareas: " + listaTareas;
     }
-    
-    
-    
+
 }

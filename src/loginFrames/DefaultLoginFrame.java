@@ -11,6 +11,7 @@ public class DefaultLoginFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginFrame
+     *
      * @param cuentas
      */
     public DefaultLoginFrame(ArrayList<Cuenta> cuentas) {
@@ -485,7 +486,7 @@ public class DefaultLoginFrame extends javax.swing.JFrame {
             jLabel4.setVisible(false);
             jLabel6.setVisible(false);
         } else {
-            int verU = 0, verC = 0, indexCuenta=0;
+            int verU = 0, verC = 0, indexCuenta = 0;
             for (Cuenta usuario : cuentas) {
                 if (usuario.getUser().equals(textf_usuario_iniciar.getText())) {
                     verU = 1;
@@ -493,7 +494,7 @@ public class DefaultLoginFrame extends javax.swing.JFrame {
                 if (usuario.getContra().equals(textf_contra_iniciar.getText())) {
                     verC = 1;
                 }
-                if(usuario.getContra().equals(textf_contra_iniciar.getText()) && usuario.getUser().equals(textf_usuario_iniciar.getText())){
+                if (usuario.getContra().equals(textf_contra_iniciar.getText()) && usuario.getUser().equals(textf_usuario_iniciar.getText())) {
                     indexCuenta = cuentas.indexOf(usuario);
                 }
             }

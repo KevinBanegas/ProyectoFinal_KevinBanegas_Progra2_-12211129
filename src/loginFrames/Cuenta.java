@@ -5,6 +5,7 @@ import Drive.NewDrive;
 import ToDo.NewToDo;
 
 public class Cuenta {
+
     private String user;
     private String contra;
     private NewToDo toDo = new NewToDo();
@@ -63,6 +64,5 @@ public class Cuenta {
     public String toString() {
         return "\nUsuario: " + user + "\nContraseña: " + contra;
     }
-    
-    
+
 }

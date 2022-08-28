@@ -1,6 +1,10 @@
 package loginFrames;
 
+import Correo.myMail;
+import Drive.myDrive;
+import ToDo.myToDo;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,7 +25,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         initComponents();
         MenuPrincipal.indexCuenta = indexCuenta;
         MenuPrincipal.cuentas = cuentas;
-        label_bienvenido_menu.setText("Bienvenido, "+cuentas.get(MenuPrincipal.indexCuenta).getUser());
+        label_bienvenido_menu.setText("Bienvenido, " + cuentas.get(MenuPrincipal.indexCuenta).getUser());
     }
 
     /**
@@ -40,14 +44,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         label_minimize_menu = new javax.swing.JLabel();
         panel_exit_menu = new javax.swing.JPanel();
         label_exit_menu = new javax.swing.JLabel();
-        img_myOffice = new javax.swing.JLabel();
         menuBar_menu = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panel_bienvenido_menu = new javax.swing.JPanel();
         label_bienvenido_menu = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
 
@@ -155,10 +162,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jPanel2.add(header_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 30));
 
-        img_myOffice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resized-removebg-preview.png"))); // NOI18N
-        img_myOffice.setText("jLabel5");
-        jPanel2.add(img_myOffice, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 140, 130));
-
         menuBar_menu.setBackground(new java.awt.Color(153, 153, 153));
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
@@ -208,6 +211,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         panel_bienvenido_menu.setBackground(new java.awt.Color(178, 112, 162));
 
         label_bienvenido_menu.setFont(new java.awt.Font("Litera-Serial", 0, 24)); // NOI18N
+        label_bienvenido_menu.setForeground(new java.awt.Color(255, 255, 255));
         label_bienvenido_menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_bienvenido_menu.setText("Bienvenido, ");
 
@@ -226,6 +230,48 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
 
         jPanel2.add(panel_bienvenido_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 370, 40));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoMyDay-removebg-preview.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel3MouseExited(evt);
+            }
+        });
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 150, 150));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoMyDrive-removebg-preview.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2MouseExited(evt);
+            }
+        });
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 150, 160));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoMyMail-removebg-preview.png"))); // NOI18N
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel4MouseExited(evt);
+            }
+        });
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -290,9 +336,48 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseEntered
 
     private void jPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseExited
-        jPanel1.setBackground(new Color(153,153,153));
+        jPanel1.setBackground(new Color(153, 153, 153));
         jLabel1.setForeground(Color.WHITE);
     }//GEN-LAST:event_jPanel1MouseExited
+
+    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+        setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_jLabel3MouseEntered
+
+    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
+        setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_jLabel3MouseExited
+
+    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+        setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_jLabel2MouseEntered
+
+    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
+        setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_jLabel2MouseExited
+
+    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
+        setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_jLabel4MouseEntered
+
+    private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
+        setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_jLabel4MouseExited
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        setVisible(false);
+        new myToDo(indexCuenta, cuentas).setVisible(true);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        setVisible(false);
+        new myDrive(indexCuenta, cuentas).setVisible(true);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        setVisible(false);
+        new myMail(indexCuenta, cuentas).setVisible(true);
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -334,8 +419,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private static ArrayList<Cuenta> cuentas;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel header_menu;
-    private javax.swing.JLabel img_myOffice;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;

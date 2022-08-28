@@ -3,6 +3,7 @@ package ToDo;
 import java.util.Date;
 
 public class Tarea {
+
     private String nombre;
     private String nota;
     private Date fechaRealizar;
@@ -64,6 +65,5 @@ public class Tarea {
     public String toString() {
         return "\nNombre: " + nombre + "\nNota: " + nota + "\nFecha a Realizar: " + fechaRealizar;
     }
-    
-    
+
 }
