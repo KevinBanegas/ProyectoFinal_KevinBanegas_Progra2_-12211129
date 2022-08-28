@@ -25,7 +25,7 @@ public class NewUser extends javax.swing.JFrame {
      */
     public NewUser(ArrayList<Cuenta> usuarios) {
         initComponents();
-        this.cuentas = usuarios;
+        NewUser.cuentas = usuarios;
         textf_contra_iniciar.setEchoChar((char) 0);
         textf_contraVer_crear.setEchoChar((char) 0);
         jLabel1.setVisible(false);
@@ -693,9 +693,21 @@ public class NewUser extends javax.swing.JFrame {
             if (ver == 0) {
                 if (contraVer == true) {
                     JOptionPane.showMessageDialog(this, "Ingresado Exitosamente", "Ingresado", 1);
-                    jLabel2.setVisible(false);
+                    jLabel12.setVisible(false);
                     jLabel1.setVisible(false);
-                    new MenuPrincipal(textf_usuario_iniciar.getText(), textf_contra_iniciar.getText(),cuentas).setVisible(true);
+                    jLabel2.setVisible(false);
+                    jLabel3.setVisible(false);
+                    jLabel4.setVisible(false);
+                    jLabel5.setVisible(false);
+                    
+                    setVisible(false);
+                    Cuenta newCuenta = new Cuenta(textf_usuario_iniciar.getText(), textf_contra_iniciar.getText());
+                    cuentas.add(newCuenta);
+                    int indexCuenta = cuentas.size()-1;
+                    textf_contra_iniciar.setText("Contraseña");
+                    textf_usuario_iniciar.setText("Usuario");
+                    textf_contraVer_crear.setText("Reingrese Contraseña");
+                    new MenuPrincipal(indexCuenta, cuentas).setVisible(true);
                 } else {
                     jLabel12.setVisible(true);
                     jLabel1.setVisible(false);

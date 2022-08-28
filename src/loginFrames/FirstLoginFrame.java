@@ -499,7 +499,7 @@ public class FirstLoginFrame extends javax.swing.JFrame {
             jLabel4.setVisible(false);
             jLabel6.setVisible(false);
         } else {
-            int verU = 0, verC = 0;
+            int verU = 0, verC = 0, indexCuenta=0;
             for (Cuenta usuario : cuentas) {
                 if (usuario.getUser().equals(textf_usuario_iniciar.getText())) {
                     verU = 1;
@@ -507,10 +507,16 @@ public class FirstLoginFrame extends javax.swing.JFrame {
                 if (usuario.getContra().equals(textf_contra_iniciar.getText())) {
                     verC = 1;
                 }
+                if(usuario.getContra().equals(textf_contra_iniciar.getText()) && usuario.getUser().equals(textf_usuario_iniciar.getText())){
+                    indexCuenta = cuentas.indexOf(usuario);
+                }
             }
             if (verU == 1 && verC == 1) {
                 JOptionPane.showMessageDialog(this, "Ingresado Exitosamente", "Ingresado", 1);
-                new MenuPrincipal(textf_usuario_iniciar.getText(), textf_contra_iniciar.getText(), cuentas).setVisible(true);
+                textf_contra_iniciar.setText("Contraseña");
+                textf_usuario_iniciar.setText("Usuario");
+                setVisible(false);
+                new MenuPrincipal(indexCuenta, cuentas).setVisible(true);
             } else if (verU == 0) {
                 jLabel3.setVisible(true);
                 jLabel4.setVisible(false);

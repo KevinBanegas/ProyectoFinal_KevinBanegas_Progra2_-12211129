@@ -1,11 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package loginFrames;
 
+import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,14 +13,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form MenuPrincipal
+     *
+     * @param indexCuenta
+     * @param cuentas
      */
-    public MenuPrincipal(String usuario, String contra, ArrayList<Cuenta> cuentas) {
+    public MenuPrincipal(int indexCuenta, ArrayList<Cuenta> cuentas) {
         initComponents();
-        this.usuario = usuario;
-        this.contra = contra;
-        this.cuentas = cuentas;
-        jLabel1.setText(usuario);
-        jLabel2.setText(contra);
+        MenuPrincipal.indexCuenta = indexCuenta;
+        MenuPrincipal.cuentas = cuentas;
+        label_bienvenido_menu.setText("Bienvenido, "+cuentas.get(MenuPrincipal.indexCuenta).getUser());
     }
 
     /**
@@ -34,38 +33,266 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jPanel2 = new javax.swing.JPanel();
+        header_menu = new javax.swing.JPanel();
+        panel_minimize_menu = new javax.swing.JPanel();
+        label_minimize_menu = new javax.swing.JLabel();
+        panel_exit_menu = new javax.swing.JPanel();
+        label_exit_menu = new javax.swing.JLabel();
+        img_myOffice = new javax.swing.JLabel();
+        menuBar_menu = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        panel_bienvenido_menu = new javax.swing.JPanel();
+        label_bienvenido_menu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
 
-        jLabel1.setText("jLabel1");
+        jPanel2.setBackground(new java.awt.Color(252, 226, 219));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("jLabel2");
+        header_menu.setBackground(new java.awt.Color(122, 68, 149));
+        header_menu.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                header_menuMouseDragged(evt);
+            }
+        });
+        header_menu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                header_menuMousePressed(evt);
+            }
+        });
+
+        panel_minimize_menu.setBackground(new java.awt.Color(122, 68, 149));
+
+        label_minimize_menu.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        label_minimize_menu.setForeground(new java.awt.Color(255, 255, 255));
+        label_minimize_menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_minimize_menu.setText("🗕");
+        label_minimize_menu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_minimize_menuMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_minimize_menuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_minimize_menuMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_minimize_menuLayout = new javax.swing.GroupLayout(panel_minimize_menu);
+        panel_minimize_menu.setLayout(panel_minimize_menuLayout);
+        panel_minimize_menuLayout.setHorizontalGroup(
+            panel_minimize_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_minimize_menuLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(label_minimize_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panel_minimize_menuLayout.setVerticalGroup(
+            panel_minimize_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_minimize_menuLayout.createSequentialGroup()
+                .addComponent(label_minimize_menu)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        panel_exit_menu.setBackground(new java.awt.Color(122, 68, 149));
+
+        label_exit_menu.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        label_exit_menu.setForeground(new java.awt.Color(255, 255, 255));
+        label_exit_menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_exit_menu.setText("🗙");
+        label_exit_menu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_exit_menuMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_exit_menuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_exit_menuMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_exit_menuLayout = new javax.swing.GroupLayout(panel_exit_menu);
+        panel_exit_menu.setLayout(panel_exit_menuLayout);
+        panel_exit_menuLayout.setHorizontalGroup(
+            panel_exit_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_exit_menuLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(label_exit_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panel_exit_menuLayout.setVerticalGroup(
+            panel_exit_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_exit_menuLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(label_exit_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout header_menuLayout = new javax.swing.GroupLayout(header_menu);
+        header_menu.setLayout(header_menuLayout);
+        header_menuLayout.setHorizontalGroup(
+            header_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header_menuLayout.createSequentialGroup()
+                .addContainerGap(614, Short.MAX_VALUE)
+                .addComponent(panel_minimize_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_exit_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        header_menuLayout.setVerticalGroup(
+            header_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(header_menuLayout.createSequentialGroup()
+                .addGroup(header_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panel_minimize_menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(header_menuLayout.createSequentialGroup()
+                        .addComponent(panel_exit_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        jPanel2.add(header_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 30));
+
+        img_myOffice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resized-removebg-preview.png"))); // NOI18N
+        img_myOffice.setText("jLabel5");
+        jPanel2.add(img_myOffice, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 140, 130));
+
+        menuBar_menu.setBackground(new java.awt.Color(153, 153, 153));
+
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel1MouseExited(evt);
+            }
+        });
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Salir");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout menuBar_menuLayout = new javax.swing.GroupLayout(menuBar_menu);
+        menuBar_menu.setLayout(menuBar_menuLayout);
+        menuBar_menuLayout.setHorizontalGroup(
+            menuBar_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuBar_menuLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 635, Short.MAX_VALUE))
+        );
+        menuBar_menuLayout.setVerticalGroup(
+            menuBar_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuBar_menuLayout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(menuBar_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 680, 20));
+
+        panel_bienvenido_menu.setBackground(new java.awt.Color(178, 112, 162));
+
+        label_bienvenido_menu.setFont(new java.awt.Font("Litera-Serial", 0, 24)); // NOI18N
+        label_bienvenido_menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_bienvenido_menu.setText("Bienvenido, ");
+
+        javax.swing.GroupLayout panel_bienvenido_menuLayout = new javax.swing.GroupLayout(panel_bienvenido_menu);
+        panel_bienvenido_menu.setLayout(panel_bienvenido_menuLayout);
+        panel_bienvenido_menuLayout.setHorizontalGroup(
+            panel_bienvenido_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_bienvenido_menuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_bienvenido_menu, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panel_bienvenido_menuLayout.setVerticalGroup(
+            panel_bienvenido_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_bienvenido_menu, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(panel_bienvenido_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 370, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(154, 154, 154)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addContainerGap(212, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(233, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void label_minimize_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_menuMouseClicked
+        setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_label_minimize_menuMouseClicked
+
+    private void label_minimize_menuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_menuMouseEntered
+        panel_minimize_menu.setBackground(new Color(122, 96, 149));
+    }//GEN-LAST:event_label_minimize_menuMouseEntered
+
+    private void label_minimize_menuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_menuMouseExited
+        panel_minimize_menu.setBackground(header_menu.getBackground());
+    }//GEN-LAST:event_label_minimize_menuMouseExited
+
+    private void label_exit_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_menuMouseClicked
+        int yesno = JOptionPane.showConfirmDialog(this, "Salir y guardar cambios?", "Salir", 0);
+        if (yesno == 0) {
+            setVisible(false);
+            new DefaultLoginFrame(cuentas).setVisible(true);
+        } else {
+
+        }
+    }//GEN-LAST:event_label_exit_menuMouseClicked
+
+    private void label_exit_menuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_menuMouseEntered
+        panel_exit_menu.setBackground(Color.red);
+    }//GEN-LAST:event_label_exit_menuMouseEntered
+
+    private void label_exit_menuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_menuMouseExited
+        panel_exit_menu.setBackground(header_menu.getBackground());
+    }//GEN-LAST:event_label_exit_menuMouseExited
+
+    private void header_menuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_menuMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_header_menuMousePressed
+
+    private void header_menuMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_menuMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_header_menuMouseDragged
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        jPanel1.setBackground(Color.LIGHT_GRAY);
+        jLabel1.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void jPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseExited
+        jPanel1.setBackground(new Color(153,153,153));
+        jLabel1.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jPanel1MouseExited
 
     /**
      * @param args the command line arguments
@@ -97,15 +324,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal(usuario, contra, cuentas).setVisible(true);
+                new MenuPrincipal(indexCuenta, cuentas).setVisible(true);
             }
         });
     }
-    private static String usuario;
-    private static String contra;
+    private int xMouse;
+    private int yMouse;
+    private static int indexCuenta;
     private static ArrayList<Cuenta> cuentas;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel header_menu;
+    private javax.swing.JLabel img_myOffice;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JLabel label_bienvenido_menu;
+    private javax.swing.JLabel label_exit_menu;
+    private javax.swing.JLabel label_minimize_menu;
+    private javax.swing.JPanel menuBar_menu;
+    private javax.swing.JPanel panel_bienvenido_menu;
+    private javax.swing.JPanel panel_exit_menu;
+    private javax.swing.JPanel panel_minimize_menu;
     // End of variables declaration//GEN-END:variables
 }

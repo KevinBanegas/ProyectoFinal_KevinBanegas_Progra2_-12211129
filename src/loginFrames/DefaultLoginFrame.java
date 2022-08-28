@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package loginFrames;
 
 import java.awt.Color;
 import java.awt.Cursor;
 import static java.awt.event.KeyEvent.VK_ENTER;
 import java.util.ArrayList;
-import java.util.regex.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -17,9 +11,11 @@ public class DefaultLoginFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginFrame
+     * @param cuentas
      */
-    public DefaultLoginFrame(ArrayList<Cuenta> cuenta) {
+    public DefaultLoginFrame(ArrayList<Cuenta> cuentas) {
         initComponents();
+        this.cuentas = cuentas;
         textf_contra_iniciar.setEchoChar((char) 0);
         jLabel3.setVisible(false);
         jLabel4.setVisible(false);
@@ -157,9 +153,9 @@ public class DefaultLoginFrame extends javax.swing.JFrame {
             .addGroup(header_iniciarLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(header_iniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_exit_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel_minimize_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panel_minimize_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panel_exit_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panel_bg_iniciar.add(header_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 30));
@@ -489,7 +485,7 @@ public class DefaultLoginFrame extends javax.swing.JFrame {
             jLabel4.setVisible(false);
             jLabel6.setVisible(false);
         } else {
-            int verU = 0, verC = 0;
+            int verU = 0, verC = 0, indexCuenta=0;
             for (Cuenta usuario : cuentas) {
                 if (usuario.getUser().equals(textf_usuario_iniciar.getText())) {
                     verU = 1;
@@ -497,10 +493,16 @@ public class DefaultLoginFrame extends javax.swing.JFrame {
                 if (usuario.getContra().equals(textf_contra_iniciar.getText())) {
                     verC = 1;
                 }
+                if(usuario.getContra().equals(textf_contra_iniciar.getText()) && usuario.getUser().equals(textf_usuario_iniciar.getText())){
+                    indexCuenta = cuentas.indexOf(usuario);
+                }
             }
             if (verU == 1 && verC == 1) {
                 JOptionPane.showMessageDialog(this, "Ingresado Exitosamente", "Ingresado", 1);
-                new MenuPrincipal(textf_usuario_iniciar.getText(), textf_contra_iniciar.getText(), cuentas).setVisible(true);
+                textf_contra_iniciar.setText("Contraseña");
+                textf_usuario_iniciar.setText("Usuario");
+                setVisible(false);
+                new MenuPrincipal(indexCuenta, cuentas).setVisible(true);
             } else if (verU == 0) {
                 jLabel3.setVisible(true);
                 jLabel4.setVisible(false);
