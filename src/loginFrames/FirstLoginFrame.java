@@ -25,7 +25,7 @@ public class FirstLoginFrame extends javax.swing.JFrame {
         cuentas.add(new Cuenta("Samantha", "Swfc0815#"));
         cuentas.add(new Cuenta("Hashem","Hafz0927%"));
         cuentas.add(new Cuenta("Wilmer","Wazm1234+"));
-        cuentas.add(new Cuenta("Ana","Ayhm0709="));
+        cuentas.add(new Cuenta("Ana","Ayhh0709="));
         cuentas.add(new Cuenta("Walter","Wazz1324&"));
         cuentas.add(new Cuenta("Daysi","Dymp0602@"));
         cuentas.add(new Cuenta("Wilfredo","Wabm0713$"));
@@ -69,6 +69,7 @@ public class FirstLoginFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -346,7 +347,7 @@ public class FirstLoginFrame extends javax.swing.JFrame {
             .addComponent(label_ingresar_iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        panel_bg_iniciar.add(panel_ingresar_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 90, 40));
+        panel_bg_iniciar.add(panel_ingresar_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 90, 40));
 
         jLabel1.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(178, 112, 162));
@@ -388,6 +389,23 @@ public class FirstLoginFrame extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Contraseña Incorrecta. Intente de Nuevo.");
         panel_bg_iniciar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 230, -1));
+
+        jLabel2.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(178, 112, 162));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Ingresar como Administrador");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2MouseExited(evt);
+            }
+        });
+        panel_bg_iniciar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, 210, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -576,6 +594,18 @@ public class FirstLoginFrame extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel2MouseEntered
+
+    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel2MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -622,6 +652,7 @@ public class FirstLoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel icon_visualize_iniciar;
     private javax.swing.JLabel img_myOffice;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -40,15 +40,29 @@ public class myToDo extends javax.swing.JFrame {
         label_minimize_myToDo = new javax.swing.JLabel();
         panel_exit_myToDo = new javax.swing.JPanel();
         label_exit_myToDo = new javax.swing.JLabel();
-        menuBar_menu = new javax.swing.JPanel();
-        panel_salir_myToDo = new javax.swing.JPanel();
-        salir_myToDo = new javax.swing.JLabel();
+        panel_eventos = new javax.swing.JPanel();
+        panel_misTareas = new javax.swing.JPanel();
+        label_misTareas = new javax.swing.JLabel();
+        panel_myDay = new javax.swing.JPanel();
+        label_myDay = new javax.swing.JLabel();
+        panel_important = new javax.swing.JPanel();
+        label_importante = new javax.swing.JLabel();
+        panel_tareasAsignadas = new javax.swing.JPanel();
+        label_tareasAsignadas = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        panel_tareasRealizadas = new javax.swing.JPanel();
+        label_tareasRealizadas = new javax.swing.JLabel();
+        panel_listasTareas = new javax.swing.JPanel();
+        label_listasTareas = new javax.swing.JLabel();
+        myDay_Title = new javax.swing.JLabel();
+        panel_crearLista = new javax.swing.JPanel();
+        label_crearLista = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setUndecorated(true);
 
-        bg_myToDo.setBackground(new java.awt.Color(252, 226, 219));
+        bg_myToDo.setBackground(new java.awt.Color(252, 255, 219));
         bg_myToDo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         header_menu.setBackground(new java.awt.Color(122, 68, 149));
@@ -152,51 +166,261 @@ public class myToDo extends javax.swing.JFrame {
 
         bg_myToDo.add(header_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 30));
 
-        menuBar_menu.setBackground(new java.awt.Color(153, 153, 153));
+        panel_eventos.setBackground(new java.awt.Color(172, 112, 168));
 
-        panel_salir_myToDo.setBackground(new java.awt.Color(153, 153, 153));
-        panel_salir_myToDo.addMouseListener(new java.awt.event.MouseAdapter() {
+        panel_misTareas.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_misTareas.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_misTareas.setForeground(new java.awt.Color(255, 255, 255));
+        label_misTareas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_misTareas.setText("Mis Tareas");
+        label_misTareas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                panel_salir_myToDoMouseEntered(evt);
+                label_misTareasMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                panel_salir_myToDoMouseExited(evt);
+                label_misTareasMouseExited(evt);
             }
         });
 
-        salir_myToDo.setForeground(new java.awt.Color(255, 255, 255));
-        salir_myToDo.setText("Salir");
-
-        javax.swing.GroupLayout panel_salir_myToDoLayout = new javax.swing.GroupLayout(panel_salir_myToDo);
-        panel_salir_myToDo.setLayout(panel_salir_myToDoLayout);
-        panel_salir_myToDoLayout.setHorizontalGroup(
-            panel_salir_myToDoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_salir_myToDoLayout.createSequentialGroup()
+        javax.swing.GroupLayout panel_misTareasLayout = new javax.swing.GroupLayout(panel_misTareas);
+        panel_misTareas.setLayout(panel_misTareasLayout);
+        panel_misTareasLayout.setHorizontalGroup(
+            panel_misTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_misTareasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(salir_myToDo)
+                .addComponent(label_misTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        panel_salir_myToDoLayout.setVerticalGroup(
-            panel_salir_myToDoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(salir_myToDo, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+        panel_misTareasLayout.setVerticalGroup(
+            panel_misTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_misTareas, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout menuBar_menuLayout = new javax.swing.GroupLayout(menuBar_menu);
-        menuBar_menu.setLayout(menuBar_menuLayout);
-        menuBar_menuLayout.setHorizontalGroup(
-            menuBar_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuBar_menuLayout.createSequentialGroup()
-                .addComponent(panel_salir_myToDo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 705, Short.MAX_VALUE))
+        panel_myDay.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_myDay.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_myDay.setForeground(new java.awt.Color(255, 255, 255));
+        label_myDay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_myDay.setText("My Day");
+        label_myDay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_myDayMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_myDayMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_myDayLayout = new javax.swing.GroupLayout(panel_myDay);
+        panel_myDay.setLayout(panel_myDayLayout);
+        panel_myDayLayout.setHorizontalGroup(
+            panel_myDayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_myDayLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_myDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        menuBar_menuLayout.setVerticalGroup(
-            menuBar_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuBar_menuLayout.createSequentialGroup()
-                .addComponent(panel_salir_myToDo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        panel_myDayLayout.setVerticalGroup(
+            panel_myDayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_myDay, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        bg_myToDo.add(menuBar_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 750, 20));
+        panel_important.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_importante.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_importante.setForeground(new java.awt.Color(255, 255, 255));
+        label_importante.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_importante.setText("Important");
+        label_importante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_importanteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_importanteMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_importantLayout = new javax.swing.GroupLayout(panel_important);
+        panel_important.setLayout(panel_importantLayout);
+        panel_importantLayout.setHorizontalGroup(
+            panel_importantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_importantLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_importante, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_importantLayout.setVerticalGroup(
+            panel_importantLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_importante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        panel_tareasAsignadas.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_tareasAsignadas.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_tareasAsignadas.setForeground(new java.awt.Color(255, 255, 255));
+        label_tareasAsignadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_tareasAsignadas.setText("Tareas Asignadas");
+        label_tareasAsignadas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_tareasAsignadasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_tareasAsignadasMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_tareasAsignadasLayout = new javax.swing.GroupLayout(panel_tareasAsignadas);
+        panel_tareasAsignadas.setLayout(panel_tareasAsignadasLayout);
+        panel_tareasAsignadasLayout.setHorizontalGroup(
+            panel_tareasAsignadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_tareasAsignadasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_tareasAsignadas, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_tareasAsignadasLayout.setVerticalGroup(
+            panel_tareasAsignadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_tareasAsignadas, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        jSeparator1.setBackground(new java.awt.Color(102, 0, 102));
+        jSeparator1.setForeground(new java.awt.Color(102, 0, 102));
+
+        panel_tareasRealizadas.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_tareasRealizadas.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_tareasRealizadas.setForeground(new java.awt.Color(255, 255, 255));
+        label_tareasRealizadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_tareasRealizadas.setText("Tareas Realizadas");
+        label_tareasRealizadas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_tareasRealizadasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_tareasRealizadasMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_tareasRealizadasLayout = new javax.swing.GroupLayout(panel_tareasRealizadas);
+        panel_tareasRealizadas.setLayout(panel_tareasRealizadasLayout);
+        panel_tareasRealizadasLayout.setHorizontalGroup(
+            panel_tareasRealizadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_tareasRealizadasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_tareasRealizadas, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_tareasRealizadasLayout.setVerticalGroup(
+            panel_tareasRealizadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_tareasRealizadas, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        panel_listasTareas.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_listasTareas.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_listasTareas.setForeground(new java.awt.Color(255, 255, 255));
+        label_listasTareas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_listasTareas.setText("Listas de Tareas");
+        label_listasTareas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_listasTareasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_listasTareasMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_listasTareasLayout = new javax.swing.GroupLayout(panel_listasTareas);
+        panel_listasTareas.setLayout(panel_listasTareasLayout);
+        panel_listasTareasLayout.setHorizontalGroup(
+            panel_listasTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_listasTareasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_listasTareas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panel_listasTareasLayout.setVerticalGroup(
+            panel_listasTareasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_listasTareas, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        myDay_Title.setFont(new java.awt.Font("Litera-Serial", 0, 36)); // NOI18N
+        myDay_Title.setForeground(new java.awt.Color(255, 255, 255));
+        myDay_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        myDay_Title.setText("myDay");
+
+        panel_crearLista.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_crearLista.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_crearLista.setForeground(new java.awt.Color(255, 255, 255));
+        label_crearLista.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_crearLista.setText("Crear nueva Lista");
+        label_crearLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_crearListaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_crearListaMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_crearListaLayout = new javax.swing.GroupLayout(panel_crearLista);
+        panel_crearLista.setLayout(panel_crearListaLayout);
+        panel_crearListaLayout.setHorizontalGroup(
+            panel_crearListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_crearListaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_crearLista, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_crearListaLayout.setVerticalGroup(
+            panel_crearListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_crearLista, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panel_eventosLayout = new javax.swing.GroupLayout(panel_eventos);
+        panel_eventos.setLayout(panel_eventosLayout);
+        panel_eventosLayout.setHorizontalGroup(
+            panel_eventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel_myDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_important, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_tareasAsignadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_misTareas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_tareasRealizadas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_listasTareas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panel_eventosLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(myDay_Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_crearLista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panel_eventosLayout.setVerticalGroup(
+            panel_eventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_eventosLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(myDay_Title)
+                .addGap(18, 18, 18)
+                .addComponent(panel_myDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_important, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_tareasAsignadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_misTareas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_tareasRealizadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_listasTareas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_crearLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(125, Short.MAX_VALUE))
+        );
+
+        bg_myToDo.add(panel_eventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 200, 470));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,7 +430,7 @@ public class myToDo extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg_myToDo, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(bg_myToDo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -253,15 +477,61 @@ public class myToDo extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_header_menuMousePressed
 
-    private void panel_salir_myToDoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_salir_myToDoMouseEntered
-        panel_salir_myToDo.setBackground(Color.LIGHT_GRAY);
-        salir_myToDo.setForeground(Color.BLACK);
-    }//GEN-LAST:event_panel_salir_myToDoMouseEntered
+    private void label_myDayMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_myDayMouseEntered
+        panel_myDay.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_myDayMouseEntered
 
-    private void panel_salir_myToDoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_salir_myToDoMouseExited
-        panel_salir_myToDo.setBackground(new Color(153,153,153));
-        salir_myToDo.setForeground(Color.WHITE);
-    }//GEN-LAST:event_panel_salir_myToDoMouseExited
+    private void label_myDayMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_myDayMouseExited
+        panel_myDay.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_myDayMouseExited
+
+    private void label_importanteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_importanteMouseEntered
+        panel_important.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_importanteMouseEntered
+
+    private void label_importanteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_importanteMouseExited
+        panel_important.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_importanteMouseExited
+
+    private void label_tareasAsignadasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_tareasAsignadasMouseEntered
+        panel_tareasAsignadas.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_tareasAsignadasMouseEntered
+
+    private void label_tareasAsignadasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_tareasAsignadasMouseExited
+        panel_tareasAsignadas.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_tareasAsignadasMouseExited
+
+    private void label_misTareasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_misTareasMouseEntered
+        panel_misTareas.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_misTareasMouseEntered
+
+    private void label_misTareasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_misTareasMouseExited
+        panel_misTareas.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_misTareasMouseExited
+
+    private void label_tareasRealizadasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_tareasRealizadasMouseEntered
+        panel_tareasRealizadas.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_tareasRealizadasMouseEntered
+
+    private void label_tareasRealizadasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_tareasRealizadasMouseExited
+        panel_tareasRealizadas.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_tareasRealizadasMouseExited
+
+    private void label_listasTareasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_listasTareasMouseEntered
+        panel_listasTareas.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_listasTareasMouseEntered
+
+    private void label_listasTareasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_listasTareasMouseExited
+        panel_listasTareas.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_listasTareasMouseExited
+
+    private void label_crearListaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearListaMouseEntered
+        panel_crearLista.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_crearListaMouseEntered
+
+    private void label_crearListaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearListaMouseExited
+        panel_crearLista.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_crearListaMouseExited
 
     /**
      * @param args the command line arguments
@@ -304,12 +574,26 @@ public class myToDo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg_myToDo;
     private javax.swing.JPanel header_menu;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel label_crearLista;
     private javax.swing.JLabel label_exit_myToDo;
+    private javax.swing.JLabel label_importante;
+    private javax.swing.JLabel label_listasTareas;
     private javax.swing.JLabel label_minimize_myToDo;
-    private javax.swing.JPanel menuBar_menu;
+    private javax.swing.JLabel label_misTareas;
+    private javax.swing.JLabel label_myDay;
+    private javax.swing.JLabel label_tareasAsignadas;
+    private javax.swing.JLabel label_tareasRealizadas;
+    private javax.swing.JLabel myDay_Title;
+    private javax.swing.JPanel panel_crearLista;
+    private javax.swing.JPanel panel_eventos;
     private javax.swing.JPanel panel_exit_myToDo;
+    private javax.swing.JPanel panel_important;
+    private javax.swing.JPanel panel_listasTareas;
     private javax.swing.JPanel panel_minimize_myToDo;
-    private javax.swing.JPanel panel_salir_myToDo;
-    private javax.swing.JLabel salir_myToDo;
+    private javax.swing.JPanel panel_misTareas;
+    private javax.swing.JPanel panel_myDay;
+    private javax.swing.JPanel panel_tareasAsignadas;
+    private javax.swing.JPanel panel_tareasRealizadas;
     // End of variables declaration//GEN-END:variables
 }
