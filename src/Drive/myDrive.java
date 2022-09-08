@@ -5,7 +5,10 @@
  */
 package Drive;
 
+import Conexiones.Dba;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,10 +28,10 @@ public class myDrive extends javax.swing.JFrame {
      * @param indexCuenta
      * @param cuentas
      */
-    public myDrive(int indexCuenta, ArrayList<Cuenta> cuentas) {
+    public myDrive(int indexCuenta) {
         initComponents();
+        traerCuenta();
         myDrive.indexCuenta = indexCuenta;
-        myDrive.cuentas = cuentas;
     }
 
     /**
@@ -234,7 +237,7 @@ public class myDrive extends javax.swing.JFrame {
         int yesno = JOptionPane.showConfirmDialog(this, "Salir y guardar cambios?", "Salir", 0);
         if (yesno == 0) {
             setVisible(false);
-            new MenuPrincipal(indexCuenta, cuentas).setVisible(true);
+            new MenuPrincipal(indexCuenta).setVisible(true);
         } else {
 
         }
@@ -268,6 +271,26 @@ public class myDrive extends javax.swing.JFrame {
         panel_salir_myDrive.setBackground(new Color(153, 153, 153));
         salir_myDrive.setForeground(Color.WHITE);
     }//GEN-LAST:event_panel_salir_myDriveMouseExited
+    public void traerCuenta() {
+        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        db.conectar();
+        cuentas = new ArrayList();
+        try {
+            db.query.execute("select * from Cuentas");
+            ResultSet rs = db.query.getResultSet();
+            cuentas = new ArrayList();
+            while (rs.next()) {
+                Cuenta u = new Cuenta();
+                u.setUser(rs.getString("usuario"));
+                u.setContra(rs.getString("contra"));
+                cuentas.add(u);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+
+    }
 
     /**
      * @param args the command line arguments
@@ -299,7 +322,7 @@ public class myDrive extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new myDrive(indexCuenta, cuentas).setVisible(true);
+                new myDrive(indexCuenta).setVisible(true);
             }
         });
     }

@@ -5,9 +5,12 @@
  */
 package loginFrames;
 
+import Conexiones.Dba;
 import java.awt.Color;
 import java.awt.Cursor;
 import static java.awt.event.KeyEvent.VK_ENTER;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.regex.*;
 import javax.swing.JFrame;
@@ -20,17 +23,8 @@ public class FirstLoginFrame extends javax.swing.JFrame {
      */
     public FirstLoginFrame() {
         initComponents();
+        traerCuenta();
         textf_contra_iniciar.setEchoChar((char) 0);
-        cuentas.add(new Cuenta("Kevin", "Kabm1398@"));
-        cuentas.add(new Cuenta("Samantha", "Swfc0815#"));
-        cuentas.add(new Cuenta("Hashem","Hafz0927%"));
-        cuentas.add(new Cuenta("Wilmer","Wazm1234+"));
-        cuentas.add(new Cuenta("Ana","Ayhh0709="));
-        cuentas.add(new Cuenta("Walter","Wazz1324&"));
-        cuentas.add(new Cuenta("Daysi","Dymp0602@"));
-        cuentas.add(new Cuenta("Wilfredo","Wabm0713$"));
-        cuentas.add(new Cuenta("Katie","Kabm0414#"));
-        cuentas.add(new Cuenta("Mario","Mmzz1010#"));
         jLabel3.setVisible(false);
         jLabel4.setVisible(false);
         jLabel5.setVisible(false);
@@ -69,7 +63,6 @@ public class FirstLoginFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -364,7 +357,7 @@ public class FirstLoginFrame extends javax.swing.JFrame {
                 jLabel1MouseExited(evt);
             }
         });
-        panel_bg_iniciar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 210, -1));
+        panel_bg_iniciar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 210, -1));
 
         jLabel3.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 51, 102));
@@ -389,23 +382,6 @@ public class FirstLoginFrame extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Contraseña Incorrecta. Intente de Nuevo.");
         panel_bg_iniciar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 230, -1));
-
-        jLabel2.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(178, 112, 162));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Ingresar como Administrador");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel2MouseExited(evt);
-            }
-        });
-        panel_bg_iniciar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, 210, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -517,16 +493,22 @@ public class FirstLoginFrame extends javax.swing.JFrame {
             jLabel4.setVisible(false);
             jLabel6.setVisible(false);
         } else {
-            int verU = 0, verC = 0, indexCuenta=0;
+            int verU = 0, verC = 0, indexCuenta = 0, admin = 0;
+
             for (Cuenta usuario : cuentas) {
+                if (usuario.getUser().equals(textf_usuario_iniciar.getText()) && usuario.getContra().equals(textf_contra_iniciar.getText())) {
+                    if (usuario.getUser().equals("Kevin")) {
+                        admin = 1;
+                    }
+                    verU = 1;
+                    verC = 1;
+                    indexCuenta = cuentas.indexOf(usuario);
+                }
                 if (usuario.getUser().equals(textf_usuario_iniciar.getText())) {
                     verU = 1;
                 }
                 if (usuario.getContra().equals(textf_contra_iniciar.getText())) {
                     verC = 1;
-                }
-                if(usuario.getContra().equals(textf_contra_iniciar.getText()) && usuario.getUser().equals(textf_usuario_iniciar.getText())){
-                    indexCuenta = cuentas.indexOf(usuario);
                 }
             }
             if (verU == 1 && verC == 1) {
@@ -534,7 +516,11 @@ public class FirstLoginFrame extends javax.swing.JFrame {
                 textf_contra_iniciar.setText("Contraseña");
                 textf_usuario_iniciar.setText("Usuario");
                 setVisible(false);
-                new MenuPrincipal(indexCuenta, cuentas).setVisible(true);
+                if (admin == 1) {
+                    new Administrador(indexCuenta).setVisible(true);
+                } else {
+                    new MenuPrincipal(indexCuenta).setVisible(true);
+                }
             } else if (verU == 0) {
                 jLabel3.setVisible(true);
                 jLabel4.setVisible(false);
@@ -590,21 +576,30 @@ public class FirstLoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseExited
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        new NewUser(cuentas).setVisible(true);
+        new NewUser().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
+    public void traerCuenta() {
+        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        db.conectar();
+        cuentas = new ArrayList();
+        try {
+            db.query.execute("select * from Cuentas");
+            ResultSet rs = db.query.getResultSet();
+            cuentas = new ArrayList();
+            while (rs.next()) {
+                Cuenta u = new Cuenta();
+                u.setUser(rs.getString("usuario"));
+                u.setContra(rs.getString("contra"));
+                u.setId(rs.getInt("id"));
+                cuentas.add(u);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel2MouseClicked
-
-    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel2MouseEntered
-
-    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel2MouseExited
+    }
 
     /**
      * @param args the command line arguments
@@ -617,19 +612,23 @@ public class FirstLoginFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Dark Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FirstLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstLoginFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FirstLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstLoginFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FirstLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstLoginFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FirstLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FirstLoginFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -641,6 +640,16 @@ public class FirstLoginFrame extends javax.swing.JFrame {
             }
         });
     }
+//        cuentas.add(new Cuenta("Kevin", "Kabm1398@"));
+//        cuentas.add(new Cuenta("Samantha", "Swfc0815#"));
+//        cuentas.add(new Cuenta("Hashem", "Hafz0927%"));
+//        cuentas.add(new Cuenta("Wilmer", "Wazm1234+"));
+//        cuentas.add(new Cuenta("Ana", "Ayhh0709="));
+//        cuentas.add(new Cuenta("Walter", "Wazz1324&"));
+//        cuentas.add(new Cuenta("Daysi", "Dymp0602@"));
+//        cuentas.add(new Cuenta("Wilfredo", "Wabm0713$"));
+//        cuentas.add(new Cuenta("Katie", "Kabm0414#"));
+//        cuentas.add(new Cuenta("Mario", "Mmzz1010#"));
     private ArrayList<Cuenta> cuentas = new ArrayList();
     private int xMouse;
     private int yMouse;
@@ -652,7 +661,6 @@ public class FirstLoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel icon_visualize_iniciar;
     private javax.swing.JLabel img_myOffice;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

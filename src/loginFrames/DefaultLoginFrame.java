@@ -503,7 +503,7 @@ public class DefaultLoginFrame extends javax.swing.JFrame {
                 textf_contra_iniciar.setText("Contraseña");
                 textf_usuario_iniciar.setText("Usuario");
                 setVisible(false);
-                new MenuPrincipal(indexCuenta, cuentas).setVisible(true);
+                new MenuPrincipal(indexCuenta).setVisible(true);
             } else if (verU == 0) {
                 jLabel3.setVisible(true);
                 jLabel4.setVisible(false);
@@ -559,7 +559,7 @@ public class DefaultLoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseExited
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        new NewUser(cuentas).setVisible(true);
+        new NewUser().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
 

@@ -8,9 +8,11 @@ public class Cuenta {
 
     private String user;
     private String contra;
+    private String correo;
+    private int id;
     private NewToDo toDo = new NewToDo();
     private NewDrive drive = new NewDrive();
-    private NewCorreo correo = new NewCorreo();
+    private NewCorreo corr = new NewCorreo();
 
     public Cuenta() {
     }
@@ -52,17 +54,33 @@ public class Cuenta {
         this.drive = drive;
     }
 
-    public NewCorreo getCorreo() {
+    public NewCorreo getCorr() {
+        return corr;
+    }
+
+    public void setCorr(NewCorreo corr) {
+        this.corr = corr;
+    }
+
+    public String getCorreo() {
         return correo;
     }
 
-    public void setCorreo(NewCorreo correo) {
+    public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
-        return "\nUsuario: " + user + "\nContraseña: " + contra;
+        return user;
     }
 
 }

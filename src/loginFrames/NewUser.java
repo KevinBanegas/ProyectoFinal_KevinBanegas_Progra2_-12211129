@@ -5,12 +5,16 @@
  */
 package loginFrames;
 
+import Conexiones.Dba;
 import java.awt.Color;
 import static java.awt.event.KeyEvent.VK_ENTER;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.regex.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,9 +27,9 @@ public class NewUser extends javax.swing.JFrame {
      *
      * @param usuarios
      */
-    public NewUser(ArrayList<Cuenta> usuarios) {
+    public NewUser() {
         initComponents();
-        NewUser.cuentas = usuarios;
+        traerCuentas();
         textf_contra_iniciar.setEchoChar((char) 0);
         textf_contraVer_crear.setEchoChar((char) 0);
         jLabel1.setVisible(false);
@@ -540,7 +544,7 @@ public class NewUser extends javax.swing.JFrame {
 
     private void label_exit_inciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciarMouseClicked
         setVisible(false);
-        new DefaultLoginFrame(cuentas).setVisible(true);
+        new FirstLoginFrame().setVisible(true);
     }//GEN-LAST:event_label_exit_inciarMouseClicked
 
     private void label_exit_inciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciarMouseEntered
@@ -701,13 +705,22 @@ public class NewUser extends javax.swing.JFrame {
                     jLabel5.setVisible(false);
 
                     setVisible(false);
-                    Cuenta newCuenta = new Cuenta(textf_usuario_iniciar.getText(), textf_contra_iniciar.getText());
+                    Cuenta newCuenta = new Cuenta();
+                    newCuenta.setUser(textf_usuario_iniciar.getText());
+                    newCuenta.setContra(textf_contra_iniciar.getText());
                     cuentas.add(newCuenta);
-                    int indexCuenta = cuentas.size() - 1;
+                    AgregarDatosCuentas();
+                    traerCuentas();
+                    int indexCuenta = 0;
+                    for (Cuenta cuenta : cuentas) {
+                        if(cuenta.getUser().equals(textf_usuario_iniciar.getText())){
+                            indexCuenta = cuentas.indexOf(cuenta);
+                        }
+                    }
                     textf_contra_iniciar.setText("Contraseña");
                     textf_usuario_iniciar.setText("Usuario");
                     textf_contraVer_crear.setText("Reingrese Contraseña");
-                    new MenuPrincipal(indexCuenta, cuentas).setVisible(true);
+                    new MenuPrincipal(indexCuenta).setVisible(true);
                 } else {
                     jLabel12.setVisible(true);
                     jLabel1.setVisible(false);
@@ -796,7 +809,8 @@ public class NewUser extends javax.swing.JFrame {
         String regex = "^(?=.*[0-9])"
                 + "(?=.*[a-z])(?=.*[A-Z])"
                 + "(?=.*[@#$%^&+=])"
-                + "(?=\\S+$).{8,20}$";
+                + "(?=\\S+$).{8,20}$"
+                + "[^']";
         Pattern p = Pattern.compile(regex);
 
         if (contra == null) {
@@ -836,7 +850,7 @@ public class NewUser extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("FlatLaf".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -855,15 +869,61 @@ public class NewUser extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewUser(cuentas).setVisible(true);
+                new NewUser().setVisible(true);
             }
         });
+    }
+
+    public void AgregarDatosCuentas() {
+        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        db.conectar();
+        try {
+            int index = 0;
+            int cent = 0;
+            while(cent == 0){
+                cent = 1;
+                index++;
+                for (Cuenta cuenta : cuentas) {
+                    if(index==cuenta.getId()){
+                        cent=0;
+                    }
+                }
+                
+            }
+            db.query.execute("INSERT INTO Cuentas"
+                    + " (usuario,contra,id)"
+                    + " VALUES ('" + textf_usuario_iniciar.getText() + "',  '" + textf_contra_iniciar.getText() + "', '" + index + "')");
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+    }
+
+    public void traerCuentas() {
+        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        db.conectar();
+        cuentas = new ArrayList();
+        try {
+            db.query.execute("select * from Cuentas");
+            ResultSet rs = db.query.getResultSet();
+            while (rs.next()) {
+                Cuenta u = new Cuenta();
+                u.setUser(rs.getString("usuario"));
+                u.setContra(rs.getString("contra"));
+                u.setId(rs.getInt("id"));
+                cuentas.add(u);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
     }
     private int bruh = 0;
     private int bruh2 = 0;
     private int xMouse;
     private int yMouse;
-    private static ArrayList<Cuenta> cuentas;
+    private ArrayList<Cuenta> cuentas = new ArrayList();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel header_iniciar;
     private javax.swing.JLabel icon_contra_iniciar;

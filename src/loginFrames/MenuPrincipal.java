@@ -1,10 +1,13 @@
 package loginFrames;
 
+import Conexiones.Dba;
 import Correo.myMail;
 import Drive.myDrive;
 import ToDo.myToDo;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,11 +24,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
      * @param indexCuenta
      * @param cuentas
      */
-    public MenuPrincipal(int indexCuenta, ArrayList<Cuenta> cuentas) {
+    public MenuPrincipal(int indexCuenta) {
         initComponents();
-        MenuPrincipal.indexCuenta = indexCuenta;
-        MenuPrincipal.cuentas = cuentas;
+        traerCuenta();
+        this.indexCuenta = indexCuenta;
         label_bienvenido_menu.setText("Bienvenido, " + cuentas.get(MenuPrincipal.indexCuenta).getUser());
+        if (myDay) {
+            ingresarMyDay.setEnabled(true);
+        } else {
+            ingresarMyDay.setEnabled(false);
+        }
+
+        if (myDrive) {
+            ingresarMyDrive.setEnabled(true);
+        } else {
+            ingresarMyDrive.setEnabled(false);
+        }
+
+        if (myMail) {
+            ingresarMyMail.setEnabled(true);
+        } else {
+            ingresarMyMail.setEnabled(false);
+        }
     }
 
     /**
@@ -44,14 +64,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         label_minimize_menu = new javax.swing.JLabel();
         panel_exit_menu = new javax.swing.JPanel();
         label_exit_menu = new javax.swing.JLabel();
-        menuBar_menu = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         panel_bienvenido_menu = new javax.swing.JPanel();
         label_bienvenido_menu = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        ingresarMyDay = new javax.swing.JLabel();
+        ingresarMyDrive = new javax.swing.JLabel();
+        ingresarMyMail = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -162,52 +179,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jPanel2.add(header_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 30));
 
-        menuBar_menu.setBackground(new java.awt.Color(153, 153, 153));
-
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jPanel1MouseExited(evt);
-            }
-        });
-
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Salir");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout menuBar_menuLayout = new javax.swing.GroupLayout(menuBar_menu);
-        menuBar_menu.setLayout(menuBar_menuLayout);
-        menuBar_menuLayout.setHorizontalGroup(
-            menuBar_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuBar_menuLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 635, Short.MAX_VALUE))
-        );
-        menuBar_menuLayout.setVerticalGroup(
-            menuBar_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuBar_menuLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(menuBar_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 680, 20));
-
         panel_bienvenido_menu.setBackground(new java.awt.Color(178, 112, 162));
 
         label_bienvenido_menu.setFont(new java.awt.Font("Litera-Serial", 0, 24)); // NOI18N
@@ -231,47 +202,47 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jPanel2.add(panel_bienvenido_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 370, 40));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoMyDay-removebg-preview.png"))); // NOI18N
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        ingresarMyDay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoMyDay-removebg-preview.png"))); // NOI18N
+        ingresarMyDay.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                ingresarMyDayMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
+                ingresarMyDayMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel3MouseExited(evt);
+                ingresarMyDayMouseExited(evt);
             }
         });
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 150, 150));
+        jPanel2.add(ingresarMyDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 150, 150));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoMyDrive-removebg-preview.png"))); // NOI18N
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        ingresarMyDrive.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoMyDrive-removebg-preview.png"))); // NOI18N
+        ingresarMyDrive.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                ingresarMyDriveMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel2MouseEntered(evt);
+                ingresarMyDriveMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel2MouseExited(evt);
+                ingresarMyDriveMouseExited(evt);
             }
         });
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 150, 160));
+        jPanel2.add(ingresarMyDrive, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 150, 160));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoMyMail-removebg-preview.png"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        ingresarMyMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoMyMail-removebg-preview.png"))); // NOI18N
+        ingresarMyMail.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
+                ingresarMyMailMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel4MouseEntered(evt);
+                ingresarMyMailMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel4MouseExited(evt);
+                ingresarMyMailMouseExited(evt);
             }
         });
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, -1, -1));
+        jPanel2.add(ingresarMyMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -305,9 +276,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         int yesno = JOptionPane.showConfirmDialog(this, "Salir y guardar cambios?", "Salir", 0);
         if (yesno == 0) {
             setVisible(false);
-            new DefaultLoginFrame(cuentas).setVisible(true);
-        } else {
-
+            new FirstLoginFrame().setVisible(true);
         }
     }//GEN-LAST:event_label_exit_menuMouseClicked
 
@@ -330,54 +299,82 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_header_menuMouseDragged
 
-    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
-        jPanel1.setBackground(Color.LIGHT_GRAY);
-        jLabel1.setForeground(Color.BLACK);
-    }//GEN-LAST:event_jPanel1MouseEntered
+    private void ingresarMyDayMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyDayMouseEntered
+        if (myDay) {
+            setCursor(Cursor.HAND_CURSOR);
+        }
+    }//GEN-LAST:event_ingresarMyDayMouseEntered
 
-    private void jPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseExited
-        jPanel1.setBackground(new Color(153, 153, 153));
-        jLabel1.setForeground(Color.WHITE);
-    }//GEN-LAST:event_jPanel1MouseExited
+    private void ingresarMyDayMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyDayMouseExited
+        if (myDay) {
+            setCursor(Cursor.DEFAULT_CURSOR);
+        }
+    }//GEN-LAST:event_ingresarMyDayMouseExited
 
-    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
-        setCursor(Cursor.HAND_CURSOR);
-    }//GEN-LAST:event_jLabel3MouseEntered
+    private void ingresarMyDriveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyDriveMouseEntered
+        if (myDrive) {
+            setCursor(Cursor.HAND_CURSOR);
+        }
+    }//GEN-LAST:event_ingresarMyDriveMouseEntered
 
-    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
-        setCursor(Cursor.DEFAULT_CURSOR);
-    }//GEN-LAST:event_jLabel3MouseExited
+    private void ingresarMyDriveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyDriveMouseExited
+        if (myDrive) {
+            setCursor(Cursor.DEFAULT_CURSOR);
+        }
+    }//GEN-LAST:event_ingresarMyDriveMouseExited
 
-    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
-        setCursor(Cursor.HAND_CURSOR);
-    }//GEN-LAST:event_jLabel2MouseEntered
+    private void ingresarMyMailMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyMailMouseEntered
+        if(myMail){
+            setCursor(Cursor.HAND_CURSOR);
+        }
+    }//GEN-LAST:event_ingresarMyMailMouseEntered
 
-    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
-        setCursor(Cursor.DEFAULT_CURSOR);
-    }//GEN-LAST:event_jLabel2MouseExited
+    private void ingresarMyMailMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyMailMouseExited
+        if(myMail){
+            setCursor(Cursor.DEFAULT_CURSOR);
+        }
+    }//GEN-LAST:event_ingresarMyMailMouseExited
 
-    private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
-        setCursor(Cursor.HAND_CURSOR);
-    }//GEN-LAST:event_jLabel4MouseEntered
+    private void ingresarMyDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyDayMouseClicked
+        if (myDay) {
+            setVisible(false);
+            new myToDo(indexCuenta).setVisible(true);
+        }
+    }//GEN-LAST:event_ingresarMyDayMouseClicked
 
-    private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
-        setCursor(Cursor.DEFAULT_CURSOR);
-    }//GEN-LAST:event_jLabel4MouseExited
+    private void ingresarMyDriveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyDriveMouseClicked
+        if (myDrive) {
+            setVisible(false);
+            new myDrive(indexCuenta).setVisible(true);
+        }
+    }//GEN-LAST:event_ingresarMyDriveMouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        setVisible(false);
-        new myToDo(indexCuenta, cuentas).setVisible(true);
-    }//GEN-LAST:event_jLabel3MouseClicked
-
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        setVisible(false);
-        new myDrive(indexCuenta, cuentas).setVisible(true);
-    }//GEN-LAST:event_jLabel2MouseClicked
-
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        setVisible(false);
-        new myMail(indexCuenta, cuentas).setVisible(true);
-    }//GEN-LAST:event_jLabel4MouseClicked
+    private void ingresarMyMailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyMailMouseClicked
+        if (myMail) {
+            setVisible(false);
+            new myMail(indexCuenta).setVisible(true);
+        }
+    }//GEN-LAST:event_ingresarMyMailMouseClicked
+    public void traerCuenta() {
+        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        db.conectar();
+        cuentas = new ArrayList();
+        try {
+            db.query.execute("select * from Cuentas");
+            ResultSet rs = db.query.getResultSet();
+            cuentas = new ArrayList();
+            while (rs.next()) {
+                Cuenta u = new Cuenta();
+                u.setUser(rs.getString("usuario"));
+                u.setContra(rs.getString("contra"));
+                u.setId(rs.getInt("id"));
+                cuentas.add(u);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+    }
 
     /**
      * @param args the command line arguments
@@ -390,7 +387,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("FlatLaf".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -409,7 +406,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal(indexCuenta, cuentas).setVisible(true);
+                new MenuPrincipal(indexCuenta).setVisible(true);
             }
         });
     }
@@ -417,19 +414,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private int yMouse;
     private static int indexCuenta;
     private static ArrayList<Cuenta> cuentas;
+    public static boolean myDay = true;
+    public static boolean myDrive = true;
+    public static boolean myMail = true;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel header_menu;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel ingresarMyDay;
+    private javax.swing.JLabel ingresarMyDrive;
+    private javax.swing.JLabel ingresarMyMail;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JLabel label_bienvenido_menu;
     private javax.swing.JLabel label_exit_menu;
     private javax.swing.JLabel label_minimize_menu;
-    private javax.swing.JPanel menuBar_menu;
     private javax.swing.JPanel panel_bienvenido_menu;
     private javax.swing.JPanel panel_exit_menu;
     private javax.swing.JPanel panel_minimize_menu;

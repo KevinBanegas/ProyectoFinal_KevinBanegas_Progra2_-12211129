@@ -1,9 +1,18 @@
 package ToDo;
 
+import Conexiones.Dba;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import loginFrames.Cuenta;
 import loginFrames.DefaultLoginFrame;
 import loginFrames.MenuPrincipal;
@@ -16,13 +25,15 @@ public class myToDo extends javax.swing.JFrame {
 
     /**
      * Creates new form myToDo
+     *
      * @param indexCuenta
      * @param cuentas
      */
-    public myToDo(int indexCuenta, ArrayList<Cuenta> cuentas) {
+    public myToDo(int indexCuenta) {
         initComponents();
-        myToDo.cuentas = cuentas;
-        myToDo.indexCuenta=indexCuenta;
+        traerCuenta();
+        myToDo.indexCuenta = indexCuenta;
+        a();
     }
 
     /**
@@ -57,6 +68,7 @@ public class myToDo extends javax.swing.JFrame {
         myDay_Title = new javax.swing.JLabel();
         panel_crearLista = new javax.swing.JPanel();
         label_crearLista = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -422,6 +434,19 @@ public class myToDo extends javax.swing.JFrame {
 
         bg_myToDo.add(panel_eventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 200, 470));
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 520, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
+
+        bg_myToDo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 520, 370));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -452,10 +477,8 @@ public class myToDo extends javax.swing.JFrame {
         int yesno = JOptionPane.showConfirmDialog(this, "Salir y guardar cambios?", "Salir", 0);
         if (yesno == 0) {
             setVisible(false);
-            new MenuPrincipal(indexCuenta, cuentas).setVisible(true);
-        } else {
-
-        }
+            new MenuPrincipal(indexCuenta).setVisible(true);
+        } 
     }//GEN-LAST:event_label_exit_myToDoMouseClicked
 
     private void label_exit_myToDoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myToDoMouseEntered
@@ -532,7 +555,64 @@ public class myToDo extends javax.swing.JFrame {
     private void label_crearListaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearListaMouseExited
         panel_crearLista.setBackground(new Color(153, 0, 153));
     }//GEN-LAST:event_label_crearListaMouseExited
+    public void a() {
+        JFrame frame = new JFrame();
+        JPanel panel = new JPanel(new GridLayout());
+        JScrollPane scroll = new JScrollPane();
 
+        frame.setSize(800, 500);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLocationByPlatform(true);
+
+        panel = new JPanel(new GridLayout(0, 1, 10, 10));
+        for (int i = 0; i < 15; i++) {
+            JButton button = new JButton("Adios");
+            JButton button2 = new JButton("Hola");
+            JPanel panel1 = new JPanel();
+            panel1.setSize(100, 100);
+            panel1.setBackground(Color.red);
+            JLabel label = new JLabel("HOLA");
+            button.addActionListener(e -> selectionButtonPressed(label));
+            button2.addActionListener(e -> selectionButtonPressed1(label));
+            panel1.add(button);
+            panel1.add(label);
+            panel1.add(button2);
+            jPanel2.add(panel1);
+        }
+
+        pack();
+        setVisible(true);
+        //panel.setVisible(true);
+        add(jPanel2, BorderLayout.NORTH);
+        add(new JScrollPane(jPanel2), BorderLayout.CENTER);
+    }
+    public void selectionButtonPressed(JLabel l) {
+        l.setText("Adios");
+    }
+    
+    public void selectionButtonPressed1(JLabel l) {
+        l.setText("Hola");
+    }
+    public void traerCuenta() {
+        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        db.conectar();
+        cuentas = new ArrayList();
+        try {
+            db.query.execute("select * from Cuentas");
+            ResultSet rs = db.query.getResultSet();
+            cuentas = new ArrayList();
+            while (rs.next()) {
+                Cuenta u = new Cuenta();
+                u.setUser(rs.getString("usuario"));
+                u.setContra(rs.getString("contra"));
+                cuentas.add(u);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -563,17 +643,18 @@ public class myToDo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new myToDo(indexCuenta, cuentas).setVisible(true);
+                new myToDo(indexCuenta).setVisible(true);
             }
         });
     }
     private int xMouse;
     private int yMouse;
     private static int indexCuenta;
-    private static ArrayList<Cuenta> cuentas;
+    private ArrayList<Cuenta> cuentas = new ArrayList();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg_myToDo;
     private javax.swing.JPanel header_menu;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel label_crearLista;
     private javax.swing.JLabel label_exit_myToDo;

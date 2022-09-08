@@ -5,7 +5,6 @@ import java.util.Date;
 public class Tarea {
 
     private String nombre;
-    private String nota;
     private Date fechaRealizar;
     private boolean importante;
     private boolean realizado;
@@ -13,9 +12,8 @@ public class Tarea {
     public Tarea() {
     }
 
-    public Tarea(String nombre, String nota, Date fechaRealizar) {
+    public Tarea(String nombre, Date fechaRealizar) {
         this.nombre = nombre;
-        this.nota = nota;
         this.fechaRealizar = fechaRealizar;
         this.importante = false;
         this.realizado = false;
@@ -27,14 +25,6 @@ public class Tarea {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getNota() {
-        return nota;
-    }
-
-    public void setNota(String nota) {
-        this.nota = nota;
     }
 
     public Date getFechaRealizar() {
@@ -63,7 +53,7 @@ public class Tarea {
 
     @Override
     public String toString() {
-        return "\nNombre: " + nombre + "\nNota: " + nota + "\nFecha a Realizar: " + fechaRealizar;
+        return "\nNombre: " + nombre +  "\nFecha a Realizar: " + fechaRealizar;
     }
 
 }
