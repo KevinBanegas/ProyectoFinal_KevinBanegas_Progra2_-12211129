@@ -5,12 +5,14 @@ import java.util.ArrayList;
 public class ListaTarea {
 
     private ArrayList<Tarea> listaTareas = new ArrayList();
+    private int idLista;
     private String nombreLista;
 
     public ListaTarea() {
     }
 
-    public ListaTarea(String nombreLista) {
+    public ListaTarea(int idLista, String nombreLista) {
+        this.idLista = idLista;
         this.nombreLista = nombreLista;
     }
 
@@ -22,6 +24,14 @@ public class ListaTarea {
         this.listaTareas = listaTareas;
     }
 
+    public int getIdLista() {
+        return idLista;
+    }
+
+    public void setIdLista(int idLista) {
+        this.idLista = idLista;
+    }
+
     public String getNombreLista() {
         return nombreLista;
     }
@@ -29,10 +39,6 @@ public class ListaTarea {
     public void setNombreLista(String nombreLista) {
         this.nombreLista = nombreLista;
     }
-
-    @Override
-    public String toString() {
-        return "\nNombre de Lista:" + nombreLista + "\nLista de Tareas: " + listaTareas;
-    }
-
+    
+    
 }

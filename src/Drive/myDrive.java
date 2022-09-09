@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import loginFrames.Administrador;
 import loginFrames.Cuenta;
 import loginFrames.DefaultLoginFrame;
 import loginFrames.MenuPrincipal;
@@ -49,9 +50,6 @@ public class myDrive extends javax.swing.JFrame {
         label_minimize_myDrive = new javax.swing.JLabel();
         panel_exit_myDrive = new javax.swing.JPanel();
         label_exit_myDrive = new javax.swing.JLabel();
-        menuBar_menu = new javax.swing.JPanel();
-        panel_salir_myDrive = new javax.swing.JPanel();
-        salir_myDrive = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -161,52 +159,6 @@ public class myDrive extends javax.swing.JFrame {
 
         bg_myDrive.add(header_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 30));
 
-        menuBar_menu.setBackground(new java.awt.Color(153, 153, 153));
-
-        panel_salir_myDrive.setBackground(new java.awt.Color(153, 153, 153));
-        panel_salir_myDrive.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                panel_salir_myDriveMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                panel_salir_myDriveMouseExited(evt);
-            }
-        });
-
-        salir_myDrive.setForeground(new java.awt.Color(255, 255, 255));
-        salir_myDrive.setText("Salir");
-
-        javax.swing.GroupLayout panel_salir_myDriveLayout = new javax.swing.GroupLayout(panel_salir_myDrive);
-        panel_salir_myDrive.setLayout(panel_salir_myDriveLayout);
-        panel_salir_myDriveLayout.setHorizontalGroup(
-            panel_salir_myDriveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_salir_myDriveLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(salir_myDrive)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panel_salir_myDriveLayout.setVerticalGroup(
-            panel_salir_myDriveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(salir_myDrive, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout menuBar_menuLayout = new javax.swing.GroupLayout(menuBar_menu);
-        menuBar_menu.setLayout(menuBar_menuLayout);
-        menuBar_menuLayout.setHorizontalGroup(
-            menuBar_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuBar_menuLayout.createSequentialGroup()
-                .addComponent(panel_salir_myDrive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 705, Short.MAX_VALUE))
-        );
-        menuBar_menuLayout.setVerticalGroup(
-            menuBar_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuBar_menuLayout.createSequentialGroup()
-                .addComponent(panel_salir_myDrive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        bg_myDrive.add(menuBar_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 750, 20));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -236,10 +188,13 @@ public class myDrive extends javax.swing.JFrame {
     private void label_exit_myDriveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myDriveMouseClicked
         int yesno = JOptionPane.showConfirmDialog(this, "Salir y guardar cambios?", "Salir", 0);
         if (yesno == 0) {
-            setVisible(false);
-            new MenuPrincipal(indexCuenta).setVisible(true);
-        } else {
-
+            if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                setVisible(false);
+                new Administrador(indexCuenta).setVisible(true);
+            } else {
+                setVisible(false);
+                new MenuPrincipal(indexCuenta).setVisible(true);
+            }
         }
     }//GEN-LAST:event_label_exit_myDriveMouseClicked
 
@@ -261,16 +216,6 @@ public class myDrive extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_header_menuMousePressed
-
-    private void panel_salir_myDriveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_salir_myDriveMouseEntered
-        panel_salir_myDrive.setBackground(Color.LIGHT_GRAY);
-        salir_myDrive.setForeground(Color.BLACK);
-    }//GEN-LAST:event_panel_salir_myDriveMouseEntered
-
-    private void panel_salir_myDriveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_salir_myDriveMouseExited
-        panel_salir_myDrive.setBackground(new Color(153, 153, 153));
-        salir_myDrive.setForeground(Color.WHITE);
-    }//GEN-LAST:event_panel_salir_myDriveMouseExited
     public void traerCuenta() {
         Dba db = new Dba("./DataBaseProyectoFinal.accdb");
         db.conectar();
@@ -335,10 +280,7 @@ public class myDrive extends javax.swing.JFrame {
     private javax.swing.JPanel header_menu;
     private javax.swing.JLabel label_exit_myDrive;
     private javax.swing.JLabel label_minimize_myDrive;
-    private javax.swing.JPanel menuBar_menu;
     private javax.swing.JPanel panel_exit_myDrive;
     private javax.swing.JPanel panel_minimize_myDrive;
-    private javax.swing.JPanel panel_salir_myDrive;
-    private javax.swing.JLabel salir_myDrive;
     // End of variables declaration//GEN-END:variables
 }

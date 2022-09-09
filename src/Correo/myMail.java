@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import loginFrames.Administrador;
 import loginFrames.Cuenta;
 import loginFrames.DefaultLoginFrame;
 import loginFrames.MenuPrincipal;
@@ -49,9 +50,6 @@ public class myMail extends javax.swing.JFrame {
         label_minimize_myMail = new javax.swing.JLabel();
         panel_exit_myMail = new javax.swing.JPanel();
         label_exit_myMail = new javax.swing.JLabel();
-        menuBar_menu = new javax.swing.JPanel();
-        panel_salir_myMail = new javax.swing.JPanel();
-        salir_myMail = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -161,52 +159,6 @@ public class myMail extends javax.swing.JFrame {
 
         bg_myDrive.add(header_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 30));
 
-        menuBar_menu.setBackground(new java.awt.Color(153, 153, 153));
-
-        panel_salir_myMail.setBackground(new java.awt.Color(153, 153, 153));
-        panel_salir_myMail.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                panel_salir_myMailMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                panel_salir_myMailMouseExited(evt);
-            }
-        });
-
-        salir_myMail.setForeground(new java.awt.Color(255, 255, 255));
-        salir_myMail.setText("Salir");
-
-        javax.swing.GroupLayout panel_salir_myMailLayout = new javax.swing.GroupLayout(panel_salir_myMail);
-        panel_salir_myMail.setLayout(panel_salir_myMailLayout);
-        panel_salir_myMailLayout.setHorizontalGroup(
-            panel_salir_myMailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_salir_myMailLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(salir_myMail)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panel_salir_myMailLayout.setVerticalGroup(
-            panel_salir_myMailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(salir_myMail, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout menuBar_menuLayout = new javax.swing.GroupLayout(menuBar_menu);
-        menuBar_menu.setLayout(menuBar_menuLayout);
-        menuBar_menuLayout.setHorizontalGroup(
-            menuBar_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuBar_menuLayout.createSequentialGroup()
-                .addComponent(panel_salir_myMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 705, Short.MAX_VALUE))
-        );
-        menuBar_menuLayout.setVerticalGroup(
-            menuBar_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuBar_menuLayout.createSequentialGroup()
-                .addComponent(panel_salir_myMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        bg_myDrive.add(menuBar_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 750, 20));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -236,10 +188,13 @@ public class myMail extends javax.swing.JFrame {
     private void label_exit_myMailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myMailMouseClicked
         int yesno = JOptionPane.showConfirmDialog(this, "Salir y guardar cambios?", "Salir", 0);
         if (yesno == 0) {
-            setVisible(false);
-            new MenuPrincipal(indexCuenta).setVisible(true);
-        } else {
-
+            if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                setVisible(false);
+                new Administrador(indexCuenta).setVisible(true);
+            } else {
+                setVisible(false);
+                new MenuPrincipal(indexCuenta).setVisible(true);
+            }
         }
     }//GEN-LAST:event_label_exit_myMailMouseClicked
 
@@ -261,16 +216,6 @@ public class myMail extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_header_menuMousePressed
-
-    private void panel_salir_myMailMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_salir_myMailMouseEntered
-        panel_salir_myMail.setBackground(Color.LIGHT_GRAY);
-        salir_myMail.setForeground(Color.BLACK);
-    }//GEN-LAST:event_panel_salir_myMailMouseEntered
-
-    private void panel_salir_myMailMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_salir_myMailMouseExited
-        panel_salir_myMail.setBackground(new Color(153, 153, 153));
-        salir_myMail.setForeground(Color.WHITE);
-    }//GEN-LAST:event_panel_salir_myMailMouseExited
     public void traerCuenta() {
         Dba db = new Dba("./DataBaseProyectoFinal.accdb");
         db.conectar();
@@ -335,10 +280,7 @@ public class myMail extends javax.swing.JFrame {
     private javax.swing.JPanel header_menu;
     private javax.swing.JLabel label_exit_myMail;
     private javax.swing.JLabel label_minimize_myMail;
-    private javax.swing.JPanel menuBar_menu;
     private javax.swing.JPanel panel_exit_myMail;
     private javax.swing.JPanel panel_minimize_myMail;
-    private javax.swing.JPanel panel_salir_myMail;
-    private javax.swing.JLabel salir_myMail;
     // End of variables declaration//GEN-END:variables
 }

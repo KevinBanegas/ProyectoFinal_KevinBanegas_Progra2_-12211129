@@ -72,7 +72,6 @@ public class Administrador extends javax.swing.JFrame {
         panel_exit_iniciar1 = new javax.swing.JPanel();
         label_exit_inciar1 = new javax.swing.JLabel();
         panel_minimize_iniciar1 = new javax.swing.JPanel();
-        label_minimize_iniciar1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -157,6 +156,8 @@ public class Administrador extends javax.swing.JFrame {
         elimCuenta_Title = new javax.swing.JLabel();
         cb_elim = new javax.swing.JComboBox<>();
 
+        jFrame1.setUndecorated(true);
+
         jPanel2.setBackground(new java.awt.Color(204, 153, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -205,33 +206,15 @@ public class Administrador extends javax.swing.JFrame {
 
         panel_minimize_iniciar1.setBackground(new java.awt.Color(122, 68, 149));
 
-        label_minimize_iniciar1.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
-        label_minimize_iniciar1.setForeground(new java.awt.Color(255, 255, 255));
-        label_minimize_iniciar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_minimize_iniciar1.setText("🗕");
-        label_minimize_iniciar1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                label_minimize_iniciar1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                label_minimize_iniciar1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                label_minimize_iniciar1MouseExited(evt);
-            }
-        });
-
         javax.swing.GroupLayout panel_minimize_iniciar1Layout = new javax.swing.GroupLayout(panel_minimize_iniciar1);
         panel_minimize_iniciar1.setLayout(panel_minimize_iniciar1Layout);
         panel_minimize_iniciar1Layout.setHorizontalGroup(
             panel_minimize_iniciar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_minimize_iniciar1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(label_minimize_iniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 30, Short.MAX_VALUE)
         );
         panel_minimize_iniciar1Layout.setVerticalGroup(
             panel_minimize_iniciar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_minimize_iniciar1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGap(0, 29, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout header_iniciar1Layout = new javax.swing.GroupLayout(header_iniciar1);
@@ -274,6 +257,7 @@ public class Administrador extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(204, 102, 255));
 
         habilitar_myDrive.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        habilitar_myDrive.setForeground(new java.awt.Color(255, 255, 255));
         habilitar_myDrive.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         habilitar_myDrive.setText("Habilitar");
         habilitar_myDrive.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -303,6 +287,7 @@ public class Administrador extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(204, 102, 255));
 
         habilitar_myDay.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        habilitar_myDay.setForeground(new java.awt.Color(255, 255, 255));
         habilitar_myDay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         habilitar_myDay.setText("Habilitar");
         habilitar_myDay.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -332,6 +317,7 @@ public class Administrador extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(204, 102, 255));
 
         habilitar_myMail.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        habilitar_myMail.setForeground(new java.awt.Color(255, 255, 255));
         habilitar_myMail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         habilitar_myMail.setText("Habilitar");
         habilitar_myMail.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -361,6 +347,7 @@ public class Administrador extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(204, 102, 255));
 
         deshabilitar_myMail.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        deshabilitar_myMail.setForeground(new java.awt.Color(255, 255, 255));
         deshabilitar_myMail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         deshabilitar_myMail.setText("Deshabiltar");
         deshabilitar_myMail.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -387,6 +374,7 @@ public class Administrador extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(204, 102, 255));
 
         deshabilitar_myDrive.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        deshabilitar_myDrive.setForeground(new java.awt.Color(255, 255, 255));
         deshabilitar_myDrive.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         deshabilitar_myDrive.setText("Deshabiltar");
         deshabilitar_myDrive.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -413,6 +401,7 @@ public class Administrador extends javax.swing.JFrame {
         jPanel8.setBackground(new java.awt.Color(204, 102, 255));
 
         deshabilitar_myDay.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        deshabilitar_myDay.setForeground(new java.awt.Color(255, 255, 255));
         deshabilitar_myDay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         deshabilitar_myDay.setText("Deshabiltar");
         deshabilitar_myDay.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1168,6 +1157,9 @@ public class Administrador extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table_verCuentas.setFocusable(false);
+        table_verCuentas.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        table_verCuentas.setRowHeight(25);
         table_verCuentas.setSelectionForeground(new java.awt.Color(255, 255, 255));
         table_verCuentas.setShowGrid(false);
         jScrollPane1.setViewportView(table_verCuentas);
@@ -2069,18 +2061,6 @@ public class Administrador extends javax.swing.JFrame {
         panel_exit_iniciar1.setBackground(header_iniciar1.getBackground());
     }//GEN-LAST:event_label_exit_inciar1MouseExited
 
-    private void label_minimize_iniciar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_iniciar1MouseClicked
-        setState(this.ICONIFIED);
-    }//GEN-LAST:event_label_minimize_iniciar1MouseClicked
-
-    private void label_minimize_iniciar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_iniciar1MouseEntered
-        panel_minimize_iniciar1.setBackground(new Color(122, 96, 149));
-    }//GEN-LAST:event_label_minimize_iniciar1MouseEntered
-
-    private void label_minimize_iniciar1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_iniciar1MouseExited
-        panel_minimize_iniciar1.setBackground(header_iniciar1.getBackground());
-    }//GEN-LAST:event_label_minimize_iniciar1MouseExited
-
     private void header_iniciar1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciar1MouseDragged
         // TODO add your handling code here:
     }//GEN-LAST:event_header_iniciar1MouseDragged
@@ -2333,7 +2313,6 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel label_exit_inciar;
     private javax.swing.JLabel label_exit_inciar1;
     private javax.swing.JLabel label_minimize_iniciar;
-    private javax.swing.JLabel label_minimize_iniciar1;
     private javax.swing.JLabel label_mod;
     private javax.swing.JLabel label_modificarCuenta;
     private javax.swing.JLabel label_myDay;

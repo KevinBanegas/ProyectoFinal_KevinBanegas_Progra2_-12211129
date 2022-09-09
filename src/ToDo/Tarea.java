@@ -4,27 +4,36 @@ import java.util.Date;
 
 public class Tarea {
 
-    private String nombre;
+    private String nombreTarea;
     private Date fechaRealizar;
     private boolean importante;
     private boolean realizado;
+    private int idTarea;
+    private int idCuenta;
+    private int idLista;
+    private String nota;
 
     public Tarea() {
+
     }
 
-    public Tarea(String nombre, Date fechaRealizar) {
-        this.nombre = nombre;
+    public Tarea(String nombreTarea, Date fechaRealizar, boolean importante, boolean realizado, int idTarea, int idCuenta, int idLista, String nota) {
+        this.nombreTarea = nombreTarea;
         this.fechaRealizar = fechaRealizar;
-        this.importante = false;
-        this.realizado = false;
+        this.importante = importante;
+        this.realizado = realizado;
+        this.idTarea = idTarea;
+        this.idCuenta = idCuenta;
+        this.idLista = idLista;
+        this.nota = nota;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreTarea() {
+        return nombreTarea;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreTarea(String nombreTarea) {
+        this.nombreTarea = nombreTarea;
     }
 
     public Date getFechaRealizar() {
@@ -51,9 +60,42 @@ public class Tarea {
         this.realizado = realizado;
     }
 
-    @Override
-    public String toString() {
-        return "\nNombre: " + nombre +  "\nFecha a Realizar: " + fechaRealizar;
+    public int getIdTarea() {
+        return idTarea;
     }
 
+    public void setIdTarea(int idTarea) {
+        this.idTarea = idTarea;
+    }
+
+    public int getIdCuenta() {
+        return idCuenta;
+    }
+
+    public void setIdCuenta(int idCuenta) {
+        this.idCuenta = idCuenta;
+    }
+
+    public int getIdLista() {
+        return idLista;
+    }
+
+    public void setIdLista(int idLista) {
+        this.idLista = idLista;
+    }
+
+    public String getNota() {
+        return nota;
+    }
+
+    public void setNota(String nota) {
+        this.nota = nota;
+    }
+
+    @Override
+    public String toString() {
+        return "Tarea{" + "nombreTarea=" + nombreTarea + ", fechaRealizar=" + fechaRealizar + ", importante=" + importante + ", realizado=" + realizado + ", idTarea=" + idTarea + ", idCuenta=" + idCuenta + ", idLista=" + idLista + ", nota=" + nota + '}';
+    }
+    
+    
 }

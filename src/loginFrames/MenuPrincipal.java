@@ -32,19 +32,31 @@ public class MenuPrincipal extends javax.swing.JFrame {
         if (myDay) {
             ingresarMyDay.setEnabled(true);
         } else {
-            ingresarMyDay.setEnabled(false);
+            if ("Kevin".equals(cuentas.get(MenuPrincipal.indexCuenta).getUser())) {
+                ingresarMyDay.setEnabled(true);
+            } else {
+                ingresarMyDay.setEnabled(false);
+            }
         }
 
         if (myDrive) {
             ingresarMyDrive.setEnabled(true);
         } else {
-            ingresarMyDrive.setEnabled(false);
+            if ("Kevin".equals(cuentas.get(MenuPrincipal.indexCuenta).getUser())) {
+                ingresarMyDrive.setEnabled(true);
+            } else {
+                ingresarMyDrive.setEnabled(false);
+            }
         }
 
         if (myMail) {
             ingresarMyMail.setEnabled(true);
         } else {
-            ingresarMyMail.setEnabled(false);
+            if ("Kevin".equals(cuentas.get(MenuPrincipal.indexCuenta).getUser())) {
+                ingresarMyMail.setEnabled(true);
+            } else {
+                ingresarMyMail.setEnabled(false);
+            }
         }
     }
 
@@ -302,36 +314,60 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void ingresarMyDayMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyDayMouseEntered
         if (myDay) {
             setCursor(Cursor.HAND_CURSOR);
+        } else {
+            if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                setCursor(Cursor.HAND_CURSOR);
+            }
         }
     }//GEN-LAST:event_ingresarMyDayMouseEntered
 
     private void ingresarMyDayMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyDayMouseExited
         if (myDay) {
             setCursor(Cursor.DEFAULT_CURSOR);
+        } else {
+            if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                setCursor(Cursor.DEFAULT_CURSOR);
+            }
         }
     }//GEN-LAST:event_ingresarMyDayMouseExited
 
     private void ingresarMyDriveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyDriveMouseEntered
         if (myDrive) {
             setCursor(Cursor.HAND_CURSOR);
+        } else {
+            if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                setCursor(Cursor.HAND_CURSOR);
+            }
         }
     }//GEN-LAST:event_ingresarMyDriveMouseEntered
 
     private void ingresarMyDriveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyDriveMouseExited
         if (myDrive) {
             setCursor(Cursor.DEFAULT_CURSOR);
+        } else {
+            if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                setCursor(Cursor.DEFAULT_CURSOR);
+            }
         }
     }//GEN-LAST:event_ingresarMyDriveMouseExited
 
     private void ingresarMyMailMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyMailMouseEntered
-        if(myMail){
+        if (myMail) {
             setCursor(Cursor.HAND_CURSOR);
+        } else {
+            if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                setCursor(Cursor.HAND_CURSOR);
+            }
         }
     }//GEN-LAST:event_ingresarMyMailMouseEntered
 
     private void ingresarMyMailMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyMailMouseExited
-        if(myMail){
+        if (myMail) {
             setCursor(Cursor.DEFAULT_CURSOR);
+        } else {
+            if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                setCursor(Cursor.DEFAULT_CURSOR);
+            }
         }
     }//GEN-LAST:event_ingresarMyMailMouseExited
 
@@ -339,6 +375,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         if (myDay) {
             setVisible(false);
             new myToDo(indexCuenta).setVisible(true);
+        } else {
+            if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                setVisible(false);
+                new myToDo(indexCuenta).setVisible(true);
+            }
         }
     }//GEN-LAST:event_ingresarMyDayMouseClicked
 
@@ -346,13 +387,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         if (myDrive) {
             setVisible(false);
             new myDrive(indexCuenta).setVisible(true);
+        } else {
+            if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                setVisible(false);
+                new myDrive(indexCuenta).setVisible(true);
+            }
         }
     }//GEN-LAST:event_ingresarMyDriveMouseClicked
 
     private void ingresarMyMailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyMailMouseClicked
-        if (myMail) {
+        if (myMail && !"Kevin".equals(cuentas.get(indexCuenta).getUser())) {
             setVisible(false);
             new myMail(indexCuenta).setVisible(true);
+        } else {
+            if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                setVisible(false);
+                new myMail(indexCuenta).setVisible(true);
+            }
         }
     }//GEN-LAST:event_ingresarMyMailMouseClicked
     public void traerCuenta() {
