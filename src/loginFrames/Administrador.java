@@ -45,6 +45,8 @@ public class Administrador extends javax.swing.JFrame {
         table_verCuentas.getTableHeader().setFont(new java.awt.Font("Litera-Serial", 0, 14));
         table_verCuentas.getTableHeader().setBackground(new Color(255, 152, 204));
         table_verCuentas.getTableHeader().setForeground(Color.WHITE);
+        table_verCuentas.setCellSelectionEnabled(false);
+        table_verCuentas.getTableHeader().setOpaque(false);
         textf_contra_crear.setEchoChar((char) 0);
         jLabel1.setVisible(false);
         jLabel5.setVisible(false);
@@ -53,8 +55,9 @@ public class Administrador extends javax.swing.JFrame {
         panel_mod.setVisible(false);
         panel_eliminar.setVisible(false);
         panel_crear.setVisible(false);
-        panel_VerCuenta.setVisible(false);
-        panel_VerCuenta.setVisible(false);
+        panel_VerCuenta.setVisible(true);
+        label_verCuentasMouseClicked(new java.awt.event.MouseEvent(this, 1, 1, 1, 1, 1, 1, true));
+        
     }
 
     /**
@@ -1162,6 +1165,8 @@ public class Administrador extends javax.swing.JFrame {
         table_verCuentas.setRowHeight(25);
         table_verCuentas.setSelectionForeground(new java.awt.Color(255, 255, 255));
         table_verCuentas.setShowGrid(false);
+        table_verCuentas.getTableHeader().setResizingAllowed(false);
+        table_verCuentas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(table_verCuentas);
         if (table_verCuentas.getColumnModel().getColumnCount() > 0) {
             table_verCuentas.getColumnModel().getColumn(0).setResizable(false);

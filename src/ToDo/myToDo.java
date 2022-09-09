@@ -3,6 +3,9 @@ package ToDo;
 import Conexiones.Dba;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import loginFrames.Administrador;
 import loginFrames.Cuenta;
 import loginFrames.DefaultLoginFrame;
@@ -28,20 +33,30 @@ public class myToDo extends javax.swing.JFrame {
      * Creates new form myToDo
      *
      * @param indexCuenta
-     * @param cuentas
      */
     public myToDo(int indexCuenta) {
         initComponents();
         traerCuenta();
+        traerTareas();
         myToDo.indexCuenta = indexCuenta;
         jTable1.getTableHeader().setFont(new java.awt.Font("Litera-Serial", 0, 14));
         jTable1.getTableHeader().setBackground(new Color(255, 152, 204));
         jTable1.getTableHeader().setForeground(Color.WHITE);
+        jTable2.getTableHeader().setFont(new java.awt.Font("Litera-Serial", Font.BOLD, 15));
+        jTable2.getTableHeader().setBackground(new Color(255, 152, 204));
+        jTable2.getTableHeader().setForeground(Color.WHITE);
+        jScrollPane2.setPreferredSize(new Dimension(Integer.MAX_VALUE, (jTable2.getRowCount() + 1) * jTable2.getRowHeight()));
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(23);
+        jTable2.getColumnModel().getColumn(1).setPreferredWidth(140);
+        jTable2.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(3).setPreferredWidth(23);
+        jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         jPanel1.setVisible(false);
-        jPanel2.setVisible(false);
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
         jPanel5.setVisible(false);
+        jPanel10.setVisible(true);
+        
 //        a();
     }
 
@@ -86,7 +101,17 @@ public class myToDo extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jTextArea1 = new javax.swing.JTextArea();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jPanel7 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -205,6 +230,9 @@ public class myToDo extends javax.swing.JFrame {
         label_myDay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_myDay.setText("My Day");
         label_myDay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_myDayMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 label_myDayMouseEntered(evt);
             }
@@ -377,6 +405,10 @@ public class myToDo extends javax.swing.JFrame {
         jTable1.setFocusable(false);
         jTable1.setGridColor(new java.awt.Color(204, 153, 255));
         jTable1.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        jTable1.setRowHeight(25);
+        jTable1.setRowSelectionAllowed(false);
+        jTable1.setShowHorizontalLines(false);
+        jTable1.setShowVerticalLines(false);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout panel_crearListaLayout = new javax.swing.GroupLayout(panel_crearLista);
@@ -468,6 +500,11 @@ public class myToDo extends javax.swing.JFrame {
 
         bg_myToDo.add(panel_eventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 200, 520));
 
+        jPanel6.setBackground(new java.awt.Color(172, 112, 168));
+
+        jTable2.setBackground(new java.awt.Color(255, 153, 255));
+        jTable2.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
+        jTable2.setForeground(new java.awt.Color(255, 255, 255));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -476,9 +513,27 @@ public class myToDo extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Importantes", "Tarea", "Fecha", "Completado"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable2.setGridColor(new java.awt.Color(102, 0, 102));
+        jTable2.setOpaque(false);
+        jTable2.setRowHeight(25);
         jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -552,19 +607,153 @@ public class myToDo extends javax.swing.JFrame {
 
         bg_myToDo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 570, 440));
 
+        jPanel2.setBackground(new java.awt.Color(172, 112, 168));
+        jPanel2.setForeground(new java.awt.Color(204, 102, 255));
+
+        jTextArea1.setBackground(new java.awt.Color(153, 153, 255));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
+        jTextArea1.setRows(5);
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setBorder(null);
+        jTextArea1.setCaretColor(new java.awt.Color(255, 255, 255));
+
+        jPanel9.setBackground(new java.awt.Color(204, 0, 204));
+
+        jLabel3.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Agregar");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 3, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 270, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        bg_myToDo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 280, 190, 270));
+        bg_myToDo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 320, 190, 230));
         bg_myToDo.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 110, 190, -1));
+
+        jPanel7.setBackground(new java.awt.Color(172, 112, 168));
+
+        jTextField1.setBackground(new java.awt.Color(172, 112, 168));
+        jTextField1.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jTextField1.setText("Agregar Tarea");
+        jTextField1.setBorder(null);
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextField1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jTextField1MouseExited(evt);
+            }
+        });
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("+");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel1MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+
+        bg_myToDo.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 570, 30));
+
+        jPanel8.setBackground(new java.awt.Color(172, 112, 168));
+
+        jLabel2.setFont(new java.awt.Font("Litera-Serial", 0, 16)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Fecha de Vencimiento");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        bg_myToDo.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 70, 190, 30));
+
+        jPanel10.setBackground(new java.awt.Color(172, 112, 168));
+
+        jLabel4.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Notas");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(69, 69, 69))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        bg_myToDo.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 280, 190, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -574,7 +763,7 @@ public class myToDo extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg_myToDo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bg_myToDo, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
         );
 
         pack();
@@ -671,45 +860,55 @@ public class myToDo extends javax.swing.JFrame {
     private void label_listasTareas1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_listasTareas1MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_label_listasTareas1MouseExited
-//    public void a() {
-//        JFrame frame = new JFrame();
-//        JPanel panel = new JPanel(new GridLayout());
-//        JScrollPane scroll = new JScrollPane();
-//
-//        frame.setSize(800, 500);
-//        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//        frame.setLocationByPlatform(true);
-//
-//        panel = new JPanel(new GridLayout(0, 1, 10, 10));
-//        for (int i = 0; i < 15; i++) {
-//            JButton button = new JButton("Adios");
-//            JButton button2 = new JButton("Hola");
-//            JPanel panel1 = new JPanel();
-//            panel1.setSize(100, 100);
-//            panel1.setBackground(Color.red);
-//            JLabel label = new JLabel("HOLA");
-//            button.addActionListener(e -> selectionButtonPressed(label));
-//            button2.addActionListener(e -> selectionButtonPressed1(label));
-//            panel1.add(button);
-//            panel1.add(label);
-//            panel1.add(button2);
-//            jPanel2.add(panel1);
-//        }
-//
-//        pack();
-//        setVisible(true);
-//        //panel.setVisible(true);
-//        add(jPanel2, BorderLayout.NORTH);
-//        add(new JScrollPane(jPanel2), BorderLayout.CENTER);
-//    }
-//
-//    public void selectionButtonPressed(JLabel l) {
-//        l.setText("Adios");
-//    }
-//
-//    public void selectionButtonPressed1(JLabel l) {
-//        l.setText("Hola");
-//    }
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseEntered
+        setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_jTextField1MouseEntered
+
+    private void jTextField1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseExited
+        setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_jTextField1MouseExited
+
+    private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
+        setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_jLabel1MouseEntered
+
+    private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
+        setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_jLabel1MouseExited
+
+    private void label_myDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_myDayMouseClicked
+        int id = cuentas.get(indexCuenta).getId();
+        DefaultTableModel myDayModel = 
+        new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Importante", "Tarea", "Fecha", "Completado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        };
+        jTable2.setModel(myDayModel);
+    }//GEN-LAST:event_label_myDayMouseClicked
 
     public void traerCuenta() {
         Dba db = new Dba("./DataBaseProyectoFinal.accdb");
@@ -723,7 +922,34 @@ public class myToDo extends javax.swing.JFrame {
                 Cuenta u = new Cuenta();
                 u.setUser(rs.getString("usuario"));
                 u.setContra(rs.getString("contra"));
+                u.setId(rs.getInt("id"));
                 cuentas.add(u);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+    }
+
+    public void traerTareas() {
+        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        db.conectar();
+        tareas = new ArrayList();
+        try {
+            db.query.execute("select * from Tareas");
+            ResultSet rs = db.query.getResultSet();
+            tareas = new ArrayList();
+            while (rs.next()) {
+                Tarea t = new Tarea();
+                t.setIdTarea(rs.getInt("idTarea"));
+                t.setIdCuenta(rs.getInt("idCuenta"));
+                t.setIdLista(rs.getInt("idLista"));
+                t.setNombreTarea(rs.getString("nombre_Tarea"));
+                t.setFechaRealizar(rs.getDate("fechaRealizar_tarea"));
+                t.setImportante((rs.getInt("importante_tarea") == 1));
+                t.setImportante(rs.getInt("realizado_tarea") == 1);
+                tareas.add(t);
+                System.out.println(t);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -770,21 +996,33 @@ public class myToDo extends javax.swing.JFrame {
     private int yMouse;
     private static int indexCuenta;
     private ArrayList<Cuenta> cuentas = new ArrayList();
+    private ArrayList<Tarea> tareas = new ArrayList();
+    private ArrayList<ListaTarea> listaTareas = new ArrayList();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg_myToDo;
     private javax.swing.JPanel header_menu;
     private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel label_exit_myToDo;
     private javax.swing.JLabel label_importante;
     private javax.swing.JLabel label_listasTareas;
