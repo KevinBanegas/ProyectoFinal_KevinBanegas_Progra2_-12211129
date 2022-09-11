@@ -217,7 +217,7 @@ public class myMail extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_header_menuMousePressed
     public void traerCuenta() {
-        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        Dba db = new Dba("./DataBase.accdb");
         db.conectar();
         cuentas = new ArrayList();
         try {

@@ -27,6 +27,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal(int indexCuenta) {
         initComponents();
         traerCuenta();
+        System.out.println(cuentas);
         this.indexCuenta = indexCuenta;
         label_bienvenido_menu.setText("Bienvenido, " + cuentas.get(MenuPrincipal.indexCuenta).getUser());
         if (myDay) {
@@ -407,7 +408,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ingresarMyMailMouseClicked
     public void traerCuenta() {
-        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        Dba db = new Dba("./DataBase.accdb");
         db.conectar();
         cuentas = new ArrayList();
         try {

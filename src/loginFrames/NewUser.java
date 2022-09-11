@@ -875,7 +875,7 @@ public class NewUser extends javax.swing.JFrame {
     }
 
     public void AgregarDatosCuentas() {
-        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        Dba db = new Dba("./DataBase.accdb");
         db.conectar();
         try {
             int index = 0;
@@ -901,7 +901,7 @@ public class NewUser extends javax.swing.JFrame {
     }
 
     public void traerCuentas() {
-        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        Dba db = new Dba("./DataBase.accdb");
         db.conectar();
         cuentas = new ArrayList();
         try {

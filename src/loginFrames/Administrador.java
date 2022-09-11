@@ -1917,7 +1917,7 @@ public class Administrador extends javax.swing.JFrame {
     private void label_elimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_elimMouseClicked
         int seguro = JOptionPane.showConfirmDialog(this, "Desea eliminar permanentemente este Usuario? \nSe perderán todos los datos.");
         if (seguro == JOptionPane.YES_OPTION) {
-            Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+            Dba db = new Dba("./DataBase.accdb");
             db.conectar();
             try {
                 db.query.execute("delete from Cuentas where id=" + ((Cuenta) (cb_elim.getSelectedItem())).getId());
@@ -2158,7 +2158,7 @@ public class Administrador extends javax.swing.JFrame {
     }
 
     public void traerCuenta() {
-        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        Dba db = new Dba("./DataBase.accdb");
         db.conectar();
         cuentas = new ArrayList();
         try {
@@ -2179,7 +2179,7 @@ public class Administrador extends javax.swing.JFrame {
     }
 
     public void ponerCuenta() {
-        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        Dba db = new Dba("./DataBase.accdb");
         db.conectar();
         try {
             db.query.execute("update Cuentas set usuario= '" + textf_usuario_mod.getText() + "' , contra= '" + textf_contra_mod.getText() + "' where id= " + ((Cuenta) (cb_mod.getSelectedItem())).getId());
@@ -2208,7 +2208,7 @@ public class Administrador extends javax.swing.JFrame {
     }
 
     public void AgregarDatosCuentas() {
-        Dba db = new Dba("./DataBaseProyectoFinal.accdb");
+        Dba db = new Dba("./DataBase.accdb");
         db.conectar();
         try {
             int index = 0;
@@ -2221,7 +2221,6 @@ public class Administrador extends javax.swing.JFrame {
                         cent = 0;
                     }
                 }
-
             }
             db.query.execute("INSERT INTO Cuentas"
                     + " (usuario,contra,id)"
