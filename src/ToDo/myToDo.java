@@ -59,6 +59,14 @@ public class myToDo extends javax.swing.JFrame {
         table_myDay.getColumnModel().getColumn(1).setPreferredWidth(140);
         table_myDay.getColumnModel().getColumn(2).setPreferredWidth(23);
         table_myDay.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        table_importante.getColumnModel().getColumn(0).setPreferredWidth(160);
+        table_importante.getColumnModel().getColumn(1).setPreferredWidth(30);
+        table_importante.getColumnModel().getColumn(2).setPreferredWidth(23);
+        table_importante.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        table_completados.getColumnModel().getColumn(0).setPreferredWidth(160);
+        table_completados.getColumnModel().getColumn(1).setPreferredWidth(40);
+        table_completados.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        table_listaTareas.setTableHeader(null);
         jPanel1.setVisible(false);
         jPanel3.setVisible(false);
         panel_completados.setVisible(false);
@@ -621,6 +629,12 @@ public class myToDo extends javax.swing.JFrame {
         table_importante.setGridColor(new java.awt.Color(102, 0, 102));
         table_importante.setOpaque(false);
         table_importante.setRowHeight(25);
+        table_importante.setSelectionBackground(new java.awt.Color(204, 51, 255));
+        table_importante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_importanteMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(table_importante);
 
         javax.swing.GroupLayout panel_importanteLayout = new javax.swing.GroupLayout(panel_importante);
@@ -644,14 +658,20 @@ public class myToDo extends javax.swing.JFrame {
 
         panel_completados.setBackground(new java.awt.Color(204, 102, 255));
 
+        table_completados.setBackground(new java.awt.Color(255, 153, 255));
+        table_completados.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
+        table_completados.setForeground(new java.awt.Color(255, 255, 255));
         table_completados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tarea", "Fecha"
+                "Tarea", "Fecha Limite"
             }
         ));
+        table_completados.setGridColor(new java.awt.Color(102, 0, 102));
+        table_completados.setRowHeight(25);
+        table_completados.setSelectionBackground(new java.awt.Color(204, 51, 255));
         jScrollPane4.setViewportView(table_completados);
 
         javax.swing.GroupLayout panel_completadosLayout = new javax.swing.GroupLayout(panel_completados);
@@ -1129,11 +1149,12 @@ public class myToDo extends javax.swing.JFrame {
         int id = cuentas.get(indexCuenta).getId();
         SimpleDateFormat sd = new SimpleDateFormat("yyyy/MM/dd");
         panel_completados.setVisible(true);
-        panel_important.setVisible(false);
+        panel_importante.setVisible(false);
         panel_tareasDay.setVisible(false);
         DefaultTableModel completado = (DefaultTableModel) table_completados.getModel();
+        completado.setNumRows(0);
         for (Tarea tarea : tareas) {
-            if (tarea.getIdCuenta() == id && tarea.isRealizado() && !tarea.isImportante()) {
+            if (tarea.getIdCuenta() == id && tarea.isRealizado()) {
                 completados.add(tarea);
                 Object[] row = new Object[3];
                 row[0] = tarea.getNombreTarea();
@@ -1186,17 +1207,39 @@ public class myToDo extends javax.swing.JFrame {
             m.removeRow(table_myDay.getSelectedRow());
             for (Tarea tarea : tareas) {
                 if (tarea.getNombreTarea().equals(nombre)) {
-                    tarea.setImportante(true);
+                    tarea.setRealizado(true);
                     ponerTareaCompletado(tarea.getIdTarea());
                 }
             }
             for (Tarea tarea : miDia) {
                 if (tarea.getNombreTarea().equals(nombre)) {
-                    tarea.setImportante(true);
+                    tarea.setRealizado(true);
                 }
             }
         }
     }//GEN-LAST:event_table_myDayMouseClicked
+
+    private void table_importanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_importanteMouseClicked
+        int i = table_importante.getSelectedRow();
+        String nombre = table_importante.getValueAt(i, 0).toString();
+        DefaultTableModel m = (DefaultTableModel) table_importante.getModel();
+        if ((Boolean) table_importante.getValueAt(table_importante.getSelectedRow(), 2) == true) {
+            m.removeRow(table_importante.getSelectedRow());
+            for (Tarea tarea : tareas) {
+                if (tarea.getNombreTarea().equals(nombre)) {
+                    tarea.setRealizado(true);
+                    ponerTareaCompletado(tarea.getIdTarea());
+                    System.out.println("yes");
+                }
+            }
+            for (Tarea tarea : importantes) {
+                if (tarea.getNombreTarea().equals(nombre)) {
+                    tarea.setRealizado(true);
+                    tarea.setImportante(false);
+                }
+            }
+        }
+    }//GEN-LAST:event_table_importanteMouseClicked
 
     public void traerCuenta() {
         Dba db = new Dba("./DataBase.accdb");
