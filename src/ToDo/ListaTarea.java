@@ -4,24 +4,25 @@ import java.util.ArrayList;
 
 public class ListaTarea {
 
-    private ArrayList<Tarea> listaTareas = new ArrayList();
+    private int idCuenta;
     private int idLista;
     private String nombreLista;
 
     public ListaTarea() {
     }
 
-    public ListaTarea(int idLista, String nombreLista) {
+    public ListaTarea(int idCuenta, int idLista, String nombreLista) {
+        this.idCuenta = idCuenta;
         this.idLista = idLista;
         this.nombreLista = nombreLista;
     }
 
-    public ArrayList<Tarea> getListaTareas() {
-        return listaTareas;
+    public int getIdCuenta() {
+        return idCuenta;
     }
 
-    public void setListaTareas(ArrayList<Tarea> listaTareas) {
-        this.listaTareas = listaTareas;
+    public void setIdCuenta(int idCuenta) {
+        this.idCuenta = idCuenta;
     }
 
     public int getIdLista() {
@@ -38,6 +39,11 @@ public class ListaTarea {
 
     public void setNombreLista(String nombreLista) {
         this.nombreLista = nombreLista;
+    }
+
+    @Override
+    public String toString() {
+        return "ListaTarea{" + "idCuenta=" + idCuenta + ", idLista=" + idLista + ", nombreLista=" + nombreLista + '}';
     }
     
     

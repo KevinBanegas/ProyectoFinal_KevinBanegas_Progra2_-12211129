@@ -39,6 +39,7 @@ public class Administrador extends javax.swing.JFrame {
      */
     public Administrador(int indexCuenta) {
         this.indexCuenta = indexCuenta;
+        System.out.println(this.indexCuenta);
         initComponents();
         traerCuenta();
         actualizarCB();
@@ -1381,6 +1382,7 @@ public class Administrador extends javax.swing.JFrame {
         );
 
         cb_mod.setBackground(new java.awt.Color(153, 102, 255));
+        cb_mod.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
         cb_mod.setForeground(new java.awt.Color(255, 255, 255));
         cb_mod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -503,6 +503,7 @@ public class FirstLoginFrame extends javax.swing.JFrame {
                     verU = 1;
                     verC = 1;
                     indexCuenta = cuentas.indexOf(usuario);
+                    System.out.println(indexCuenta);
                 }
                 if (usuario.getUser().equals(textf_usuario_iniciar.getText())) {
                     verU = 1;
