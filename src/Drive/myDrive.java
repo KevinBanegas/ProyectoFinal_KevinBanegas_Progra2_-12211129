@@ -47,6 +47,7 @@ public class myDrive extends javax.swing.JFrame {
         initComponents();
         traerCuenta();
         traerFiles();
+        traerFiles();
         updateTablaRecientes();
         System.out.println(files + "bruh");
         this.indexCuenta = indexCuenta;
@@ -562,7 +563,6 @@ public class myDrive extends javax.swing.JFrame {
         label_titulo.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
         label_titulo.setForeground(new java.awt.Color(255, 255, 255));
         label_titulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        label_titulo.setText("Crear Archivos");
 
         javax.swing.GroupLayout panel_tituloLayout = new javax.swing.GroupLayout(panel_titulo);
         panel_titulo.setLayout(panel_tituloLayout);
@@ -582,9 +582,11 @@ public class myDrive extends javax.swing.JFrame {
 
         panel_tableRecientes.setBackground(new java.awt.Color(172, 112, 168));
 
+        jTable1.setBackground(new java.awt.Color(255, 153, 255));
+        jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Nombre", "Fecha Modificada", "Creador"
@@ -605,6 +607,9 @@ public class myDrive extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setRowHeight(25);
+        jTable1.setSelectionBackground(new java.awt.Color(204, 51, 255));
+        jTable1.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
@@ -774,9 +779,17 @@ public class myDrive extends javax.swing.JFrame {
             if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
                 setVisible(false);
                 new Administrador(indexCuenta).setVisible(true);
+                DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+                m.setNumRows(0);
+                jTable1.setModel(m);
+                label_titulo.setText("");
             } else {
                 setVisible(false);
                 new MenuPrincipal(indexCuenta).setVisible(true);
+                DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+                m.setNumRows(0);
+                jTable1.setModel(m);
+                label_titulo.setText("");
             }
         }
     }//GEN-LAST:event_label_exit_myDriveMouseClicked
@@ -920,17 +933,20 @@ public class myDrive extends javax.swing.JFrame {
         panel_tableRecientes.setVisible(true);
         panel_tablePapelera.setVisible(false);
         panel_tableCompartidos.setVisible(false);
+        label_titulo.setText("Ver Recientes");
         traerFiles();
         updateTablaRecientes();
     }//GEN-LAST:event_label_recientesMouseClicked
 
     private void label_compartidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_compartidosMouseClicked
+        label_titulo.setText("Archivos Compartidos");
         panel_tableRecientes.setVisible(false);
         panel_tablePapelera.setVisible(false);
         panel_tableCompartidos.setVisible(true);
     }//GEN-LAST:event_label_compartidosMouseClicked
 
     private void label_papeleraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_papeleraMouseClicked
+        label_titulo.setText("Papelera");
         panel_tableRecientes.setVisible(false);
         panel_tablePapelera.setVisible(true);
         panel_tableCompartidos.setVisible(false);
@@ -970,24 +986,23 @@ public class myDrive extends javax.swing.JFrame {
         Dba db = new Dba("./DataBase.accdb");
         db.conectar();
         try {
-//            db.query.execute("select * from archivos");
-//            ResultSet rs = db.query.getResultSet();
-//            ArrayList<Integer> idcuentas = new ArrayList();
-//            while (rs.next()) {
-//                idcuentas.add(rs.getInt("idCuenta"));
-//                rs.next();
-//            }
-//            System.out.println(idcuentas);
-//            int ver = 0;
-//            for (Integer idcuenta : idcuentas) {
-//                if (idcuenta == cuentas.get(indexCuenta).getId()) {
-//                    ver = 1;
-//                }
-//            }
-//            System.out.println(ver);
-//            if (ver == 0) {
-//                crearFiles();
-            //} else {
+            db.query.execute("select * from archivos");
+            ResultSet rs = db.query.getResultSet();
+            ArrayList<Integer> idcuentas = new ArrayList();
+            while (rs.next()) {
+                idcuentas.add(rs.getInt("idCuenta"));
+                //rs.next();
+            }
+            System.out.println(idcuentas);
+            int ver = 0;
+            for (Integer idcuenta : idcuentas) {
+                if (idcuenta == cuentas.get(indexCuenta).getId()) {
+                    ver = 1;
+                }
+            }
+            System.out.println(ver);
+            if (ver == 0) {
+                crearFiles();
                 ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
                 ObjectOutputStream oos = new ObjectOutputStream(byteArray);
                 oos.writeObject(files);
@@ -999,7 +1014,19 @@ public class myDrive extends javax.swing.JFrame {
                 p.execute();
                 db.commit();
                 JOptionPane.showMessageDialog(this, "Archivos Guardados", "Exito", JOptionPane.INFORMATION_MESSAGE);
-            //}
+            } else {
+                ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+                ObjectOutputStream oos = new ObjectOutputStream(byteArray);
+                oos.writeObject(files);
+
+                PreparedStatement p = db.query.getConnection().
+                        prepareStatement("update archivos set listaArchivos=?"
+                                + "where idCuenta=" + cuentas.get(indexCuenta).getId());
+                p.setBytes(1, byteArray.toByteArray());
+                p.execute();
+                db.commit();
+                JOptionPane.showMessageDialog(this, "Archivos Guardados", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1015,6 +1042,7 @@ public class myDrive extends javax.swing.JFrame {
             ResultSet rs = db.query.getResultSet();
             Blob blob = null;
             if (rs.next()) {
+                //rs.next();
                 blob = rs.getBlob("listaArchivos");
 
                 ObjectInputStream ois = new ObjectInputStream(blob.getBinaryStream());
@@ -1025,7 +1053,6 @@ public class myDrive extends javax.swing.JFrame {
                 }
                 System.out.println(files);
             }
-            System.out.println("bruh no files");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1045,23 +1072,22 @@ public class myDrive extends javax.swing.JFrame {
     }
 
     public void crearFiles() {
-//        Dba db = new Dba("./DataBase.accdb");
-//        db.conectar();
-//        files = new ArrayList();
-//        try {
-//            ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-//            ObjectOutputStream oos = new ObjectOutputStream(byteArray);
-//            oos.writeObject(files);
-//
-//            PreparedStatement p = db.query.getConnection().
-//                    prepareStatement("insert into archivos" + "(idCuenta,listaArchivos)"
-//                            + "VALUES(" + cuentas.get(indexCuenta).getId() + ", '" + byteArray.toByteArray() + "')");
-//            p.setBytes(1, byteArray.toByteArray());
-//            p.execute();
-//            db.commit();
-//        } catch (Exception e) {
-//
-//        }
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+        files = new ArrayList();
+        try {
+            ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(byteArray);
+            oos.writeObject(files);
+
+            PreparedStatement p = db.query.getConnection().
+                    prepareStatement("insert into archivos" + "(idCuenta)"
+                            + "VALUES(" + cuentas.get(indexCuenta).getId() + ")");
+            p.execute();
+            db.commit();
+        } catch (Exception e) {
+
+        }
     }
 
     /**
