@@ -5,16 +5,31 @@
  */
 package Drive;
 
+//import com.mysql.jdbc.PreparedStatement;
 import Conexiones.Dba;
+
 import java.awt.Color;
+import java.awt.Font;
+
+import java.io.ByteArrayOutputStream;
+import java.io.*;
+
+import java.io.ObjectOutputStream;
+import java.sql.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 import loginFrames.Administrador;
 import loginFrames.Cuenta;
-import loginFrames.DefaultLoginFrame;
+
 import loginFrames.MenuPrincipal;
 
 /**
@@ -27,12 +42,26 @@ public class myDrive extends javax.swing.JFrame {
      * Creates new form myDrive
      *
      * @param indexCuenta
-     * @param cuentas
      */
     public myDrive(int indexCuenta) {
         initComponents();
         traerCuenta();
-        myDrive.indexCuenta = indexCuenta;
+        traerFiles();
+        updateTablaRecientes();
+        System.out.println(files + "bruh");
+        this.indexCuenta = indexCuenta;
+        panel_tableRecientes.setVisible(true);
+        panel_tablePapelera.setVisible(false);
+        panel_tableCompartidos.setVisible(false);
+        jTable1.getTableHeader().setFont(new java.awt.Font("Litera-Serial", Font.BOLD, 15));
+        jTable1.getTableHeader().setBackground(new Color(255, 152, 204));
+        jTable1.getTableHeader().setForeground(Color.WHITE);
+        jTable4.getTableHeader().setFont(new java.awt.Font("Litera-Serial", Font.BOLD, 15));
+        jTable4.getTableHeader().setBackground(new Color(255, 152, 204));
+        jTable4.getTableHeader().setForeground(Color.WHITE);
+        jTable5.getTableHeader().setFont(new java.awt.Font("Litera-Serial", Font.BOLD, 15));
+        jTable5.getTableHeader().setBackground(new Color(255, 152, 204));
+        jTable5.getTableHeader().setForeground(Color.WHITE);
     }
 
     /**
@@ -50,6 +79,38 @@ public class myDrive extends javax.swing.JFrame {
         label_minimize_myDrive = new javax.swing.JLabel();
         panel_exit_myDrive = new javax.swing.JPanel();
         label_exit_myDrive = new javax.swing.JLabel();
+        panel_eventos = new javax.swing.JPanel();
+        myDrive_Title = new javax.swing.JLabel();
+        panel_recientes = new javax.swing.JPanel();
+        label_recientes = new javax.swing.JLabel();
+        panel_compartir = new javax.swing.JPanel();
+        label_compartir = new javax.swing.JLabel();
+        panel_compartidos = new javax.swing.JPanel();
+        label_compartidos = new javax.swing.JLabel();
+        panel_crearGrupo = new javax.swing.JPanel();
+        label_crearGrupo = new javax.swing.JLabel();
+        panel_explorarGrupo = new javax.swing.JPanel();
+        label_explorarGrupo = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        panel_papelera = new javax.swing.JPanel();
+        label_papelera = new javax.swing.JLabel();
+        panel_cargarArchivos = new javax.swing.JPanel();
+        label_cargarArchivos = new javax.swing.JLabel();
+        label_cargar = new javax.swing.JLabel();
+        panel_crearArchivos = new javax.swing.JPanel();
+        label_crearArchivos = new javax.swing.JLabel();
+        label_crear = new javax.swing.JLabel();
+        panel_titulo = new javax.swing.JPanel();
+        label_titulo = new javax.swing.JLabel();
+        panel_tableRecientes = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        panel_tableCompartidos = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        panel_tablePapelera = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable5 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -141,7 +202,7 @@ public class myDrive extends javax.swing.JFrame {
         header_menuLayout.setHorizontalGroup(
             header_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header_menuLayout.createSequentialGroup()
-                .addContainerGap(684, Short.MAX_VALUE)
+                .addContainerGap(934, Short.MAX_VALUE)
                 .addComponent(panel_minimize_myDrive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_exit_myDrive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -157,17 +218,539 @@ public class myDrive extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        bg_myDrive.add(header_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 30));
+        bg_myDrive.add(header_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 30));
+
+        panel_eventos.setBackground(new java.awt.Color(172, 112, 168));
+
+        myDrive_Title.setFont(new java.awt.Font("Litera-Serial", 0, 36)); // NOI18N
+        myDrive_Title.setForeground(new java.awt.Color(255, 255, 255));
+        myDrive_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        myDrive_Title.setText("myDrive");
+
+        panel_recientes.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_recientes.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_recientes.setForeground(new java.awt.Color(255, 255, 255));
+        label_recientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_recientes.setText("Ver Recientes");
+        label_recientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_recientesMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_recientesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_recientesMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_recientesLayout = new javax.swing.GroupLayout(panel_recientes);
+        panel_recientes.setLayout(panel_recientesLayout);
+        panel_recientesLayout.setHorizontalGroup(
+            panel_recientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_recientesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_recientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panel_recientesLayout.setVerticalGroup(
+            panel_recientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_recientes, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        panel_compartir.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_compartir.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_compartir.setForeground(new java.awt.Color(255, 255, 255));
+        label_compartir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_compartir.setText("Compartir Archivos");
+        label_compartir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_compartirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_compartirMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_compartirLayout = new javax.swing.GroupLayout(panel_compartir);
+        panel_compartir.setLayout(panel_compartirLayout);
+        panel_compartirLayout.setHorizontalGroup(
+            panel_compartirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_compartirLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_compartir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panel_compartirLayout.setVerticalGroup(
+            panel_compartirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_compartir, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        panel_compartidos.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_compartidos.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_compartidos.setForeground(new java.awt.Color(255, 255, 255));
+        label_compartidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_compartidos.setText("Archivos Compartidos");
+        label_compartidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_compartidosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_compartidosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_compartidosMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_compartidosLayout = new javax.swing.GroupLayout(panel_compartidos);
+        panel_compartidos.setLayout(panel_compartidosLayout);
+        panel_compartidosLayout.setHorizontalGroup(
+            panel_compartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_compartidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panel_compartidosLayout.setVerticalGroup(
+            panel_compartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_compartidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        panel_crearGrupo.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_crearGrupo.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_crearGrupo.setForeground(new java.awt.Color(255, 255, 255));
+        label_crearGrupo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_crearGrupo.setText("Crear Grupo");
+        label_crearGrupo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_crearGrupoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_crearGrupoMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_crearGrupoLayout = new javax.swing.GroupLayout(panel_crearGrupo);
+        panel_crearGrupo.setLayout(panel_crearGrupoLayout);
+        panel_crearGrupoLayout.setHorizontalGroup(
+            panel_crearGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_crearGrupoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_crearGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panel_crearGrupoLayout.setVerticalGroup(
+            panel_crearGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_crearGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        panel_explorarGrupo.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_explorarGrupo.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_explorarGrupo.setForeground(new java.awt.Color(255, 255, 255));
+        label_explorarGrupo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_explorarGrupo.setText("Explorar Grupo");
+        label_explorarGrupo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_explorarGrupoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_explorarGrupoMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_explorarGrupoLayout = new javax.swing.GroupLayout(panel_explorarGrupo);
+        panel_explorarGrupo.setLayout(panel_explorarGrupoLayout);
+        panel_explorarGrupoLayout.setHorizontalGroup(
+            panel_explorarGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_explorarGrupoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_explorarGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panel_explorarGrupoLayout.setVerticalGroup(
+            panel_explorarGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_explorarGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        jSeparator1.setBackground(new java.awt.Color(102, 0, 102));
+        jSeparator1.setForeground(new java.awt.Color(102, 0, 102));
+
+        panel_papelera.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_papelera.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_papelera.setForeground(new java.awt.Color(255, 255, 255));
+        label_papelera.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_papelera.setText("Papelera");
+        label_papelera.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_papeleraMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_papeleraMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_papeleraMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_papeleraLayout = new javax.swing.GroupLayout(panel_papelera);
+        panel_papelera.setLayout(panel_papeleraLayout);
+        panel_papeleraLayout.setHorizontalGroup(
+            panel_papeleraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_papeleraLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_papelera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panel_papeleraLayout.setVerticalGroup(
+            panel_papeleraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_papelera, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panel_eventosLayout = new javax.swing.GroupLayout(panel_eventos);
+        panel_eventos.setLayout(panel_eventosLayout);
+        panel_eventosLayout.setHorizontalGroup(
+            panel_eventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_eventosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(myDrive_Title, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(panel_recientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_compartir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_compartidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_crearGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_explorarGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_papelera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panel_eventosLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_eventosLayout.setVerticalGroup(
+            panel_eventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_eventosLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(myDrive_Title)
+                .addGap(18, 18, 18)
+                .addComponent(panel_recientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_compartir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_compartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_papelera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panel_crearGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_explorarGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(216, Short.MAX_VALUE))
+        );
+
+        bg_myDrive.add(panel_eventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 200, 540));
+
+        panel_cargarArchivos.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_cargarArchivos.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_cargarArchivos.setForeground(new java.awt.Color(255, 255, 255));
+        label_cargarArchivos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label_cargarArchivos.setText("Cargar Archivos");
+        label_cargarArchivos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_cargarArchivosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_cargarArchivosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_cargarArchivosMouseExited(evt);
+            }
+        });
+
+        label_cargar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        label_cargar.setForeground(new java.awt.Color(255, 255, 255));
+        label_cargar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_cargar.setText("+");
+        label_cargar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_cargarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_cargarMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_cargarArchivosLayout = new javax.swing.GroupLayout(panel_cargarArchivos);
+        panel_cargarArchivos.setLayout(panel_cargarArchivosLayout);
+        panel_cargarArchivosLayout.setHorizontalGroup(
+            panel_cargarArchivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_cargarArchivosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_cargar, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label_cargarArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
+        );
+        panel_cargarArchivosLayout.setVerticalGroup(
+            panel_cargarArchivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_cargarArchivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(label_cargar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(label_cargarArchivos, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+        );
+
+        bg_myDrive.add(panel_cargarArchivos, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 190, 30));
+
+        panel_crearArchivos.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_crearArchivos.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_crearArchivos.setForeground(new java.awt.Color(255, 255, 255));
+        label_crearArchivos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label_crearArchivos.setText("Crear Archivos");
+        label_crearArchivos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_crearArchivosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_crearArchivosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_crearArchivosMouseExited(evt);
+            }
+        });
+
+        label_crear.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        label_crear.setForeground(new java.awt.Color(255, 255, 255));
+        label_crear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_crear.setText("+");
+        label_crear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_crearMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_crearMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_crearArchivosLayout = new javax.swing.GroupLayout(panel_crearArchivos);
+        panel_crearArchivos.setLayout(panel_crearArchivosLayout);
+        panel_crearArchivosLayout.setHorizontalGroup(
+            panel_crearArchivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_crearArchivosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_crear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label_crearArchivos)
+                .addGap(50, 50, 50))
+        );
+        panel_crearArchivosLayout.setVerticalGroup(
+            panel_crearArchivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_crearArchivosLayout.createSequentialGroup()
+                .addGroup(panel_crearArchivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_crearArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_crear, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        bg_myDrive.add(panel_crearArchivos, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 170, 30));
+
+        panel_titulo.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_titulo.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_titulo.setForeground(new java.awt.Color(255, 255, 255));
+        label_titulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label_titulo.setText("Crear Archivos");
+
+        javax.swing.GroupLayout panel_tituloLayout = new javax.swing.GroupLayout(panel_titulo);
+        panel_titulo.setLayout(panel_tituloLayout);
+        panel_tituloLayout.setHorizontalGroup(
+            panel_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_tituloLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        panel_tituloLayout.setVerticalGroup(
+            panel_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        bg_myDrive.add(panel_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 390, 40));
+
+        panel_tableRecientes.setBackground(new java.awt.Color(172, 112, 168));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null}
+            },
+            new String [] {
+                "Nombre", "Fecha Modificada", "Creador"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(400);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        javax.swing.GroupLayout panel_tableRecientesLayout = new javax.swing.GroupLayout(panel_tableRecientes);
+        panel_tableRecientes.setLayout(panel_tableRecientesLayout);
+        panel_tableRecientesLayout.setHorizontalGroup(
+            panel_tableRecientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_tableRecientesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panel_tableRecientesLayout.setVerticalGroup(
+            panel_tableRecientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_tableRecientesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+        );
+
+        bg_myDrive.add(panel_tableRecientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 770, 430));
+
+        panel_tableCompartidos.setBackground(new java.awt.Color(172, 112, 168));
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null}
+            },
+            new String [] {
+                "Nombre", "Fecha Modificada", "Creador"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(jTable4);
+        if (jTable4.getColumnModel().getColumnCount() > 0) {
+            jTable4.getColumnModel().getColumn(0).setResizable(false);
+            jTable4.getColumnModel().getColumn(0).setPreferredWidth(400);
+            jTable4.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        javax.swing.GroupLayout panel_tableCompartidosLayout = new javax.swing.GroupLayout(panel_tableCompartidos);
+        panel_tableCompartidos.setLayout(panel_tableCompartidosLayout);
+        panel_tableCompartidosLayout.setHorizontalGroup(
+            panel_tableCompartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_tableCompartidosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panel_tableCompartidosLayout.setVerticalGroup(
+            panel_tableCompartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_tableCompartidosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        bg_myDrive.add(panel_tableCompartidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 770, 430));
+
+        panel_tablePapelera.setBackground(new java.awt.Color(172, 112, 168));
+
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nombre", "Fecha Modificada", "Creador"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(jTable5);
+        if (jTable5.getColumnModel().getColumnCount() > 0) {
+            jTable5.getColumnModel().getColumn(0).setResizable(false);
+            jTable5.getColumnModel().getColumn(0).setPreferredWidth(400);
+            jTable5.getColumnModel().getColumn(1).setResizable(false);
+            jTable5.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        javax.swing.GroupLayout panel_tablePapeleraLayout = new javax.swing.GroupLayout(panel_tablePapelera);
+        panel_tablePapelera.setLayout(panel_tablePapeleraLayout);
+        panel_tablePapeleraLayout.setHorizontalGroup(
+            panel_tablePapeleraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_tablePapeleraLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panel_tablePapeleraLayout.setVerticalGroup(
+            panel_tablePapeleraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_tablePapeleraLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        bg_myDrive.add(panel_tablePapelera, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 770, 430));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg_myDrive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(bg_myDrive, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg_myDrive, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(bg_myDrive, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -216,6 +799,147 @@ public class myDrive extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_header_menuMousePressed
+
+    private void label_recientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_recientesMouseEntered
+        panel_recientes.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_recientesMouseEntered
+
+    private void label_compartirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_compartirMouseEntered
+        panel_compartir.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_compartirMouseEntered
+
+    private void label_compartidosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_compartidosMouseEntered
+        panel_compartidos.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_compartidosMouseEntered
+
+    private void label_papeleraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_papeleraMouseEntered
+        panel_papelera.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_papeleraMouseEntered
+
+    private void label_crearGrupoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearGrupoMouseEntered
+        panel_crearGrupo.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_crearGrupoMouseEntered
+
+    private void label_explorarGrupoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_explorarGrupoMouseEntered
+        panel_explorarGrupo.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_explorarGrupoMouseEntered
+
+    private void label_recientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_recientesMouseExited
+        panel_recientes.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_recientesMouseExited
+
+    private void label_compartirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_compartirMouseExited
+        panel_compartir.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_compartirMouseExited
+
+    private void label_compartidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_compartidosMouseExited
+        panel_compartidos.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_compartidosMouseExited
+
+    private void label_papeleraMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_papeleraMouseExited
+        panel_papelera.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_papeleraMouseExited
+
+    private void label_crearGrupoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearGrupoMouseExited
+        panel_crearGrupo.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_crearGrupoMouseExited
+
+    private void label_explorarGrupoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_explorarGrupoMouseExited
+        panel_explorarGrupo.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_explorarGrupoMouseExited
+
+    private void label_cargarArchivosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_cargarArchivosMouseEntered
+        panel_cargarArchivos.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_cargarArchivosMouseEntered
+
+    private void label_cargarArchivosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_cargarArchivosMouseExited
+        panel_cargarArchivos.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_cargarArchivosMouseExited
+
+    private void label_crearArchivosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearArchivosMouseEntered
+        panel_crearArchivos.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_crearArchivosMouseEntered
+
+    private void label_crearArchivosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearArchivosMouseExited
+        panel_crearArchivos.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_crearArchivosMouseExited
+
+    private void label_cargarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_cargarMouseEntered
+        panel_cargarArchivos.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_cargarMouseEntered
+
+    private void label_cargarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_cargarMouseExited
+        panel_cargarArchivos.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_cargarMouseExited
+
+    private void label_crearMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearMouseEntered
+        panel_cargarArchivos.setBackground(new Color(195, 0, 195));
+    }//GEN-LAST:event_label_crearMouseEntered
+
+    private void label_crearMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearMouseExited
+        panel_cargarArchivos.setBackground(new Color(153, 0, 153));
+    }//GEN-LAST:event_label_crearMouseExited
+
+    private void label_cargarArchivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_cargarArchivosMouseClicked
+        traerFiles();
+        try {
+            JFileChooser jfc = new JFileChooser();
+            int seleccion = jfc.showOpenDialog(this);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                int index = 1;
+                if (files != null) {
+                    int cent = 0;
+                    while (cent == 0) {
+                        cent = 1;
+                        index++;
+                        for (Archivo file : files) {
+                            if (index == file.getIdArchivo()) {
+                                cent = 0;
+                            }
+                        }
+                    }
+                }
+                File temp = jfc.getSelectedFile();
+                Archivo a = new Archivo();
+                a.setArchivo(temp);
+                a.setFechaCreacion(sdf.format(temp.lastModified()));
+                a.setIdArchivo(index);
+                a.setIdCuenta(cuentas.get(indexCuenta).getId());
+                a.setIdLista(1);
+                files.add(a);
+                agregarFiles();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        updateTablaRecientes();
+
+    }//GEN-LAST:event_label_cargarArchivosMouseClicked
+
+    private void label_recientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_recientesMouseClicked
+        panel_tableRecientes.setVisible(true);
+        panel_tablePapelera.setVisible(false);
+        panel_tableCompartidos.setVisible(false);
+        traerFiles();
+        updateTablaRecientes();
+    }//GEN-LAST:event_label_recientesMouseClicked
+
+    private void label_compartidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_compartidosMouseClicked
+        panel_tableRecientes.setVisible(false);
+        panel_tablePapelera.setVisible(false);
+        panel_tableCompartidos.setVisible(true);
+    }//GEN-LAST:event_label_compartidosMouseClicked
+
+    private void label_papeleraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_papeleraMouseClicked
+        panel_tableRecientes.setVisible(false);
+        panel_tablePapelera.setVisible(true);
+        panel_tableCompartidos.setVisible(false);
+    }//GEN-LAST:event_label_papeleraMouseClicked
+
+    private void label_crearArchivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearArchivosMouseClicked
+        agregarFiles();
+    }//GEN-LAST:event_label_crearArchivosMouseClicked
+
     public void traerCuenta() {
         Dba db = new Dba("./DataBase.accdb");
         db.conectar();
@@ -228,13 +952,116 @@ public class myDrive extends javax.swing.JFrame {
                 Cuenta u = new Cuenta();
                 u.setUser(rs.getString("usuario"));
                 u.setContra(rs.getString("contra"));
+                u.setId(rs.getInt("id"));
                 cuentas.add(u);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
+    }
 
+    public void traerArchivos() {
+
+    }
+
+    public void agregarFiles() {
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+        try {
+//            db.query.execute("select * from archivos");
+//            ResultSet rs = db.query.getResultSet();
+//            ArrayList<Integer> idcuentas = new ArrayList();
+//            while (rs.next()) {
+//                idcuentas.add(rs.getInt("idCuenta"));
+//                rs.next();
+//            }
+//            System.out.println(idcuentas);
+//            int ver = 0;
+//            for (Integer idcuenta : idcuentas) {
+//                if (idcuenta == cuentas.get(indexCuenta).getId()) {
+//                    ver = 1;
+//                }
+//            }
+//            System.out.println(ver);
+//            if (ver == 0) {
+//                crearFiles();
+            //} else {
+                ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+                ObjectOutputStream oos = new ObjectOutputStream(byteArray);
+                oos.writeObject(files);
+
+                PreparedStatement p = db.query.getConnection().
+                        prepareStatement("update archivos set listaArchivos=?"
+                                + "where idCuenta=" + cuentas.get(indexCuenta).getId());
+                p.setBytes(1, byteArray.toByteArray());
+                p.execute();
+                db.commit();
+                JOptionPane.showMessageDialog(this, "Archivos Guardados", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            //}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        db.desconectar();
+    }
+
+    public void traerFiles() {
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+        files = new ArrayList();
+        try {
+            db.query.execute("select * from archivos where idCuenta=" + cuentas.get(indexCuenta).getId());
+            ResultSet rs = db.query.getResultSet();
+            Blob blob = null;
+            if (rs.next()) {
+                blob = rs.getBlob("listaArchivos");
+
+                ObjectInputStream ois = new ObjectInputStream(blob.getBinaryStream());
+                ArrayList<Archivo> temp = (ArrayList<Archivo>) ois.readObject();
+
+                for (Archivo archivo : temp) {
+                    files.add(archivo);
+                }
+                System.out.println(files);
+            }
+            System.out.println("bruh no files");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTablaRecientes() {
+        DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+        m.setNumRows(0);
+        for (Archivo file : files) {
+            Object[] row = new Object[3];
+            row[0] = file.getArchivo().getName();
+            row[1] = file.getFechaCreacion();
+            row[2] = cuentas.get(indexCuenta).getUser();
+            m.addRow(row);
+        }
+        jTable1.setModel(m);
+    }
+
+    public void crearFiles() {
+//        Dba db = new Dba("./DataBase.accdb");
+//        db.conectar();
+//        files = new ArrayList();
+//        try {
+//            ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+//            ObjectOutputStream oos = new ObjectOutputStream(byteArray);
+//            oos.writeObject(files);
+//
+//            PreparedStatement p = db.query.getConnection().
+//                    prepareStatement("insert into archivos" + "(idCuenta,listaArchivos)"
+//                            + "VALUES(" + cuentas.get(indexCuenta).getId() + ", '" + byteArray.toByteArray() + "')");
+//            p.setBytes(1, byteArray.toByteArray());
+//            p.execute();
+//            db.commit();
+//        } catch (Exception e) {
+//
+//        }
     }
 
     /**
@@ -275,12 +1102,46 @@ public class myDrive extends javax.swing.JFrame {
     private int yMouse;
     private static int indexCuenta;
     private static ArrayList<Cuenta> cuentas;
+    private static ArrayList<Archivo> files = new ArrayList();
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyy/MM/dd");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg_myDrive;
     private javax.swing.JPanel header_menu;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable4;
+    private javax.swing.JTable jTable5;
+    private javax.swing.JLabel label_cargar;
+    private javax.swing.JLabel label_cargarArchivos;
+    private javax.swing.JLabel label_compartidos;
+    private javax.swing.JLabel label_compartir;
+    private javax.swing.JLabel label_crear;
+    private javax.swing.JLabel label_crearArchivos;
+    private javax.swing.JLabel label_crearGrupo;
     private javax.swing.JLabel label_exit_myDrive;
+    private javax.swing.JLabel label_explorarGrupo;
     private javax.swing.JLabel label_minimize_myDrive;
+    private javax.swing.JLabel label_papelera;
+    private javax.swing.JLabel label_recientes;
+    private javax.swing.JLabel label_titulo;
+    private javax.swing.JLabel myDrive_Title;
+    private javax.swing.JPanel panel_cargarArchivos;
+    private javax.swing.JPanel panel_compartidos;
+    private javax.swing.JPanel panel_compartir;
+    private javax.swing.JPanel panel_crearArchivos;
+    private javax.swing.JPanel panel_crearGrupo;
+    private javax.swing.JPanel panel_eventos;
     private javax.swing.JPanel panel_exit_myDrive;
+    private javax.swing.JPanel panel_explorarGrupo;
     private javax.swing.JPanel panel_minimize_myDrive;
+    private javax.swing.JPanel panel_papelera;
+    private javax.swing.JPanel panel_recientes;
+    private javax.swing.JPanel panel_tableCompartidos;
+    private javax.swing.JPanel panel_tablePapelera;
+    private javax.swing.JPanel panel_tableRecientes;
+    private javax.swing.JPanel panel_titulo;
     // End of variables declaration//GEN-END:variables
 }

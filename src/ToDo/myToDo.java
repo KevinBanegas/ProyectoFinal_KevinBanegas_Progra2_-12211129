@@ -89,7 +89,19 @@ public class myToDo extends javax.swing.JFrame {
         table_listaTareas.setSurrendersFocusOnKeystroke(true);
         jPanel10.setVisible(true);
         label_myDayMouseClicked(new java.awt.event.MouseEvent(this, 1, 1, 1, 1, 1, 1, false));
+        int ver = 0;
+        for (ListaTarea listaTarea : listaTareas) {
+            if("myDay".equals(listaTarea.getNombreLista())&& listaTarea.getIdCuenta()==cuentas.get(this.indexCuenta).getId()){
+                ver = 1;
+            }
+        }
+        
+        if(ver == 0){
 
+            AgregarDayAsignados(cuentas.get(this.indexCuenta).getId(),"myDay",1);
+            AgregarDayAsignados(cuentas.get(this.indexCuenta).getId(), "Asignados", 2);
+            TraerListaTareas();
+        }
     }
 
     /**
@@ -115,9 +127,9 @@ public class myToDo extends javax.swing.JFrame {
         bg_myToDo = new javax.swing.JPanel();
         header_menu = new javax.swing.JPanel();
         panel_minimize_myToDo = new javax.swing.JPanel();
-        label_minimize_myToDo = new javax.swing.JLabel();
+        label_minimize_myDrive = new javax.swing.JLabel();
         panel_exit_myToDo = new javax.swing.JPanel();
-        label_exit_myToDo = new javax.swing.JLabel();
+        label_exit_myDrive = new javax.swing.JLabel();
         panel_eventos = new javax.swing.JPanel();
         panel_myDay = new javax.swing.JPanel();
         label_myDay = new javax.swing.JLabel();
@@ -282,19 +294,19 @@ public class myToDo extends javax.swing.JFrame {
 
         panel_minimize_myToDo.setBackground(new java.awt.Color(122, 68, 149));
 
-        label_minimize_myToDo.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
-        label_minimize_myToDo.setForeground(new java.awt.Color(255, 255, 255));
-        label_minimize_myToDo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_minimize_myToDo.setText("🗕");
-        label_minimize_myToDo.addMouseListener(new java.awt.event.MouseAdapter() {
+        label_minimize_myDrive.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        label_minimize_myDrive.setForeground(new java.awt.Color(255, 255, 255));
+        label_minimize_myDrive.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_minimize_myDrive.setText("🗕");
+        label_minimize_myDrive.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                label_minimize_myToDoMouseClicked(evt);
+                label_minimize_myDriveMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                label_minimize_myToDoMouseEntered(evt);
+                label_minimize_myDriveMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                label_minimize_myToDoMouseExited(evt);
+                label_minimize_myDriveMouseExited(evt);
             }
         });
 
@@ -304,30 +316,30 @@ public class myToDo extends javax.swing.JFrame {
             panel_minimize_myToDoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_minimize_myToDoLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(label_minimize_myToDo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(label_minimize_myDrive, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panel_minimize_myToDoLayout.setVerticalGroup(
             panel_minimize_myToDoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_minimize_myToDoLayout.createSequentialGroup()
-                .addComponent(label_minimize_myToDo)
+                .addComponent(label_minimize_myDrive)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         panel_exit_myToDo.setBackground(new java.awt.Color(122, 68, 149));
 
-        label_exit_myToDo.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
-        label_exit_myToDo.setForeground(new java.awt.Color(255, 255, 255));
-        label_exit_myToDo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_exit_myToDo.setText("🗙");
-        label_exit_myToDo.addMouseListener(new java.awt.event.MouseAdapter() {
+        label_exit_myDrive.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        label_exit_myDrive.setForeground(new java.awt.Color(255, 255, 255));
+        label_exit_myDrive.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_exit_myDrive.setText("🗙");
+        label_exit_myDrive.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                label_exit_myToDoMouseClicked(evt);
+                label_exit_myDriveMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                label_exit_myToDoMouseEntered(evt);
+                label_exit_myDriveMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                label_exit_myToDoMouseExited(evt);
+                label_exit_myDriveMouseExited(evt);
             }
         });
 
@@ -337,13 +349,13 @@ public class myToDo extends javax.swing.JFrame {
             panel_exit_myToDoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_exit_myToDoLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(label_exit_myToDo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(label_exit_myDrive, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panel_exit_myToDoLayout.setVerticalGroup(
             panel_exit_myToDoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_exit_myToDoLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(label_exit_myToDo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(label_exit_myDrive, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout header_menuLayout = new javax.swing.GroupLayout(header_menu);
@@ -372,6 +384,11 @@ public class myToDo extends javax.swing.JFrame {
         panel_eventos.setBackground(new java.awt.Color(172, 112, 168));
 
         panel_myDay.setBackground(new java.awt.Color(153, 0, 153));
+        panel_myDay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panel_myDayMouseClicked(evt);
+            }
+        });
 
         label_myDay.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
         label_myDay.setForeground(new java.awt.Color(255, 255, 255));
@@ -504,7 +521,7 @@ public class myToDo extends javax.swing.JFrame {
 
         panel_listasTareas.setBackground(new java.awt.Color(153, 0, 153));
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("+");
@@ -1158,19 +1175,19 @@ public class myToDo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void label_minimize_myToDoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_myToDoMouseClicked
+    private void label_minimize_myDriveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_myDriveMouseClicked
         setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_label_minimize_myToDoMouseClicked
+    }//GEN-LAST:event_label_minimize_myDriveMouseClicked
 
-    private void label_minimize_myToDoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_myToDoMouseEntered
+    private void label_minimize_myDriveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_myDriveMouseEntered
         panel_minimize_myToDo.setBackground(new Color(122, 96, 149));
-    }//GEN-LAST:event_label_minimize_myToDoMouseEntered
+    }//GEN-LAST:event_label_minimize_myDriveMouseEntered
 
-    private void label_minimize_myToDoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_myToDoMouseExited
+    private void label_minimize_myDriveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_minimize_myDriveMouseExited
         panel_minimize_myToDo.setBackground(header_menu.getBackground());
-    }//GEN-LAST:event_label_minimize_myToDoMouseExited
+    }//GEN-LAST:event_label_minimize_myDriveMouseExited
 
-    private void label_exit_myToDoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myToDoMouseClicked
+    private void label_exit_myDriveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myDriveMouseClicked
         int yesno = JOptionPane.showConfirmDialog(this, "Salir y guardar cambios?", "Salir", 0);
         if (yesno == 0) {
             if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
@@ -1181,15 +1198,15 @@ public class myToDo extends javax.swing.JFrame {
                 new MenuPrincipal(indexCuenta).setVisible(true);
             }
         }
-    }//GEN-LAST:event_label_exit_myToDoMouseClicked
+    }//GEN-LAST:event_label_exit_myDriveMouseClicked
 
-    private void label_exit_myToDoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myToDoMouseEntered
+    private void label_exit_myDriveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myDriveMouseEntered
         panel_exit_myToDo.setBackground(Color.red);
-    }//GEN-LAST:event_label_exit_myToDoMouseEntered
+    }//GEN-LAST:event_label_exit_myDriveMouseEntered
 
-    private void label_exit_myToDoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myToDoMouseExited
+    private void label_exit_myDriveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myDriveMouseExited
         panel_exit_myToDo.setBackground(header_menu.getBackground());
-    }//GEN-LAST:event_label_exit_myToDoMouseExited
+    }//GEN-LAST:event_label_exit_myDriveMouseExited
 
     private void header_menuMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_menuMouseDragged
         int x = evt.getXOnScreen();
@@ -1331,7 +1348,7 @@ public class myToDo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1MousePressed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        if (!"Agregar Tarea".equals(jTextField1.getText())) {
+        if (!"Agregar Tarea".equals(jTextField1.getText()) || "".equals(jTextField1.getText())) {
             try {
                 if (panel_listaName.isVisible()) {
                     String name = label_listaName.getText();
@@ -1377,11 +1394,17 @@ public class myToDo extends javax.swing.JFrame {
                         }
                     }
                     if (ver == 0) {
+                        int id=0;
+                        for (ListaTarea listaTarea : listaTareas) {
+                            if("myDay".equals(listaTarea.getNombreLista()) && listaTarea.getIdCuenta()==cuentas.get(indexCuenta).getId()){
+                                id=listaTarea.getIdLista();
+                            }
+                        }
                         Tarea t = new Tarea();
                         SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
                         t.setFechaRealizar(dateChooser.getDate());
                         t.setIdCuenta(cuentas.get(indexCuenta).getId());
-                        t.setIdLista(1);
+                        t.setIdLista(id);
                         t.setImportante(false);
                         t.setNombreTarea(jTextField1.getText());
                         t.setRealizado(false);
@@ -1504,7 +1527,6 @@ public class myToDo extends javax.swing.JFrame {
             String nombre = table_myDay.getValueAt(i, 1).toString();
             DefaultTableModel m = (DefaultTableModel) table_myDay.getModel();
             if ((Boolean) table_myDay.getValueAt(table_myDay.getSelectedRow(), 0) == true) {
-                //m.removeRow(table_myDay.getSelectedRow());
                 for (Tarea tarea : tareas) {
                     if (tarea.getNombreTarea().equals(nombre)) {
                         tarea.setImportante(true);
@@ -1535,7 +1557,7 @@ public class myToDo extends javax.swing.JFrame {
             if ((Boolean) table_myDay.getValueAt(table_myDay.getSelectedRow(), 3) == true && ((Boolean) table_myDay.getValueAt(table_myDay.getSelectedRow(), 0) == false || (Boolean) table_myDay.getValueAt(table_myDay.getSelectedRow(), 0) == true)) {
                 m.removeRow(table_myDay.getSelectedRow());
                 for (Tarea tarea : tareas) {
-                    if (tarea.getNombreTarea().equals(nombre)) {
+                    if (tarea.getNombreTarea().equals(nombre) && tarea.getIdCuenta()==cuentas.get(indexCuenta).getId()) {
                         tarea.setRealizado(true);
                         ponerTareaCompletado(tarea.getIdTarea());
                         traerTareas();
@@ -1630,7 +1652,7 @@ public class myToDo extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseExited
 
     private void jTextField2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField2MousePressed
-        if (jTextField2.getText().equals("Agregar Tarea")) {
+        if (jTextField2.getText().equals("Agregar Lista")) {
             jTextField2.setText("");
             jTextField2.setForeground(Color.WHITE);
         }
@@ -1658,7 +1680,7 @@ public class myToDo extends javax.swing.JFrame {
 
             int id = 0;
             for (ListaTarea listaTarea : listaTareas) {
-                if (listaTarea.getNombreLista().equals(name)) {
+                if (listaTarea.getNombreLista().equals(name)&&listaTarea.getIdCuenta()==cuentas.get(indexCuenta).getId()){
                     id = listaTarea.getIdLista();
                 }
             }
@@ -1680,7 +1702,7 @@ public class myToDo extends javax.swing.JFrame {
     }//GEN-LAST:event_table_listaTareasMouseClicked
 
     private void jTextField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField2MouseClicked
-
+        
     }//GEN-LAST:event_jTextField2MouseClicked
 
     private void ElimTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElimTareaActionPerformed
@@ -1856,10 +1878,13 @@ public class myToDo extends javax.swing.JFrame {
             }
             if (idTarea != 0) {
                 this.idTarea = idTarea;
+                TraerListaTareas();
                 DefaultComboBoxModel m = (DefaultComboBoxModel) jComboBox1.getModel();
+                m.removeAllElements();
                 for (ListaTarea listaTarea : listaTareas) {
                     if (listaTarea.getIdCuenta() == cuentas.get(indexCuenta).getId()) {
                         m.addElement(listaTarea.getNombreLista());
+                        System.out.println(listaTarea.getNombreLista());
                     }
                 }
                 jComboBox1.setModel(m);
@@ -1900,6 +1925,10 @@ public class myToDo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No ingresó una lista", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void panel_myDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel_myDayMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_panel_myDayMouseClicked
 
     public void traerCuenta() {
         Dba db = new Dba("./DataBase.accdb");
@@ -2053,6 +2082,22 @@ public class myToDo extends javax.swing.JFrame {
             db.commit();
         } catch (Exception e) {
             //e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        db.desconectar();
+    }
+    
+    public void AgregarDayAsignados(int cuenta, String nombre, int idLista){
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+        try {
+            int id = cuentas.get(indexCuenta).getId();
+            db.query.execute("INSERT INTO listaTareas"
+                    + "(idLista,idCuenta,nombreLista)"
+                    + " VALUES (" + idLista + ", " + cuenta + ", '" + nombre + "')");
+            db.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
@@ -2251,11 +2296,11 @@ public class myToDo extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JLabel label_exit_myToDo;
+    private javax.swing.JLabel label_exit_myDrive;
     private javax.swing.JLabel label_importante;
     private javax.swing.JLabel label_listaName;
     private javax.swing.JLabel label_listasTareas1;
-    private javax.swing.JLabel label_minimize_myToDo;
+    private javax.swing.JLabel label_minimize_myDrive;
     private javax.swing.JLabel label_myDay;
     private javax.swing.JLabel label_tareasAsignadas;
     private javax.swing.JLabel label_tareasRealizadas;

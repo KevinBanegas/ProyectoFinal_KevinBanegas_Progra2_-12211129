@@ -892,6 +892,7 @@ public class Administrador extends javax.swing.JFrame {
         jPanel1.add(panel_eventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 200, 490));
 
         panel_crear.setBackground(new java.awt.Color(204, 153, 255));
+        panel_crear.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panel_registrar.setBackground(new java.awt.Color(178, 112, 162));
 
@@ -928,20 +929,25 @@ public class Administrador extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        panel_crear.add(panel_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 354, -1, -1));
+
         jLabel1.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 51, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Usuario Invalido. Intente de nuevo.");
+        panel_crear.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 105, 260, -1));
 
         crearCuenta_Title3.setFont(new java.awt.Font("Litera-Serial", 0, 36)); // NOI18N
         crearCuenta_Title3.setForeground(new java.awt.Color(255, 255, 255));
         crearCuenta_Title3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         crearCuenta_Title3.setText("Crear Cuenta");
+        panel_crear.add(crearCuenta_Title3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 18, 496, -1));
 
         jLabel4.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 51, 102));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Ingrese un Usuario");
+        panel_crear.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 105, 120, -1));
 
         panel_usuario_iniciar3.setBackground(new java.awt.Color(204, 0, 204));
 
@@ -995,15 +1001,19 @@ public class Administrador extends javax.swing.JFrame {
                 .addComponent(icon_usuario_iniciar3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        panel_crear.add(panel_usuario_iniciar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(73, 74, -1, -1));
+
         jLabel5.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 51, 102));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Ingrese la Contraseña");
+        panel_crear.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 161, 140, -1));
 
         jLabel12.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 51, 102));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Contraseña no cuenta con todas las condiciones.");
+        panel_crear.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 161, 260, -1));
 
         panel_contra_iniciar.setBackground(new java.awt.Color(204, 0, 204));
 
@@ -1069,71 +1079,18 @@ public class Administrador extends javax.swing.JFrame {
                 .addGap(2, 2, 2))
         );
 
-        javax.swing.GroupLayout panel_crearLayout = new javax.swing.GroupLayout(panel_crear);
-        panel_crear.setLayout(panel_crearLayout);
-        panel_crearLayout.setHorizontalGroup(
-            panel_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_crearLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panel_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panel_usuario_iniciar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel_contra_iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panel_crearLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(crearCuenta_Title3, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panel_crearLayout.createSequentialGroup()
-                .addGap(193, 193, 193)
-                .addComponent(panel_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panel_crearLayout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addGroup(panel_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_crearLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panel_crearLayout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addGroup(panel_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panel_crearLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panel_crearLayout.setVerticalGroup(
-            panel_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_crearLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(crearCuenta_Title3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panel_usuario_iniciar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addGroup(panel_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_contra_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_crearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
-                .addComponent(panel_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        panel_crear.add(panel_contra_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(73, 125, 373, -1));
 
         jPanel1.add(panel_crear, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 510, 430));
 
         panel_VerCuenta.setBackground(new java.awt.Color(204, 153, 255));
+        panel_VerCuenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         crearCuenta_Title4.setFont(new java.awt.Font("Litera-Serial", 0, 36)); // NOI18N
         crearCuenta_Title4.setForeground(new java.awt.Color(255, 255, 255));
         crearCuenta_Title4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         crearCuenta_Title4.setText("Cuentas");
+        panel_VerCuenta.add(crearCuenta_Title4, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 496, -1));
 
         table_verCuentas.setBackground(new java.awt.Color(204, 102, 255));
         table_verCuentas.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
@@ -1175,33 +1132,12 @@ public class Administrador extends javax.swing.JFrame {
             table_verCuentas.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        javax.swing.GroupLayout panel_VerCuentaLayout = new javax.swing.GroupLayout(panel_VerCuenta);
-        panel_VerCuenta.setLayout(panel_VerCuentaLayout);
-        panel_VerCuentaLayout.setHorizontalGroup(
-            panel_VerCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_VerCuentaLayout.createSequentialGroup()
-                .addGroup(panel_VerCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_VerCuentaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(crearCuenta_Title4, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_VerCuentaLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panel_VerCuentaLayout.setVerticalGroup(
-            panel_VerCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_VerCuentaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(crearCuenta_Title4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
+        panel_VerCuenta.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 62, -1, 335));
 
         jPanel1.add(panel_VerCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 510, 430));
 
         panel_mod.setBackground(new java.awt.Color(204, 153, 255));
+        panel_mod.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panel_modificar.setBackground(new java.awt.Color(178, 112, 162));
 
@@ -1238,20 +1174,25 @@ public class Administrador extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        panel_mod.add(panel_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 354, -1, -1));
+
         jLabel2.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 102));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Usuario Invalido. Intente de nuevo.");
+        panel_mod.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 155, 260, -1));
 
         modCuenta_Title.setFont(new java.awt.Font("Litera-Serial", 0, 36)); // NOI18N
         modCuenta_Title.setForeground(new java.awt.Color(255, 255, 255));
         modCuenta_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         modCuenta_Title.setText("Modificar Cuenta");
+        panel_mod.add(modCuenta_Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 18, 496, -1));
 
         jLabel6.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 51, 102));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Ingrese un Usuario");
+        panel_mod.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(201, 155, 120, -1));
 
         panel_usuario_mod.setBackground(new java.awt.Color(204, 0, 204));
 
@@ -1305,15 +1246,19 @@ public class Administrador extends javax.swing.JFrame {
                 .addComponent(icon_usuario_iniciar4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        panel_mod.add(panel_usuario_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 124, 384, -1));
+
         jLabel7.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 51, 102));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Ingrese la Contraseña");
+        panel_mod.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(186, 211, 140, -1));
 
         jLabel13.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 51, 102));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Contraseña no cuenta con todas las condiciones.");
+        panel_mod.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 211, 260, -1));
 
         panel_contra_mod.setBackground(new java.awt.Color(204, 0, 204));
 
@@ -1381,6 +1326,8 @@ public class Administrador extends javax.swing.JFrame {
                 .addGap(2, 2, 2))
         );
 
+        panel_mod.add(panel_contra_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 175, -1, -1));
+
         cb_mod.setBackground(new java.awt.Color(153, 102, 255));
         cb_mod.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
         cb_mod.setForeground(new java.awt.Color(255, 255, 255));
@@ -1389,70 +1336,12 @@ public class Administrador extends javax.swing.JFrame {
                 cb_modActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout panel_modLayout = new javax.swing.GroupLayout(panel_mod);
-        panel_mod.setLayout(panel_modLayout);
-        panel_modLayout.setHorizontalGroup(
-            panel_modLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_modLayout.createSequentialGroup()
-                .addGroup(panel_modLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_modLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(modCuenta_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_modLayout.createSequentialGroup()
-                        .addGap(193, 193, 193)
-                        .addComponent(panel_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_modLayout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addGroup(panel_modLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(panel_modLayout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addGroup(panel_modLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panel_modLayout.createSequentialGroup()
-                                        .addGap(70, 70, 70)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panel_modLayout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addGroup(panel_modLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(panel_modLayout.createSequentialGroup()
-                                        .addGap(60, 60, 60)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(panel_usuario_mod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panel_contra_mod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(panel_modLayout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(cb_mod, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panel_modLayout.setVerticalGroup(
-            panel_modLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_modLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(modCuenta_Title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cb_mod, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
-                .addComponent(panel_usuario_mod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addGroup(panel_modLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_contra_mod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_modLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
-                .addComponent(panel_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        panel_mod.add(cb_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 74, 269, 34));
 
         jPanel1.add(panel_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 510, 430));
 
         panel_eliminar.setBackground(new java.awt.Color(204, 153, 255));
+        panel_eliminar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panel_elim.setBackground(new java.awt.Color(178, 112, 162));
 
@@ -1489,10 +1378,13 @@ public class Administrador extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        panel_eliminar.add(panel_elim, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 273, -1, -1));
+
         elimCuenta_Title.setFont(new java.awt.Font("Litera-Serial", 0, 36)); // NOI18N
         elimCuenta_Title.setForeground(new java.awt.Color(255, 255, 255));
         elimCuenta_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         elimCuenta_Title.setText("Eliminar Cuenta");
+        panel_eliminar.add(elimCuenta_Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 12, 510, -1));
 
         cb_elim.setBackground(new java.awt.Color(153, 102, 255));
         cb_elim.setForeground(new java.awt.Color(255, 255, 255));
@@ -1501,30 +1393,7 @@ public class Administrador extends javax.swing.JFrame {
                 cb_elimActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout panel_eliminarLayout = new javax.swing.GroupLayout(panel_eliminar);
-        panel_eliminar.setLayout(panel_eliminarLayout);
-        panel_eliminarLayout.setHorizontalGroup(
-            panel_eliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(elimCuenta_Title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_eliminarLayout.createSequentialGroup()
-                .addGap(0, 112, Short.MAX_VALUE)
-                .addGroup(panel_eliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cb_elim, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel_elim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(112, 112, 112))
-        );
-        panel_eliminarLayout.setVerticalGroup(
-            panel_eliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_eliminarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(elimCuenta_Title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cb_elim, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
-                .addComponent(panel_elim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
-        );
+        panel_eliminar.add(cb_elim, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 62, 286, 34));
 
         jPanel1.add(panel_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 510, 430));
 
