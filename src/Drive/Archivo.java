@@ -10,14 +10,16 @@ public class Archivo implements Serializable{
     private int idCuenta;
     private String fechaCreacion;
     private File archivo;
+    private String creador;
     
     private static final long SerialVersionUID = 123L;
 
-    public Archivo(int idArchivo, int idLista, int idCuenta, String fechaCreacion, String archivopath) {
+    public Archivo(int idArchivo, int idLista, int idCuenta, String fechaCreacion, String archivopath, String creador) {
         this.idArchivo = idArchivo;
         this.idLista = idLista;
         this.idCuenta = idCuenta;
         this.fechaCreacion = fechaCreacion;
+        this.creador = creador;
         archivo = new File(archivopath);
     }
 
@@ -62,6 +64,14 @@ public class Archivo implements Serializable{
 
     public void setArchivo(File archivo) {
         this.archivo = archivo;
+    }
+
+    public String getCreador() {
+        return creador;
+    }
+
+    public void setCreador(String creador) {
+        this.creador = creador;
     }
 
     @Override

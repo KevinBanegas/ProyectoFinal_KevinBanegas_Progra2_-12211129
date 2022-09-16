@@ -91,14 +91,14 @@ public class myToDo extends javax.swing.JFrame {
         label_myDayMouseClicked(new java.awt.event.MouseEvent(this, 1, 1, 1, 1, 1, 1, false));
         int ver = 0;
         for (ListaTarea listaTarea : listaTareas) {
-            if("myDay".equals(listaTarea.getNombreLista())&& listaTarea.getIdCuenta()==cuentas.get(this.indexCuenta).getId()){
+            if ("myDay".equals(listaTarea.getNombreLista()) && listaTarea.getIdCuenta() == cuentas.get(this.indexCuenta).getId()) {
                 ver = 1;
             }
         }
-        
-        if(ver == 0){
 
-            AgregarDayAsignados(cuentas.get(this.indexCuenta).getId(),"myDay",1);
+        if (ver == 0) {
+
+            AgregarDayAsignados(cuentas.get(this.indexCuenta).getId(), "myDay", 1);
             AgregarDayAsignados(cuentas.get(this.indexCuenta).getId(), "Asignados", 2);
             TraerListaTareas();
         }
@@ -718,6 +718,8 @@ public class myToDo extends javax.swing.JFrame {
 
         panel_tareasDay.setBackground(new java.awt.Color(172, 112, 168));
 
+        jScrollPane2.setBorder(null);
+
         table_myDay.setBackground(new java.awt.Color(255, 153, 255));
         table_myDay.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
         table_myDay.setForeground(new java.awt.Color(255, 255, 255));
@@ -777,6 +779,8 @@ public class myToDo extends javax.swing.JFrame {
 
         panel_importante.setBackground(new java.awt.Color(172, 112, 168));
 
+        jScrollPane3.setBorder(null);
+
         table_importante.setBackground(new java.awt.Color(255, 153, 255));
         table_importante.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
         table_importante.setForeground(new java.awt.Color(255, 255, 255));
@@ -835,6 +839,8 @@ public class myToDo extends javax.swing.JFrame {
 
         panel_completados.setBackground(new java.awt.Color(204, 102, 255));
 
+        jScrollPane4.setBorder(null);
+
         table_completados.setBackground(new java.awt.Color(255, 153, 255));
         table_completados.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
         table_completados.setForeground(new java.awt.Color(255, 255, 255));
@@ -880,6 +886,8 @@ public class myToDo extends javax.swing.JFrame {
         bg_myToDo.add(panel_completados, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 570, 420));
 
         panel_listasTarea.setBackground(new java.awt.Color(204, 102, 255));
+
+        jScrollPane5.setBorder(null);
 
         table_listas.setBackground(new java.awt.Color(255, 153, 255));
         table_listas.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
@@ -1394,10 +1402,10 @@ public class myToDo extends javax.swing.JFrame {
                         }
                     }
                     if (ver == 0) {
-                        int id=0;
+                        int id = 0;
                         for (ListaTarea listaTarea : listaTareas) {
-                            if("myDay".equals(listaTarea.getNombreLista()) && listaTarea.getIdCuenta()==cuentas.get(indexCuenta).getId()){
-                                id=listaTarea.getIdLista();
+                            if ("myDay".equals(listaTarea.getNombreLista()) && listaTarea.getIdCuenta() == cuentas.get(indexCuenta).getId()) {
+                                id = listaTarea.getIdLista();
                             }
                         }
                         Tarea t = new Tarea();
@@ -1422,7 +1430,7 @@ public class myToDo extends javax.swing.JFrame {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error al guardar tarea", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Ingrese un nombre a la tarea", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -1516,8 +1524,8 @@ public class myToDo extends javax.swing.JFrame {
 
     private void table_myDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_myDayMouseClicked
         if (evt.isMetaDown()) {
-            menu.show(evt.getComponent(), evt.getX(), evt.getY());
-            if (evt.getComponent() instanceof JTable) {
+            if (table_myDay.getSelectedRow() > -1) {
+                menu.show(evt.getComponent(), evt.getX(), evt.getY());
                 AgregarLista.setEnabled(true);
                 ElimTarea.setEnabled(true);
                 ElimLista.setEnabled(false);
@@ -1557,7 +1565,7 @@ public class myToDo extends javax.swing.JFrame {
             if ((Boolean) table_myDay.getValueAt(table_myDay.getSelectedRow(), 3) == true && ((Boolean) table_myDay.getValueAt(table_myDay.getSelectedRow(), 0) == false || (Boolean) table_myDay.getValueAt(table_myDay.getSelectedRow(), 0) == true)) {
                 m.removeRow(table_myDay.getSelectedRow());
                 for (Tarea tarea : tareas) {
-                    if (tarea.getNombreTarea().equals(nombre) && tarea.getIdCuenta()==cuentas.get(indexCuenta).getId()) {
+                    if (tarea.getNombreTarea().equals(nombre) && tarea.getIdCuenta() == cuentas.get(indexCuenta).getId()) {
                         tarea.setRealizado(true);
                         ponerTareaCompletado(tarea.getIdTarea());
                         traerTareas();
@@ -1575,8 +1583,8 @@ public class myToDo extends javax.swing.JFrame {
 
     private void table_importanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_importanteMouseClicked
         if (evt.isMetaDown()) {
-            menu.show(evt.getComponent(), evt.getX(), evt.getY());
-            if (evt.getComponent() instanceof JTable) {
+            if (table_importante.getSelectedRow() > -1) {
+                menu.show(evt.getComponent(), evt.getX(), evt.getY());
                 AgregarLista.setEnabled(true);
                 ElimTarea.setEnabled(true);
                 ElimLista.setEnabled(false);
@@ -1660,8 +1668,8 @@ public class myToDo extends javax.swing.JFrame {
 
     private void table_listaTareasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_listaTareasMouseClicked
         if (evt.isMetaDown()) {
-            menu.show(evt.getComponent(), evt.getX(), evt.getY());
-            if (evt.getComponent() instanceof JTable) {
+            if (table_listaTareas.getSelectedRow() > -1) {
+                menu.show(evt.getComponent(), evt.getX(), evt.getY());
                 AgregarLista.setEnabled(false);
                 ElimTarea.setEnabled(false);
                 ElimLista.setEnabled(true);
@@ -1680,7 +1688,7 @@ public class myToDo extends javax.swing.JFrame {
 
             int id = 0;
             for (ListaTarea listaTarea : listaTareas) {
-                if (listaTarea.getNombreLista().equals(name)&&listaTarea.getIdCuenta()==cuentas.get(indexCuenta).getId()){
+                if (listaTarea.getNombreLista().equals(name) && listaTarea.getIdCuenta() == cuentas.get(indexCuenta).getId()) {
                     id = listaTarea.getIdLista();
                 }
             }
@@ -1702,7 +1710,7 @@ public class myToDo extends javax.swing.JFrame {
     }//GEN-LAST:event_table_listaTareasMouseClicked
 
     private void jTextField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField2MouseClicked
-        
+
     }//GEN-LAST:event_jTextField2MouseClicked
 
     private void ElimTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElimTareaActionPerformed
@@ -1777,8 +1785,8 @@ public class myToDo extends javax.swing.JFrame {
 
     private void table_listasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_listasMouseClicked
         if (evt.isMetaDown()) {
-            menu.show(evt.getComponent(), evt.getX(), evt.getY());
-            if (evt.getComponent() instanceof JTable) {
+            if (table_listas.getSelectedRow() > -1) {
+                menu.show(evt.getComponent(), evt.getX(), evt.getY());
                 AgregarLista.setEnabled(true);
                 ElimTarea.setEnabled(true);
                 ElimLista.setEnabled(false);
@@ -1837,8 +1845,8 @@ public class myToDo extends javax.swing.JFrame {
 
     private void table_completadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_completadosMouseClicked
         if (evt.isMetaDown()) {
-            menu.show(evt.getComponent(), evt.getX(), evt.getY());
-            if (evt.getComponent() instanceof JTable) {
+            if (table_completados.getSelectedRow() > -1) {
+                menu.show(evt.getComponent(), evt.getX(), evt.getY());
                 AgregarLista.setEnabled(false);
                 ElimTarea.setEnabled(true);
                 ElimLista.setEnabled(false);
@@ -2086,8 +2094,8 @@ public class myToDo extends javax.swing.JFrame {
         }
         db.desconectar();
     }
-    
-    public void AgregarDayAsignados(int cuenta, String nombre, int idLista){
+
+    public void AgregarDayAsignados(int cuenta, String nombre, int idLista) {
         Dba db = new Dba("./DataBase.accdb");
         db.conectar();
         try {

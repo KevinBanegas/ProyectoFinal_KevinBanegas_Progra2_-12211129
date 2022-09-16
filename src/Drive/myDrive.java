@@ -9,6 +9,7 @@ package Drive;
 import Conexiones.Dba;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 
 import java.io.ByteArrayOutputStream;
@@ -21,10 +22,13 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import loginFrames.Administrador;
@@ -46,10 +50,8 @@ public class myDrive extends javax.swing.JFrame {
     public myDrive(int indexCuenta) {
         initComponents();
         traerCuenta();
-        traerFiles();
-        traerFiles();
-        updateTablaRecientes();
-        System.out.println(files + "bruh");
+
+        //System.out.println(files + "bruh");
         this.indexCuenta = indexCuenta;
         panel_tableRecientes.setVisible(true);
         panel_tablePapelera.setVisible(false);
@@ -63,6 +65,15 @@ public class myDrive extends javax.swing.JFrame {
         jTable5.getTableHeader().setFont(new java.awt.Font("Litera-Serial", Font.BOLD, 15));
         jTable5.getTableHeader().setBackground(new Color(255, 152, 204));
         jTable5.getTableHeader().setForeground(Color.WHITE);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(330);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        traerFiles();
+        updateTablaRecientes();
+        traerGrupos();
+        asignarCuentasGrupos();
     }
 
     /**
@@ -74,6 +85,51 @@ public class myDrive extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        elim_files = new javax.swing.JMenuItem();
+        mover_files = new javax.swing.JMenuItem();
+        compartir = new javax.swing.JMenu();
+        compartir_usuario = new javax.swing.JMenuItem();
+        compartir_grupo = new javax.swing.JMenuItem();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        restaurar_files = new javax.swing.JMenuItem();
+        elimSiempre_files = new javax.swing.JMenuItem();
+        dialog_compartirArchivos = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        panel_titulo1 = new javax.swing.JPanel();
+        label_titulo1 = new javax.swing.JLabel();
+        cb_usuarios = new javax.swing.JComboBox<>();
+        jPanel2 = new javax.swing.JPanel();
+        button_compartir = new javax.swing.JLabel();
+        dialog_crearGrupo = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        dialog_explorarGrupos = new javax.swing.JDialog();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jList4 = new javax.swing.JList<>();
+        dialog_compartirGrupos = new javax.swing.JDialog();
+        jPanel10 = new javax.swing.JPanel();
+        panel_titulo2 = new javax.swing.JPanel();
+        label_titulo2 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         bg_myDrive = new javax.swing.JPanel();
         header_menu = new javax.swing.JPanel();
         panel_minimize_myDrive = new javax.swing.JPanel();
@@ -84,8 +140,6 @@ public class myDrive extends javax.swing.JFrame {
         myDrive_Title = new javax.swing.JLabel();
         panel_recientes = new javax.swing.JPanel();
         label_recientes = new javax.swing.JLabel();
-        panel_compartir = new javax.swing.JPanel();
-        label_compartir = new javax.swing.JLabel();
         panel_compartidos = new javax.swing.JPanel();
         label_compartidos = new javax.swing.JLabel();
         panel_crearGrupo = new javax.swing.JPanel();
@@ -112,6 +166,448 @@ public class myDrive extends javax.swing.JFrame {
         panel_tablePapelera = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
+
+        elim_files.setText("Eliminar Archivo");
+        elim_files.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elim_filesActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(elim_files);
+
+        mover_files.setText("Mover Archivo");
+        jPopupMenu1.add(mover_files);
+
+        compartir.setText("Compartir");
+
+        compartir_usuario.setText("Compartir a Usuario");
+        compartir_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                compartir_usuarioActionPerformed(evt);
+            }
+        });
+        compartir.add(compartir_usuario);
+
+        compartir_grupo.setText("Compartir a Grupo");
+        compartir_grupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                compartir_grupoActionPerformed(evt);
+            }
+        });
+        compartir.add(compartir_grupo);
+
+        jPopupMenu1.add(compartir);
+
+        restaurar_files.setText("Restaurar Archivos");
+        restaurar_files.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restaurar_filesActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(restaurar_files);
+
+        elimSiempre_files.setText("Eliminar para Siempre");
+        elimSiempre_files.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elimSiempre_filesActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(elimSiempre_files);
+
+        jPanel1.setBackground(new java.awt.Color(252, 226, 219));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panel_titulo1.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_titulo1.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_titulo1.setForeground(new java.awt.Color(255, 255, 255));
+        label_titulo1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label_titulo1.setText("Elija el Usario a Compartir");
+
+        javax.swing.GroupLayout panel_titulo1Layout = new javax.swing.GroupLayout(panel_titulo1);
+        panel_titulo1.setLayout(panel_titulo1Layout);
+        panel_titulo1Layout.setHorizontalGroup(
+            panel_titulo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_titulo1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_titulo1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_titulo1Layout.setVerticalGroup(
+            panel_titulo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_titulo1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(panel_titulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 240, 40));
+
+        cb_usuarios.setBackground(new java.awt.Color(153, 102, 255));
+        cb_usuarios.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
+        cb_usuarios.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(cb_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 240, 30));
+
+        jPanel2.setBackground(new java.awt.Color(172, 112, 168));
+
+        button_compartir.setFont(new java.awt.Font("Litera-Serial", 0, 24)); // NOI18N
+        button_compartir.setForeground(new java.awt.Color(255, 255, 255));
+        button_compartir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        button_compartir.setText("Compartir");
+        button_compartir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_compartirMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(button_compartir, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(button_compartir, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 190, 60));
+
+        javax.swing.GroupLayout dialog_compartirArchivosLayout = new javax.swing.GroupLayout(dialog_compartirArchivos.getContentPane());
+        dialog_compartirArchivos.getContentPane().setLayout(dialog_compartirArchivosLayout);
+        dialog_compartirArchivosLayout.setHorizontalGroup(
+            dialog_compartirArchivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+        );
+        dialog_compartirArchivosLayout.setVerticalGroup(
+            dialog_compartirArchivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+        );
+
+        jPanel3.setBackground(new java.awt.Color(252, 226, 219));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane2.setBorder(null);
+
+        jList1.setBackground(new java.awt.Color(204, 153, 255));
+        jList1.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jList1.setModel(new DefaultListModel());
+
+        jScrollPane2.setViewportView(jList1);
+
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 210, 230));
+
+        jScrollPane3.setBorder(null);
+
+        jList2.setBackground(new java.awt.Color(204, 153, 255));
+        jList2.setFont(new java.awt.Font("Litera-Serial", 1, 18)); // NOI18N
+        jList2.setModel(new DefaultListModel());
+
+        jScrollPane3.setViewportView(jList2);
+
+        jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 210, 230));
+
+        jPanel4.setBackground(new java.awt.Color(172, 112, 168));
+
+        jLabel1.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Cuentas");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 210, 30));
+
+        jPanel5.setBackground(new java.awt.Color(172, 112, 168));
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("➥");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
+        );
+
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 50, 30));
+
+        jPanel6.setBackground(new java.awt.Color(172, 112, 168));
+
+        jTextField2.setBackground(new java.awt.Color(172, 112, 168));
+        jTextField2.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
+        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField2.setText("Nombre del Grupo");
+        jTextField2.setBorder(null);
+        jTextField2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField2MouseClicked(evt);
+            }
+        });
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("+");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(6, 6, 6)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(49, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTextField2)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 210, 30));
+
+        jPanel7.setBackground(new java.awt.Color(172, 112, 168));
+
+        jLabel4.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Crear Grupo");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 210, -1));
+
+        javax.swing.GroupLayout dialog_crearGrupoLayout = new javax.swing.GroupLayout(dialog_crearGrupo.getContentPane());
+        dialog_crearGrupo.getContentPane().setLayout(dialog_crearGrupoLayout);
+        dialog_crearGrupoLayout.setHorizontalGroup(
+            dialog_crearGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+        );
+        dialog_crearGrupoLayout.setVerticalGroup(
+            dialog_crearGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+        );
+
+        jPanel8.setBackground(new java.awt.Color(252, 226, 219));
+
+        jPanel9.setBackground(new java.awt.Color(172, 112, 168));
+
+        jLabel5.setBackground(new java.awt.Color(172, 112, 168));
+        jLabel5.setFont(new java.awt.Font("Litera-Serial", 0, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Grupos");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+        );
+
+        jComboBox1.setBackground(new java.awt.Color(172, 112, 168));
+        jComboBox1.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jScrollPane7.setBorder(null);
+
+        jList4.setBackground(new java.awt.Color(204, 153, 255));
+        jList4.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jList4.setForeground(new java.awt.Color(255, 255, 255));
+        jList4.setModel(new DefaultListModel());
+        jScrollPane7.setViewportView(jList4);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout dialog_explorarGruposLayout = new javax.swing.GroupLayout(dialog_explorarGrupos.getContentPane());
+        dialog_explorarGrupos.getContentPane().setLayout(dialog_explorarGruposLayout);
+        dialog_explorarGruposLayout.setHorizontalGroup(
+            dialog_explorarGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        dialog_explorarGruposLayout.setVerticalGroup(
+            dialog_explorarGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jPanel10.setBackground(new java.awt.Color(252, 226, 219));
+        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panel_titulo2.setBackground(new java.awt.Color(153, 0, 153));
+
+        label_titulo2.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        label_titulo2.setForeground(new java.awt.Color(255, 255, 255));
+        label_titulo2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label_titulo2.setText("Elija el Grupo a Compartir");
+
+        javax.swing.GroupLayout panel_titulo2Layout = new javax.swing.GroupLayout(panel_titulo2);
+        panel_titulo2.setLayout(panel_titulo2Layout);
+        panel_titulo2Layout.setHorizontalGroup(
+            panel_titulo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_titulo2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_titulo2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_titulo2Layout.setVerticalGroup(
+            panel_titulo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_titulo2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel10.add(panel_titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 240, 40));
+
+        jComboBox2.setBackground(new java.awt.Color(153, 102, 255));
+        jComboBox2.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
+        jComboBox2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel10.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 240, 30));
+
+        jPanel11.setBackground(new java.awt.Color(172, 112, 168));
+
+        jLabel6.setFont(new java.awt.Font("Litera-Serial", 0, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Compartir");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        jPanel10.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 180, 60));
+
+        javax.swing.GroupLayout dialog_compartirGruposLayout = new javax.swing.GroupLayout(dialog_compartirGrupos.getContentPane());
+        dialog_compartirGrupos.getContentPane().setLayout(dialog_compartirGruposLayout);
+        dialog_compartirGruposLayout.setHorizontalGroup(
+            dialog_compartirGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+        );
+        dialog_compartirGruposLayout.setVerticalGroup(
+            dialog_compartirGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -260,35 +756,6 @@ public class myDrive extends javax.swing.JFrame {
             .addComponent(label_recientes, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        panel_compartir.setBackground(new java.awt.Color(153, 0, 153));
-
-        label_compartir.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
-        label_compartir.setForeground(new java.awt.Color(255, 255, 255));
-        label_compartir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_compartir.setText("Compartir Archivos");
-        label_compartir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                label_compartirMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                label_compartirMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panel_compartirLayout = new javax.swing.GroupLayout(panel_compartir);
-        panel_compartir.setLayout(panel_compartirLayout);
-        panel_compartirLayout.setHorizontalGroup(
-            panel_compartirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_compartirLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(label_compartir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panel_compartirLayout.setVerticalGroup(
-            panel_compartirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_compartir, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-        );
-
         panel_compartidos.setBackground(new java.awt.Color(153, 0, 153));
 
         label_compartidos.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
@@ -325,6 +792,9 @@ public class myDrive extends javax.swing.JFrame {
         label_crearGrupo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_crearGrupo.setText("Crear Grupo");
         label_crearGrupo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_crearGrupoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 label_crearGrupoMouseEntered(evt);
             }
@@ -352,8 +822,11 @@ public class myDrive extends javax.swing.JFrame {
         label_explorarGrupo.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
         label_explorarGrupo.setForeground(new java.awt.Color(255, 255, 255));
         label_explorarGrupo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_explorarGrupo.setText("Explorar Grupo");
+        label_explorarGrupo.setText("Explorar Grupos");
         label_explorarGrupo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_explorarGrupoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 label_explorarGrupoMouseEntered(evt);
             }
@@ -420,7 +893,6 @@ public class myDrive extends javax.swing.JFrame {
                 .addComponent(myDrive_Title, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(panel_recientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panel_compartir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panel_compartidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panel_crearGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panel_explorarGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -438,18 +910,16 @@ public class myDrive extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(panel_recientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_compartir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_compartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_papelera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(panel_crearGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_explorarGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
 
         bg_myDrive.add(panel_eventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 200, 540));
@@ -563,6 +1033,7 @@ public class myDrive extends javax.swing.JFrame {
         label_titulo.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
         label_titulo.setForeground(new java.awt.Color(255, 255, 255));
         label_titulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label_titulo.setText("Ver Recientes");
 
         javax.swing.GroupLayout panel_tituloLayout = new javax.swing.GroupLayout(panel_titulo);
         panel_titulo.setLayout(panel_tituloLayout);
@@ -583,20 +1054,21 @@ public class myDrive extends javax.swing.JFrame {
         panel_tableRecientes.setBackground(new java.awt.Color(172, 112, 168));
 
         jTable1.setBackground(new java.awt.Color(255, 153, 255));
+        jTable1.setFont(new java.awt.Font("Litera-Serial", 0, 12)); // NOI18N
         jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Fecha Modificada", "Creador"
+                "Nombre", "Fecha Modificada", "Tamaño", "Creador"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -607,15 +1079,23 @@ public class myDrive extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         jTable1.setRowHeight(25);
         jTable1.setSelectionBackground(new java.awt.Color(204, 51, 255));
         jTable1.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(400);
             jTable1.getColumnModel().getColumn(1).setResizable(false);
             jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout panel_tableRecientesLayout = new javax.swing.GroupLayout(panel_tableRecientes);
@@ -631,27 +1111,30 @@ public class myDrive extends javax.swing.JFrame {
             panel_tableRecientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_tableRecientesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13))
         );
 
         bg_myDrive.add(panel_tableRecientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 770, 430));
 
         panel_tableCompartidos.setBackground(new java.awt.Color(172, 112, 168));
 
+        jTable4.setBackground(new java.awt.Color(255, 153, 255));
+        jTable4.setFont(new java.awt.Font("Litera-Serial", 0, 12)); // NOI18N
+        jTable4.setForeground(new java.awt.Color(255, 255, 255));
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Fecha Modificada", "Creador"
+                "Nombre", "Fecha Modificada", "Tamaño", "Creador"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -662,11 +1145,17 @@ public class myDrive extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable4.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
+        jTable4.setRowHeight(25);
+        jTable4.setSelectionBackground(new java.awt.Color(204, 51, 255));
+        jTable4.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane4.setViewportView(jTable4);
         if (jTable4.getColumnModel().getColumnCount() > 0) {
             jTable4.getColumnModel().getColumn(0).setResizable(false);
             jTable4.getColumnModel().getColumn(0).setPreferredWidth(400);
+            jTable4.getColumnModel().getColumn(1).setResizable(false);
             jTable4.getColumnModel().getColumn(2).setResizable(false);
+            jTable4.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout panel_tableCompartidosLayout = new javax.swing.GroupLayout(panel_tableCompartidos);
@@ -682,7 +1171,7 @@ public class myDrive extends javax.swing.JFrame {
             panel_tableCompartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_tableCompartidosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -690,22 +1179,25 @@ public class myDrive extends javax.swing.JFrame {
 
         panel_tablePapelera.setBackground(new java.awt.Color(172, 112, 168));
 
+        jTable5.setBackground(new java.awt.Color(255, 153, 255));
+        jTable5.setFont(new java.awt.Font("Litera-Serial", 0, 12)); // NOI18N
+        jTable5.setForeground(new java.awt.Color(255, 255, 255));
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Fecha Modificada", "Creador"
+                "Nombre", "Fecha Modificada", "Tamaño", "Creador"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -716,12 +1208,22 @@ public class myDrive extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable5.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
+        jTable5.setRowHeight(25);
+        jTable5.setSelectionBackground(new java.awt.Color(204, 51, 255));
+        jTable5.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jTable5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable5MouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(jTable5);
         if (jTable5.getColumnModel().getColumnCount() > 0) {
             jTable5.getColumnModel().getColumn(0).setResizable(false);
             jTable5.getColumnModel().getColumn(0).setPreferredWidth(400);
             jTable5.getColumnModel().getColumn(1).setResizable(false);
             jTable5.getColumnModel().getColumn(2).setResizable(false);
+            jTable5.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout panel_tablePapeleraLayout = new javax.swing.GroupLayout(panel_tablePapelera);
@@ -737,7 +1239,7 @@ public class myDrive extends javax.swing.JFrame {
             panel_tablePapeleraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_tablePapeleraLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -777,19 +1279,23 @@ public class myDrive extends javax.swing.JFrame {
         int yesno = JOptionPane.showConfirmDialog(this, "Salir y guardar cambios?", "Salir", 0);
         if (yesno == 0) {
             if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+                m.setNumRows(0);
+                jTable1.setModel(m);
+                label_titulo.setText("");
+                files = new ArrayList();
                 setVisible(false);
                 new Administrador(indexCuenta).setVisible(true);
-                DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
-                m.setNumRows(0);
-                jTable1.setModel(m);
-                label_titulo.setText("");
             } else {
-                setVisible(false);
-                new MenuPrincipal(indexCuenta).setVisible(true);
                 DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
                 m.setNumRows(0);
                 jTable1.setModel(m);
                 label_titulo.setText("");
+                files = new ArrayList();
+                setVisible(false);
+
+                new MenuPrincipal(indexCuenta).setVisible(true);
+
             }
         }
     }//GEN-LAST:event_label_exit_myDriveMouseClicked
@@ -817,10 +1323,6 @@ public class myDrive extends javax.swing.JFrame {
         panel_recientes.setBackground(new Color(195, 0, 195));
     }//GEN-LAST:event_label_recientesMouseEntered
 
-    private void label_compartirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_compartirMouseEntered
-        panel_compartir.setBackground(new Color(195, 0, 195));
-    }//GEN-LAST:event_label_compartirMouseEntered
-
     private void label_compartidosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_compartidosMouseEntered
         panel_compartidos.setBackground(new Color(195, 0, 195));
     }//GEN-LAST:event_label_compartidosMouseEntered
@@ -840,10 +1342,6 @@ public class myDrive extends javax.swing.JFrame {
     private void label_recientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_recientesMouseExited
         panel_recientes.setBackground(new Color(153, 0, 153));
     }//GEN-LAST:event_label_recientesMouseExited
-
-    private void label_compartirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_compartirMouseExited
-        panel_compartir.setBackground(new Color(153, 0, 153));
-    }//GEN-LAST:event_label_compartirMouseExited
 
     private void label_compartidosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_compartidosMouseExited
         panel_compartidos.setBackground(new Color(153, 0, 153));
@@ -919,13 +1417,19 @@ public class myDrive extends javax.swing.JFrame {
                 a.setIdArchivo(index);
                 a.setIdCuenta(cuentas.get(indexCuenta).getId());
                 a.setIdLista(1);
+                a.setCreador(cuentas.get(indexCuenta).getUser());
                 files.add(a);
                 agregarFiles();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        jTable1.setVisible(true);
+        jTable4.setVisible(false);
+        jTable5.setVisible(false);
+        traerFiles();
         updateTablaRecientes();
+        label_titulo.setText("Ver Recientes");
 
     }//GEN-LAST:event_label_cargarArchivosMouseClicked
 
@@ -936,6 +1440,9 @@ public class myDrive extends javax.swing.JFrame {
         label_titulo.setText("Ver Recientes");
         traerFiles();
         updateTablaRecientes();
+        for (Archivo file : files) {
+            System.out.println(file.getIdLista());
+        }
     }//GEN-LAST:event_label_recientesMouseClicked
 
     private void label_compartidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_compartidosMouseClicked
@@ -943,9 +1450,11 @@ public class myDrive extends javax.swing.JFrame {
         panel_tableRecientes.setVisible(false);
         panel_tablePapelera.setVisible(false);
         panel_tableCompartidos.setVisible(true);
+        updateTablaCompartidos();
     }//GEN-LAST:event_label_compartidosMouseClicked
 
     private void label_papeleraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_papeleraMouseClicked
+        updateTablaPapelera();
         label_titulo.setText("Papelera");
         panel_tableRecientes.setVisible(false);
         panel_tablePapelera.setVisible(true);
@@ -953,8 +1462,333 @@ public class myDrive extends javax.swing.JFrame {
     }//GEN-LAST:event_label_papeleraMouseClicked
 
     private void label_crearArchivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearArchivosMouseClicked
-        agregarFiles();
+
     }//GEN-LAST:event_label_crearArchivosMouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if (evt.isMetaDown()) {
+            if (jTable1.getSelectedRow() > -1) {
+                jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void elim_filesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elim_filesActionPerformed
+        int start = jTable1.getSelectedRows()[0];
+        for (int selectedRow : jTable1.getSelectedRows()) {
+            for (Archivo file : files) {
+                if (jTable1.getValueAt(selectedRow, 0).toString().equals(file.getArchivo().getName())) {
+                    file.setIdLista(2);
+                }
+            }
+        }
+        agregarFiles();
+        updateTablaRecientes();
+        JOptionPane.showMessageDialog(this, "Archivo Movido a Papelera", "Exito", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_elim_filesActionPerformed
+
+    private void jTable5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable5MouseClicked
+        if (evt.isMetaDown()) {
+            if (jTable5.getSelectedRow() > -1) {
+                jPopupMenu2.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        }
+    }//GEN-LAST:event_jTable5MouseClicked
+
+    private void restaurar_filesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restaurar_filesActionPerformed
+        int start = jTable5.getSelectedRows()[0];
+        for (int selectedRow : jTable5.getSelectedRows()) {
+            for (Archivo file : files) {
+                if (jTable5.getValueAt(selectedRow, 0).toString().equals(file.getArchivo().getName()) && file.getCreador().equals(cuentas.get(indexCuenta).getUser())) {
+                    file.setIdLista(1);
+                }
+            }
+        }
+        agregarFiles();
+        updateTablaPapelera();
+        JOptionPane.showMessageDialog(this, "Archivo Restaurado", "Exito", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_restaurar_filesActionPerformed
+
+    private void compartir_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compartir_usuarioActionPerformed
+        DefaultComboBoxModel m = (DefaultComboBoxModel) cb_usuarios.getModel();
+        m.addAll(cuentas);
+        cb_usuarios.setModel(m);
+        dialog_compartirArchivos.pack();
+        dialog_compartirArchivos.setLocationRelativeTo(this);
+        dialog_compartirArchivos.setModal(true);
+        dialog_compartirArchivos.setVisible(true);
+    }//GEN-LAST:event_compartir_usuarioActionPerformed
+
+    private void button_compartirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_compartirMouseClicked
+        try {
+            int index = 0;
+            for (Cuenta cuenta : cuentas) {
+                if (cuenta == (Cuenta) cb_usuarios.getSelectedItem()) {
+                    index = cuenta.getId();
+                }
+            }
+            System.out.println("1. Got index: " + index);
+
+            Dba db = new Dba("./DataBase.accdb");
+            db.conectar();
+            try {
+                db.query.execute("select * from archivos");
+                ResultSet rs = db.query.getResultSet();
+                ArrayList<Integer> idcuentas = new ArrayList();
+                while (rs.next()) {
+                    idcuentas.add(rs.getInt("idCuenta"));
+                }
+                int ver = 0;
+                for (Integer idcuenta : idcuentas) {
+                    if (idcuenta == index) {
+                        ver = 1;
+                    }
+                }
+                System.out.println("2. Verify if account exists");
+                if (ver == 0) {
+                    crearFilesOtroUsuario(index);
+                    System.out.println("2.2 Created Account Successfully");
+                }
+                ArrayList<Archivo> temp = new ArrayList();
+
+                db.query.execute("select * from archivos where idCuenta =" + index);
+                ResultSet rs1 = db.query.getResultSet();
+                System.out.println("3. Got files from new user2");
+                Blob blob = null;
+                if (rs1.next()) {
+                    blob = rs1.getBlob("listaArchivos");
+
+                    ObjectInputStream ois = new ObjectInputStream(blob.getBinaryStream());
+                    ArrayList<Archivo> filesOtroUsuario = (ArrayList<Archivo>) ois.readObject();
+
+                    for (Archivo archivo : filesOtroUsuario) {
+                        temp.add(archivo);
+                    }
+                    System.out.println("4. Add all files to temp file");
+                    int indexFile = 0;
+                    for (Archivo file : files) {
+                        if (file.getArchivo().getName().equals(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString())) {
+                            indexFile = files.indexOf(file);
+                        }
+                    }
+                    System.out.println("got index of file");
+                    Archivo file = new Archivo();
+                    file.setArchivo(files.get(indexFile).getArchivo());
+                    file.setFechaCreacion(files.get(indexFile).getFechaCreacion());
+                    file.setIdArchivo(files.get(indexFile).getIdArchivo());
+                    file.setIdCuenta(index);
+                    file.setIdLista(3);
+                    file.setCreador(cuentas.get(indexCuenta).getUser());
+                    temp.add(file);
+                    System.out.println(file);
+                    System.out.println("5. Add shared file");
+                }
+
+                ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+                ObjectOutputStream oos = new ObjectOutputStream(byteArray);
+                oos.writeObject(temp);
+
+                PreparedStatement p = db.query.getConnection().
+                        prepareStatement("update archivos set listaArchivos=?"
+                                + "where idCuenta=" + index);
+                p.setBytes(1, byteArray.toByteArray());
+                p.execute();
+                db.commit();
+                System.out.println("6. Sent File");
+                JOptionPane.showMessageDialog(this, "Archivo Compartido", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                dialog_compartirArchivos.setVisible(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            db.desconectar();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_button_compartirMouseClicked
+
+    private void elimSiempre_filesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elimSiempre_filesActionPerformed
+        int start = jTable5.getSelectedRows()[0];
+        for (int selectedRow : jTable5.getSelectedRows()) {
+            int remove = -1;
+            for (Archivo file : files) {
+                if (jTable5.getValueAt(selectedRow, 0).toString().equals(file.getArchivo().getName())) {
+                    remove = files.indexOf(file);
+                }
+            }
+            if (remove > -1) {
+                files.remove(remove);
+            }
+        }
+        agregarFiles();
+        updateTablaPapelera();
+        JOptionPane.showMessageDialog(this, "Archivo Eliminado", "Exito", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_elimSiempre_filesActionPerformed
+
+    private void label_crearGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearGrupoMouseClicked
+        DefaultListModel listM = (DefaultListModel) jList2.getModel();
+        listM.addAll(cuentas);
+        listM.remove(indexCuenta);
+        jList2.setModel(listM);
+        dialog_crearGrupo.pack();
+        dialog_crearGrupo.setLocationRelativeTo(this);
+        dialog_crearGrupo.setModal(true);
+        dialog_crearGrupo.setVisible(true);
+    }//GEN-LAST:event_label_crearGrupoMouseClicked
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        jTextField2.setText("");
+        jTextField2.requestFocus();
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+        setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_jLabel2MouseEntered
+
+    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
+        setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_jLabel2MouseExited
+
+    private void jTextField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField2MouseClicked
+        jTextField2.setText("");
+    }//GEN-LAST:event_jTextField2MouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        DefaultListModel newM = (DefaultListModel) jList1.getModel();
+        DefaultListModel cuentasList = (DefaultListModel) jList2.getModel();
+        if (jList2.getSelectedValuesList().size() > 0) {
+            for (Object cuenta : jList2.getSelectedValuesList().toArray()) {
+                newM.add(newM.size(), ((Cuenta) cuenta).getUser());
+                cuentasList.removeElement((Cuenta) cuenta);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay cuenta seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        ponerCuentasGrupos(cuentas.get(indexCuenta).getId());
+        for (int i = 0; i < jList1.getModel().getSize(); i++) {
+            for (Cuenta cuenta : cuentas) {
+                if (cuenta.getUser().equals(jList1.getModel().getElementAt(i))) {
+                    ponerCuentasGrupos(cuenta.getId());
+                }
+            }
+        }
+        traerGrupos();
+        agregarGrupo();
+        asignarCuentasGrupos();
+        JOptionPane.showMessageDialog(this, "Grupo Creado", "Exito", JOptionPane.INFORMATION_MESSAGE);
+        ((DefaultListModel) jList1.getModel()).removeAllElements();
+        ((DefaultListModel) jList2.getModel()).removeAllElements();
+        jTextField2.setText("Nombre del Grupo");
+        dialog_crearGrupo.setVisible(false);
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void label_explorarGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_explorarGrupoMouseClicked
+        DefaultComboBoxModel cb_grupos = (DefaultComboBoxModel) jComboBox1.getModel();
+        for (Grupo grupo : grupos) {
+            if (grupo.getIntegrantesId().contains(cuentas.get(indexCuenta).getId())) {
+                cb_grupos.addElement(grupo.getNombre());
+            }
+        }
+        dialog_explorarGrupos.pack();
+        dialog_explorarGrupos.setLocationRelativeTo(this);
+        dialog_explorarGrupos.setModal(true);
+        dialog_explorarGrupos.setVisible(true);
+    }//GEN-LAST:event_label_explorarGrupoMouseClicked
+
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+        DefaultListModel cuentasGrupos = (DefaultListModel) jList4.getModel();
+        cuentasGrupos.removeAllElements();
+        Grupo temp = new Grupo();
+        if (jComboBox1.getSelectedIndex() > -1) {
+            System.out.println("Enter");
+            for (Grupo grupo : grupos) {
+                System.out.println(grupo.getNombre());
+                if (grupo.getNombre().equals(jComboBox1.getSelectedItem().toString())) {
+                    temp = grupo;
+                }
+            }
+            for (Integer integer : temp.getIntegrantesId()) {
+                for (Cuenta cuenta : cuentas) {
+                    if (cuenta.getId() == integer) {
+                        System.out.println(cuenta);
+                        cuentasGrupos.addElement(cuenta);
+                    }
+                }
+            }
+        }
+        jList4.setModel(cuentasGrupos);
+    }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        DefaultListModel cuentasGrupos = (DefaultListModel) jList4.getModel();
+        cuentasGrupos.removeAllElements();
+        Grupo temp = new Grupo();
+        if (jComboBox1.getSelectedIndex() > -1) {
+            for (Grupo grupo : grupos) {
+                System.out.println(grupo.getNombre());
+                if (grupo.getNombre().equals(jComboBox1.getSelectedItem().toString())) {
+                    temp = grupo;
+                }
+            }
+            for (Integer integer : temp.getIntegrantesId()) {
+                for (Cuenta cuenta : cuentas) {
+                    if (cuenta.getId() == integer && integer != cuentas.get(indexCuenta).getId()) {
+                        System.out.println(cuenta);
+                        cuentasGrupos.addElement(cuenta);
+                    }
+                }
+            }
+        }
+        jList4.setModel(cuentasGrupos);
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void compartir_grupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compartir_grupoActionPerformed
+        DefaultComboBoxModel modelCompartir = (DefaultComboBoxModel) jComboBox2.getModel();
+        for (Grupo grupo : grupos) {
+            if (grupo.getIntegrantesId().contains(cuentas.get(indexCuenta).getId())) {
+                modelCompartir.addElement(grupo);
+            }
+        }
+
+        dialog_compartirGrupos.pack();
+        dialog_compartirGrupos.setLocationRelativeTo(this);
+        dialog_compartirGrupos.setModal(true);
+        dialog_compartirGrupos.setVisible(true);
+    }//GEN-LAST:event_compartir_grupoActionPerformed
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        try {
+            if (jComboBox2.getSelectedIndex() > -1) {
+                Grupo temp = (Grupo) jComboBox2.getSelectedItem();
+                for (Grupo grupo : grupos) {
+                    if (grupo.getIdGrupo() == temp.getIdGrupo()) {
+                        for (Integer integer : grupo.getIntegrantesId()) {
+                            if (integer != cuentas.get(indexCuenta).getId()) {
+                                compartirGrupos(integer);
+                                System.out.println("done " + integer);
+                            }
+                        }
+                    }
+                }
+                JOptionPane.showMessageDialog(this, "Archivo Compartido", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+        } catch (Exception e) {
+
+        }
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     public void traerCuenta() {
         Dba db = new Dba("./DataBase.accdb");
@@ -978,10 +1812,6 @@ public class myDrive extends javax.swing.JFrame {
         db.desconectar();
     }
 
-    public void traerArchivos() {
-
-    }
-
     public void agregarFiles() {
         Dba db = new Dba("./DataBase.accdb");
         db.conectar();
@@ -991,16 +1821,13 @@ public class myDrive extends javax.swing.JFrame {
             ArrayList<Integer> idcuentas = new ArrayList();
             while (rs.next()) {
                 idcuentas.add(rs.getInt("idCuenta"));
-                //rs.next();
             }
-            System.out.println(idcuentas);
             int ver = 0;
             for (Integer idcuenta : idcuentas) {
                 if (idcuenta == cuentas.get(indexCuenta).getId()) {
                     ver = 1;
                 }
             }
-            System.out.println(ver);
             if (ver == 0) {
                 crearFiles();
                 ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
@@ -1013,7 +1840,6 @@ public class myDrive extends javax.swing.JFrame {
                 p.setBytes(1, byteArray.toByteArray());
                 p.execute();
                 db.commit();
-                JOptionPane.showMessageDialog(this, "Archivos Guardados", "Exito", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
                 ObjectOutputStream oos = new ObjectOutputStream(byteArray);
@@ -1025,7 +1851,6 @@ public class myDrive extends javax.swing.JFrame {
                 p.setBytes(1, byteArray.toByteArray());
                 p.execute();
                 db.commit();
-                JOptionPane.showMessageDialog(this, "Archivos Guardados", "Exito", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1042,7 +1867,6 @@ public class myDrive extends javax.swing.JFrame {
             ResultSet rs = db.query.getResultSet();
             Blob blob = null;
             if (rs.next()) {
-                //rs.next();
                 blob = rs.getBlob("listaArchivos");
 
                 ObjectInputStream ois = new ObjectInputStream(blob.getBinaryStream());
@@ -1051,7 +1875,6 @@ public class myDrive extends javax.swing.JFrame {
                 for (Archivo archivo : temp) {
                     files.add(archivo);
                 }
-                System.out.println(files);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1059,16 +1882,60 @@ public class myDrive extends javax.swing.JFrame {
     }
 
     public void updateTablaRecientes() {
-        DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
-        m.setNumRows(0);
-        for (Archivo file : files) {
-            Object[] row = new Object[3];
-            row[0] = file.getArchivo().getName();
-            row[1] = file.getFechaCreacion();
-            row[2] = cuentas.get(indexCuenta).getUser();
-            m.addRow(row);
+        try {
+            DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+
+            m.setNumRows(0);
+            System.out.println("---RECIENTES---");
+            for (Archivo file : files) {
+                if (file.getIdLista() == 1) {
+                    System.out.println(file.getArchivo().getName() + " RECIENTES");
+                    Object[] row = new Object[4];
+                    row[0] = file.getArchivo().getName();
+                    row[1] = file.getFechaCreacion();
+                    row[2] = file.getArchivo().length() / 1024 + " KB";
+                    row[3] = file.getCreador();
+                    m.addRow(row);
+                }
+            }
+            System.out.println("UPDATE RECIENTES");
+            jTable1.setModel(m);
+        } catch (Exception e) {
+
         }
-        jTable1.setModel(m);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(330);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+    }
+
+    public void updateTablaPapelera() {
+        try {
+            DefaultTableModel m = (DefaultTableModel) jTable5.getModel();
+            m.setNumRows(0);
+            for (Archivo file : files) {
+                if (file.getIdLista() == 2) {
+                    System.out.println(file.getArchivo().getName() + " PAPELERA");
+                    Object[] row = new Object[4];
+                    row[0] = file.getArchivo().getName();
+                    row[1] = file.getFechaCreacion();
+                    row[2] = file.getArchivo().length() / 1024 + " KB";
+                    row[3] = file.getCreador();
+                    m.addRow(row);
+                }
+            }
+
+            jTable5.setModel(m);
+            System.out.println("ADD MODEL PAPELERA");
+        } catch (Exception e) {
+
+        }
+        jTable5.getColumnModel().getColumn(0).setPreferredWidth(330);
+        jTable5.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable5.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTable5.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTable5.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
 
     public void crearFiles() {
@@ -1085,8 +1952,238 @@ public class myDrive extends javax.swing.JFrame {
                             + "VALUES(" + cuentas.get(indexCuenta).getId() + ")");
             p.execute();
             db.commit();
+
+            PreparedStatement p1 = db.query.getConnection().
+                    prepareStatement("update archivos set listaArchivos=?"
+                            + "where idCuenta=" + cuentas.get(indexCuenta).getId());
+            p1.setBytes(1, byteArray.toByteArray());
+            p1.execute();
+            db.commit();
+
         } catch (Exception e) {
 
+        }
+    }
+
+    public void crearFilesOtroUsuario(int index) {
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+        ArrayList<Archivo> temp = new ArrayList();
+        try {
+            ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(byteArray);
+            oos.writeObject(temp);
+
+            PreparedStatement p = db.query.getConnection().
+                    prepareStatement("insert into archivos" + "(idCuenta)"
+                            + "VALUES(" + index + ")");
+            p.execute();
+            db.commit();
+
+            PreparedStatement p1 = db.query.getConnection().
+                    prepareStatement("update archivos set listaArchivos=?"
+                            + "where idCuenta=" + index);
+            p1.setBytes(1, byteArray.toByteArray());
+            p1.execute();
+            db.commit();
+            System.out.println("2.1 crearFilesOtroUsuario DONE");
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void updateTablaCompartidos() {
+        try {
+            DefaultTableModel m = (DefaultTableModel) jTable4.getModel();
+            m.setNumRows(0);
+            for (Archivo file : files) {
+                if (file.getIdLista() == 3) {
+                    System.out.println(file.getArchivo().getName() + " PAPELERA");
+                    Object[] row = new Object[4];
+                    row[0] = file.getArchivo().getName();
+                    row[1] = file.getFechaCreacion();
+                    row[2] = file.getArchivo().length() / 1024 + " KB";
+                    row[3] = file.getCreador();
+                    m.addRow(row);
+                }
+            }
+            jTable4.setModel(m);
+            System.out.println("ADD MODEL COMPARTIDOS");
+        } catch (Exception e) {
+
+        }
+        jTable4.getColumnModel().getColumn(0).setPreferredWidth(330);
+        jTable4.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable4.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTable4.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTable4.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+    }
+
+    public void traerGrupos() {
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+        grupos = new ArrayList();
+        try {
+            db.query.execute("select * from nombreGrupos");
+            ResultSet rs = db.query.getResultSet();
+            grupos = new ArrayList();
+            while (rs.next()) {
+                Grupo g = new Grupo();
+                g.setIdGrupo(rs.getInt("idGrupo"));
+                g.setNombre(rs.getString("nombreGrupo"));
+                g.setCreador(rs.getString("creador"));
+                grupos.add(g);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        db.desconectar();
+    }
+
+    public void asignarCuentasGrupos() {
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+
+        try {
+            for (Grupo grupo : grupos) {
+                db.query.execute("select * from grupos where idGrupo=" + grupo.getIdGrupo());
+                ResultSet rs = db.query.getResultSet();
+                while (rs.next()) {
+                    grupo.getIntegrantesId().add(rs.getInt("idCuenta"));
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        db.desconectar();
+    }
+
+    public void ponerCuentasGrupos(int idCuenta) {
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+        try {
+            int index = 0;
+            int cent = 0;
+            while (cent == 0) {
+                cent = 1;
+                index++;
+                for (Grupo grupo : grupos) {
+                    if (index == grupo.getIdGrupo()) {
+                        cent = 0;
+                    }
+                }
+            }
+            db.query.execute("insert into grupos"
+                    + "(idGrupo,idCuenta,nombreGrupo)"
+                    + "VALUES (" + index + ", " + idCuenta + ", '" + jTextField2.getText() + "')");
+            db.commit();
+            System.out.println("created for cuenta+ " + idCuenta);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void agregarGrupo() {
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+        try {
+            int index = 0;
+            int cent = 0;
+            while (cent == 0) {
+                cent = 1;
+                index++;
+                for (Grupo grupo : grupos) {
+                    if (index == grupo.getIdGrupo()) {
+                        cent = 0;
+                    }
+                }
+            }
+            db.query.execute("insert into nombreGrupos"
+                    + "(idGrupo, nombreGrupo, creador)"
+                    + "VALUES (" + index + ", '" + jTextField2.getText() + "', '" + cuentas.get(indexCuenta).getUser() + "')");
+            db.commit();
+            System.out.println("created for group+ " + index);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void compartirGrupos(int index) {
+        try {
+            Dba db = new Dba("./DataBase.accdb");
+            db.conectar();
+            try {
+                db.query.execute("select * from archivos");
+                ResultSet rs = db.query.getResultSet();
+                ArrayList<Integer> idcuentas = new ArrayList();
+                while (rs.next()) {
+                    idcuentas.add(rs.getInt("idCuenta"));
+                }
+                int ver = 0;
+                for (Integer idcuenta : idcuentas) {
+                    if (idcuenta == index) {
+                        ver = 1;
+                    }
+                }
+                if (ver == 0) {
+                    crearFilesOtroUsuario(index);
+                }
+                ArrayList<Archivo> temp = new ArrayList();
+
+                db.query.execute("select * from archivos where idCuenta =" + index);
+                ResultSet rs1 = db.query.getResultSet();
+                System.out.println("3. Got files from new user2");
+                Blob blob = null;
+                if (rs1.next()) {
+                    blob = rs1.getBlob("listaArchivos");
+
+                    ObjectInputStream ois = new ObjectInputStream(blob.getBinaryStream());
+                    ArrayList<Archivo> filesOtroUsuario = (ArrayList<Archivo>) ois.readObject();
+
+                    for (Archivo archivo : filesOtroUsuario) {
+                        temp.add(archivo);
+                    }
+                    System.out.println("4. Add all files to temp file");
+                    int indexFile = 0;
+                    for (Archivo file : files) {
+                        if (file.getArchivo().getName().equals(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString())) {
+                            indexFile = files.indexOf(file);
+                        }
+                    }
+                    System.out.println("got index of file");
+                    Archivo file = new Archivo();
+                    file.setArchivo(files.get(indexFile).getArchivo());
+                    file.setFechaCreacion(files.get(indexFile).getFechaCreacion());
+                    file.setIdArchivo(files.get(indexFile).getIdArchivo());
+                    file.setIdCuenta(index);
+                    file.setIdLista(3);
+                    file.setCreador(cuentas.get(indexCuenta).getUser());
+                    temp.add(file);
+                    System.out.println(file);
+                    System.out.println("5. Add shared file");
+                }
+                ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+                ObjectOutputStream oos = new ObjectOutputStream(byteArray);
+                oos.writeObject(temp);
+
+                PreparedStatement p = db.query.getConnection().
+                        prepareStatement("update archivos set listaArchivos=?"
+                                + "where idCuenta=" + index);
+                p.setBytes(1, byteArray.toByteArray());
+                p.execute();
+                db.commit();
+                System.out.println("6. Sent File");
+                //JOptionPane.showMessageDialog(this, "Archivo Compartido", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                dialog_compartirArchivos.setVisible(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("1. Got index: " + index);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -1128,22 +2225,61 @@ public class myDrive extends javax.swing.JFrame {
     private int yMouse;
     private static int indexCuenta;
     private static ArrayList<Cuenta> cuentas;
-    private static ArrayList<Archivo> files = new ArrayList();
+    private ArrayList<Archivo> files = new ArrayList();
+    private ArrayList<Grupo> grupos = new ArrayList();
     private SimpleDateFormat sdf = new SimpleDateFormat("yyy/MM/dd");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg_myDrive;
+    private javax.swing.JLabel button_compartir;
+    private javax.swing.JComboBox<String> cb_usuarios;
+    private javax.swing.JMenu compartir;
+    private javax.swing.JMenuItem compartir_grupo;
+    private javax.swing.JMenuItem compartir_usuario;
+    private javax.swing.JDialog dialog_compartirArchivos;
+    private javax.swing.JDialog dialog_compartirGrupos;
+    private javax.swing.JDialog dialog_crearGrupo;
+    private javax.swing.JDialog dialog_explorarGrupos;
+    private javax.swing.JMenuItem elimSiempre_files;
+    private javax.swing.JMenuItem elim_files;
     private javax.swing.JPanel header_menu;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jList4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel label_cargar;
     private javax.swing.JLabel label_cargarArchivos;
     private javax.swing.JLabel label_compartidos;
-    private javax.swing.JLabel label_compartir;
     private javax.swing.JLabel label_crear;
     private javax.swing.JLabel label_crearArchivos;
     private javax.swing.JLabel label_crearGrupo;
@@ -1153,10 +2289,12 @@ public class myDrive extends javax.swing.JFrame {
     private javax.swing.JLabel label_papelera;
     private javax.swing.JLabel label_recientes;
     private javax.swing.JLabel label_titulo;
+    private javax.swing.JLabel label_titulo1;
+    private javax.swing.JLabel label_titulo2;
+    private javax.swing.JMenuItem mover_files;
     private javax.swing.JLabel myDrive_Title;
     private javax.swing.JPanel panel_cargarArchivos;
     private javax.swing.JPanel panel_compartidos;
-    private javax.swing.JPanel panel_compartir;
     private javax.swing.JPanel panel_crearArchivos;
     private javax.swing.JPanel panel_crearGrupo;
     private javax.swing.JPanel panel_eventos;
@@ -1169,5 +2307,8 @@ public class myDrive extends javax.swing.JFrame {
     private javax.swing.JPanel panel_tablePapelera;
     private javax.swing.JPanel panel_tableRecientes;
     private javax.swing.JPanel panel_titulo;
+    private javax.swing.JPanel panel_titulo1;
+    private javax.swing.JPanel panel_titulo2;
+    private javax.swing.JMenuItem restaurar_files;
     // End of variables declaration//GEN-END:variables
 }
