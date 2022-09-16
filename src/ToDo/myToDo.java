@@ -953,7 +953,7 @@ public class myToDo extends javax.swing.JFrame {
         notas.setBorder(null);
         notas.setCaretColor(new java.awt.Color(255, 255, 255));
 
-        jPanel9.setBackground(new java.awt.Color(204, 0, 204));
+        jPanel9.setBackground(new java.awt.Color(153, 0, 153));
 
         jLabel3.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -1279,6 +1279,7 @@ public class myToDo extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseExited
 
     private void label_myDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_myDayMouseClicked
+        notas.setText("");
         idLista = 1;
         panel_listaName.setVisible(false);
         panel_myDay.setBackground(new Color(195, 0, 195));
@@ -1510,6 +1511,7 @@ public class myToDo extends javax.swing.JFrame {
     }//GEN-LAST:event_label_tareasRealizadasMouseClicked
 
     private void label_listasTareas1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_listasTareas1MouseClicked
+        notas.setText("");
         panel_listaName.setVisible(false);
         panel_asignarTarea.setBackground(new Color(195, 0, 195));
         panel_myDay.setBackground(new Color(153, 0, 153));
@@ -1707,10 +1709,11 @@ public class myToDo extends javax.swing.JFrame {
             }
             table_listas.setModel(m);
         }
+        notas.setText("");
     }//GEN-LAST:event_table_listaTareasMouseClicked
 
     private void jTextField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField2MouseClicked
-
+        notas.setText("");
     }//GEN-LAST:event_jTextField2MouseClicked
 
     private void ElimTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElimTareaActionPerformed
@@ -1979,7 +1982,7 @@ public class myToDo extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseEntered
 
     private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
-        jPanel9.setBackground(new Color(204,0,204));
+        jPanel9.setBackground(new Color(153, 0, 153));
     }//GEN-LAST:event_jLabel3MouseExited
 
     public void traerCuenta() {

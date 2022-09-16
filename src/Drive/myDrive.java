@@ -101,6 +101,9 @@ public class myDrive extends javax.swing.JFrame {
         cb_usuarios = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         button_compartir = new javax.swing.JLabel();
+        header_iniciar = new javax.swing.JPanel();
+        panel_exit_iniciar = new javax.swing.JPanel();
+        label_exit_inciar = new javax.swing.JLabel();
         dialog_crearGrupo = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -116,6 +119,9 @@ public class myDrive extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        header_iniciar1 = new javax.swing.JPanel();
+        panel_exit_iniciar1 = new javax.swing.JPanel();
+        label_exit_inciar1 = new javax.swing.JLabel();
         dialog_explorarGrupos = new javax.swing.JDialog();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -123,6 +129,9 @@ public class myDrive extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane7 = new javax.swing.JScrollPane();
         jList4 = new javax.swing.JList<>();
+        header_iniciar2 = new javax.swing.JPanel();
+        panel_exit_iniciar2 = new javax.swing.JPanel();
+        label_exit_inciar2 = new javax.swing.JLabel();
         dialog_compartirGrupos = new javax.swing.JDialog();
         jPanel10 = new javax.swing.JPanel();
         panel_titulo2 = new javax.swing.JPanel();
@@ -130,6 +139,9 @@ public class myDrive extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jPanel11 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        header_iniciar3 = new javax.swing.JPanel();
+        panel_exit_iniciar3 = new javax.swing.JPanel();
+        label_exit_inciar3 = new javax.swing.JLabel();
         bg_myDrive = new javax.swing.JPanel();
         header_menu = new javax.swing.JPanel();
         panel_minimize_myDrive = new javax.swing.JPanel();
@@ -214,6 +226,8 @@ public class myDrive extends javax.swing.JFrame {
         });
         jPopupMenu2.add(elimSiempre_files);
 
+        dialog_compartirArchivos.setUndecorated(true);
+
         jPanel1.setBackground(new java.awt.Color(252, 226, 219));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -238,12 +252,12 @@ public class myDrive extends javax.swing.JFrame {
             .addComponent(label_titulo1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(panel_titulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 240, 40));
+        jPanel1.add(panel_titulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 240, 40));
 
         cb_usuarios.setBackground(new java.awt.Color(153, 102, 255));
         cb_usuarios.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
         cb_usuarios.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(cb_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 240, 30));
+        jPanel1.add(cb_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 240, 30));
 
         jPanel2.setBackground(new java.awt.Color(172, 112, 168));
 
@@ -273,16 +287,79 @@ public class myDrive extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 190, 60));
 
+        header_iniciar.setBackground(new java.awt.Color(122, 68, 149));
+        header_iniciar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                header_iniciarMouseDragged(evt);
+            }
+        });
+        header_iniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                header_iniciarMousePressed(evt);
+            }
+        });
+
+        panel_exit_iniciar.setBackground(new java.awt.Color(122, 68, 149));
+
+        label_exit_inciar.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        label_exit_inciar.setForeground(new java.awt.Color(255, 255, 255));
+        label_exit_inciar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_exit_inciar.setText("🗙");
+        label_exit_inciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_exit_inciarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_exit_inciarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_exit_inciarMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_exit_iniciarLayout = new javax.swing.GroupLayout(panel_exit_iniciar);
+        panel_exit_iniciar.setLayout(panel_exit_iniciarLayout);
+        panel_exit_iniciarLayout.setHorizontalGroup(
+            panel_exit_iniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_exit_iniciarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(label_exit_inciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panel_exit_iniciarLayout.setVerticalGroup(
+            panel_exit_iniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_exit_inciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        javax.swing.GroupLayout header_iniciarLayout = new javax.swing.GroupLayout(header_iniciar);
+        header_iniciar.setLayout(header_iniciarLayout);
+        header_iniciarLayout.setHorizontalGroup(
+            header_iniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header_iniciarLayout.createSequentialGroup()
+                .addGap(0, 270, Short.MAX_VALUE)
+                .addComponent(panel_exit_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        header_iniciarLayout.setVerticalGroup(
+            header_iniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(header_iniciarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(panel_exit_iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(header_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 30));
+
         javax.swing.GroupLayout dialog_compartirArchivosLayout = new javax.swing.GroupLayout(dialog_compartirArchivos.getContentPane());
         dialog_compartirArchivos.getContentPane().setLayout(dialog_compartirArchivosLayout);
         dialog_compartirArchivosLayout.setHorizontalGroup(
             dialog_compartirArchivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         dialog_compartirArchivosLayout.setVerticalGroup(
             dialog_compartirArchivosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
         );
+
+        dialog_crearGrupo.setUndecorated(true);
 
         jPanel3.setBackground(new java.awt.Color(252, 226, 219));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -295,7 +372,7 @@ public class myDrive extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jList1);
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 210, 230));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 210, 210));
 
         jScrollPane3.setBorder(null);
 
@@ -305,7 +382,7 @@ public class myDrive extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jList2);
 
-        jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 210, 230));
+        jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 210, 210));
 
         jPanel4.setBackground(new java.awt.Color(172, 112, 168));
 
@@ -327,7 +404,7 @@ public class myDrive extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 210, 30));
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 210, 30));
 
         jPanel5.setBackground(new java.awt.Color(172, 112, 168));
 
@@ -348,9 +425,9 @@ public class myDrive extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 1, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 50, 30));
@@ -408,7 +485,7 @@ public class myDrive extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 210, 30));
+        jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 210, 30));
 
         jPanel7.setBackground(new java.awt.Color(172, 112, 168));
 
@@ -437,6 +514,67 @@ public class myDrive extends javax.swing.JFrame {
 
         jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 210, -1));
 
+        header_iniciar1.setBackground(new java.awt.Color(122, 68, 149));
+        header_iniciar1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                header_iniciar1MouseDragged(evt);
+            }
+        });
+        header_iniciar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                header_iniciar1MousePressed(evt);
+            }
+        });
+
+        panel_exit_iniciar1.setBackground(new java.awt.Color(122, 68, 149));
+
+        label_exit_inciar1.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        label_exit_inciar1.setForeground(new java.awt.Color(255, 255, 255));
+        label_exit_inciar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_exit_inciar1.setText("🗙");
+        label_exit_inciar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_exit_inciar1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_exit_inciar1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_exit_inciar1MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_exit_iniciar1Layout = new javax.swing.GroupLayout(panel_exit_iniciar1);
+        panel_exit_iniciar1.setLayout(panel_exit_iniciar1Layout);
+        panel_exit_iniciar1Layout.setHorizontalGroup(
+            panel_exit_iniciar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_exit_iniciar1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(label_exit_inciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panel_exit_iniciar1Layout.setVerticalGroup(
+            panel_exit_iniciar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_exit_inciar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        javax.swing.GroupLayout header_iniciar1Layout = new javax.swing.GroupLayout(header_iniciar1);
+        header_iniciar1.setLayout(header_iniciar1Layout);
+        header_iniciar1Layout.setHorizontalGroup(
+            header_iniciar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header_iniciar1Layout.createSequentialGroup()
+                .addGap(0, 520, Short.MAX_VALUE)
+                .addComponent(panel_exit_iniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        header_iniciar1Layout.setVerticalGroup(
+            header_iniciar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(header_iniciar1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(panel_exit_iniciar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel3.add(header_iniciar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 30));
+
         javax.swing.GroupLayout dialog_crearGrupoLayout = new javax.swing.GroupLayout(dialog_crearGrupo.getContentPane());
         dialog_crearGrupo.getContentPane().setLayout(dialog_crearGrupoLayout);
         dialog_crearGrupoLayout.setHorizontalGroup(
@@ -447,6 +585,8 @@ public class myDrive extends javax.swing.JFrame {
             dialog_crearGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
         );
+
+        dialog_explorarGrupos.setUndecorated(true);
 
         jPanel8.setBackground(new java.awt.Color(252, 226, 219));
 
@@ -499,6 +639,65 @@ public class myDrive extends javax.swing.JFrame {
         jList4.setModel(new DefaultListModel());
         jScrollPane7.setViewportView(jList4);
 
+        header_iniciar2.setBackground(new java.awt.Color(122, 68, 149));
+        header_iniciar2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                header_iniciar2MouseDragged(evt);
+            }
+        });
+        header_iniciar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                header_iniciar2MousePressed(evt);
+            }
+        });
+
+        panel_exit_iniciar2.setBackground(new java.awt.Color(122, 68, 149));
+
+        label_exit_inciar2.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        label_exit_inciar2.setForeground(new java.awt.Color(255, 255, 255));
+        label_exit_inciar2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_exit_inciar2.setText("🗙");
+        label_exit_inciar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_exit_inciar2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_exit_inciar2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_exit_inciar2MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_exit_iniciar2Layout = new javax.swing.GroupLayout(panel_exit_iniciar2);
+        panel_exit_iniciar2.setLayout(panel_exit_iniciar2Layout);
+        panel_exit_iniciar2Layout.setHorizontalGroup(
+            panel_exit_iniciar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_exit_iniciar2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(label_exit_inciar2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panel_exit_iniciar2Layout.setVerticalGroup(
+            panel_exit_iniciar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_exit_inciar2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        javax.swing.GroupLayout header_iniciar2Layout = new javax.swing.GroupLayout(header_iniciar2);
+        header_iniciar2.setLayout(header_iniciar2Layout);
+        header_iniciar2Layout.setHorizontalGroup(
+            header_iniciar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header_iniciar2Layout.createSequentialGroup()
+                .addGap(0, 282, Short.MAX_VALUE)
+                .addComponent(panel_exit_iniciar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        header_iniciar2Layout.setVerticalGroup(
+            header_iniciar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(header_iniciar2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(panel_exit_iniciar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -509,23 +708,27 @@ public class myDrive extends javax.swing.JFrame {
                         .addGap(94, 94, 94)
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(header_iniciar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(header_iniciar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addGap(18, 18, 18)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout dialog_explorarGruposLayout = new javax.swing.GroupLayout(dialog_explorarGrupos.getContentPane());
@@ -538,6 +741,8 @@ public class myDrive extends javax.swing.JFrame {
             dialog_explorarGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        dialog_compartirGrupos.setUndecorated(true);
 
         jPanel10.setBackground(new java.awt.Color(252, 226, 219));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -563,12 +768,12 @@ public class myDrive extends javax.swing.JFrame {
             .addComponent(label_titulo2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel10.add(panel_titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 240, 40));
+        jPanel10.add(panel_titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 240, 40));
 
         jComboBox2.setBackground(new java.awt.Color(153, 102, 255));
         jComboBox2.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
         jComboBox2.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel10.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 240, 30));
+        jPanel10.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 240, 30));
 
         jPanel11.setBackground(new java.awt.Color(172, 112, 168));
 
@@ -598,11 +803,72 @@ public class myDrive extends javax.swing.JFrame {
 
         jPanel10.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 180, 60));
 
+        header_iniciar3.setBackground(new java.awt.Color(122, 68, 149));
+        header_iniciar3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                header_iniciar3MouseDragged(evt);
+            }
+        });
+        header_iniciar3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                header_iniciar3MousePressed(evt);
+            }
+        });
+
+        panel_exit_iniciar3.setBackground(new java.awt.Color(122, 68, 149));
+
+        label_exit_inciar3.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        label_exit_inciar3.setForeground(new java.awt.Color(255, 255, 255));
+        label_exit_inciar3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_exit_inciar3.setText("🗙");
+        label_exit_inciar3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_exit_inciar3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_exit_inciar3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_exit_inciar3MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_exit_iniciar3Layout = new javax.swing.GroupLayout(panel_exit_iniciar3);
+        panel_exit_iniciar3.setLayout(panel_exit_iniciar3Layout);
+        panel_exit_iniciar3Layout.setHorizontalGroup(
+            panel_exit_iniciar3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_exit_iniciar3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(label_exit_inciar3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panel_exit_iniciar3Layout.setVerticalGroup(
+            panel_exit_iniciar3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_exit_inciar3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        javax.swing.GroupLayout header_iniciar3Layout = new javax.swing.GroupLayout(header_iniciar3);
+        header_iniciar3.setLayout(header_iniciar3Layout);
+        header_iniciar3Layout.setHorizontalGroup(
+            header_iniciar3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header_iniciar3Layout.createSequentialGroup()
+                .addGap(0, 270, Short.MAX_VALUE)
+                .addComponent(panel_exit_iniciar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        header_iniciar3Layout.setVerticalGroup(
+            header_iniciar3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(header_iniciar3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(panel_exit_iniciar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel10.add(header_iniciar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 30));
+
         javax.swing.GroupLayout dialog_compartirGruposLayout = new javax.swing.GroupLayout(dialog_compartirGrupos.getContentPane());
         dialog_compartirGrupos.getContentPane().setLayout(dialog_compartirGruposLayout);
         dialog_compartirGruposLayout.setHorizontalGroup(
             dialog_compartirGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         dialog_compartirGruposLayout.setVerticalGroup(
             dialog_compartirGruposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1790,6 +2056,99 @@ public class myDrive extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel6MouseClicked
 
+    private void label_exit_inciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciarMouseClicked
+        dialog_compartirArchivos.setVisible(false);
+    }//GEN-LAST:event_label_exit_inciarMouseClicked
+
+    private void label_exit_inciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciarMouseEntered
+        panel_exit_iniciar.setBackground(Color.red);
+    }//GEN-LAST:event_label_exit_inciarMouseEntered
+
+    private void label_exit_inciarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciarMouseExited
+        panel_exit_iniciar.setBackground(header_iniciar.getBackground());
+    }//GEN-LAST:event_label_exit_inciarMouseExited
+
+    private void header_iniciarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciarMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        dialog_compartirArchivos.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_header_iniciarMouseDragged
+
+    private void header_iniciarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciarMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_header_iniciarMousePressed
+
+    private void label_exit_inciar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar1MouseClicked
+        dialog_crearGrupo.setVisible(false);
+                                                  
+    }//GEN-LAST:event_label_exit_inciar1MouseClicked
+
+    private void label_exit_inciar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar1MouseEntered
+         panel_exit_iniciar1.setBackground(Color.red);
+    }//GEN-LAST:event_label_exit_inciar1MouseEntered
+
+    private void label_exit_inciar1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar1MouseExited
+        panel_exit_iniciar1.setBackground(header_iniciar1.getBackground());
+    }//GEN-LAST:event_label_exit_inciar1MouseExited
+
+    private void header_iniciar1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciar1MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        dialog_crearGrupo.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_header_iniciar1MouseDragged
+
+    private void header_iniciar1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciar1MousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_header_iniciar1MousePressed
+
+    private void label_exit_inciar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar2MouseClicked
+        dialog_explorarGrupos.setVisible(false);
+    }//GEN-LAST:event_label_exit_inciar2MouseClicked
+
+    private void label_exit_inciar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar2MouseEntered
+        panel_exit_iniciar2.setBackground(Color.red);
+    }//GEN-LAST:event_label_exit_inciar2MouseEntered
+
+    private void label_exit_inciar2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar2MouseExited
+        panel_exit_iniciar2.setBackground(header_iniciar2.getBackground());
+    }//GEN-LAST:event_label_exit_inciar2MouseExited
+
+    private void header_iniciar2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciar2MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        dialog_explorarGrupos.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_header_iniciar2MouseDragged
+
+    private void header_iniciar2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciar2MousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_header_iniciar2MousePressed
+
+    private void label_exit_inciar3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar3MouseClicked
+        dialog_compartirGrupos.setVisible(false);
+    }//GEN-LAST:event_label_exit_inciar3MouseClicked
+
+    private void label_exit_inciar3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar3MouseEntered
+        panel_exit_iniciar3.setBackground(Color.red);
+    }//GEN-LAST:event_label_exit_inciar3MouseEntered
+
+    private void label_exit_inciar3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar3MouseExited
+        panel_exit_iniciar3.setBackground(header_iniciar3.getBackground());
+    }//GEN-LAST:event_label_exit_inciar3MouseExited
+
+    private void header_iniciar3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciar3MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        dialog_compartirGrupos.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_header_iniciar3MouseDragged
+
+    private void header_iniciar3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciar3MousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_header_iniciar3MousePressed
+
     public void traerCuenta() {
         Dba db = new Dba("./DataBase.accdb");
         db.conectar();
@@ -2241,6 +2600,10 @@ public class myDrive extends javax.swing.JFrame {
     private javax.swing.JDialog dialog_explorarGrupos;
     private javax.swing.JMenuItem elimSiempre_files;
     private javax.swing.JMenuItem elim_files;
+    private javax.swing.JPanel header_iniciar;
+    private javax.swing.JPanel header_iniciar1;
+    private javax.swing.JPanel header_iniciar2;
+    private javax.swing.JPanel header_iniciar3;
     private javax.swing.JPanel header_menu;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -2283,6 +2646,10 @@ public class myDrive extends javax.swing.JFrame {
     private javax.swing.JLabel label_crear;
     private javax.swing.JLabel label_crearArchivos;
     private javax.swing.JLabel label_crearGrupo;
+    private javax.swing.JLabel label_exit_inciar;
+    private javax.swing.JLabel label_exit_inciar1;
+    private javax.swing.JLabel label_exit_inciar2;
+    private javax.swing.JLabel label_exit_inciar3;
     private javax.swing.JLabel label_exit_myDrive;
     private javax.swing.JLabel label_explorarGrupo;
     private javax.swing.JLabel label_minimize_myDrive;
@@ -2298,6 +2665,10 @@ public class myDrive extends javax.swing.JFrame {
     private javax.swing.JPanel panel_crearArchivos;
     private javax.swing.JPanel panel_crearGrupo;
     private javax.swing.JPanel panel_eventos;
+    private javax.swing.JPanel panel_exit_iniciar;
+    private javax.swing.JPanel panel_exit_iniciar1;
+    private javax.swing.JPanel panel_exit_iniciar2;
+    private javax.swing.JPanel panel_exit_iniciar3;
     private javax.swing.JPanel panel_exit_myDrive;
     private javax.swing.JPanel panel_explorarGrupo;
     private javax.swing.JPanel panel_minimize_myDrive;
