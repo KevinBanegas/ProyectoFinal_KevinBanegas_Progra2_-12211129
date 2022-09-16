@@ -2535,7 +2535,6 @@ public class myDrive extends javax.swing.JFrame {
                 p.execute();
                 db.commit();
                 System.out.println("6. Sent File");
-                //JOptionPane.showMessageDialog(this, "Archivo Compartido", "Exito", JOptionPane.INFORMATION_MESSAGE);
                 dialog_compartirArchivos.setVisible(false);
             } catch (Exception e) {
                 e.printStackTrace();
