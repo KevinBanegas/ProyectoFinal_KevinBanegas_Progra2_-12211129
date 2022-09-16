@@ -1378,7 +1378,7 @@ public class Administrador extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panel_eliminar.add(panel_elim, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 273, -1, -1));
+        panel_eliminar.add(panel_elim, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, -1, -1));
 
         elimCuenta_Title.setFont(new java.awt.Font("Litera-Serial", 0, 36)); // NOI18N
         elimCuenta_Title.setForeground(new java.awt.Color(255, 255, 255));
@@ -1797,9 +1797,20 @@ public class Administrador extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+            
+            
+            try{
+                db.query.execute("delete from listaTareas where idCuenta=" + ((Cuenta) (cb_elim.getSelectedItem())).getId());
+                db.commit();
+                //JOptionPane.showMessageDialog(this, "Usuario Eliminado Exitosamente");
+            }catch(Exception e){
+                
+            }
             db.desconectar();
             traerCuenta();
             actualizarCB();
+            
+            
         }
     }//GEN-LAST:event_label_elimMouseClicked
 
