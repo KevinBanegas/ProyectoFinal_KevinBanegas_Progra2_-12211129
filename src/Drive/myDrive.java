@@ -21,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -51,7 +52,6 @@ public class myDrive extends javax.swing.JFrame {
         initComponents();
         traerCuenta();
 
-        //System.out.println(files + "bruh");
         this.indexCuenta = indexCuenta;
         panel_tableRecientes.setVisible(true);
         panel_tablePapelera.setVisible(false);
@@ -70,6 +70,16 @@ public class myDrive extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(70);
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        jTable4.getColumnModel().getColumn(0).setPreferredWidth(330);
+        jTable4.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable4.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTable4.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTable4.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        jTable5.getColumnModel().getColumn(0).setPreferredWidth(330);
+        jTable5.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable5.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTable5.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTable5.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         traerFiles();
         updateTablaRecientes();
         traerGrupos();
@@ -1685,7 +1695,6 @@ public class myDrive extends javax.swing.JFrame {
                 a.setIdLista(1);
                 a.setCreador(cuentas.get(indexCuenta).getUser());
                 files.add(a);
-                agregarFiles();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1693,25 +1702,24 @@ public class myDrive extends javax.swing.JFrame {
         jTable1.setVisible(true);
         jTable4.setVisible(false);
         jTable5.setVisible(false);
-        traerFiles();
-        updateTablaRecientes();
         label_titulo.setText("Ver Recientes");
+        label_recientesMouseClicked(new java.awt.event.MouseEvent(this, 1, 1, 1, 1, 1, 1, true));
 
     }//GEN-LAST:event_label_cargarArchivosMouseClicked
 
     private void label_recientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_recientesMouseClicked
+        agregarFiles();
         panel_tableRecientes.setVisible(true);
         panel_tablePapelera.setVisible(false);
         panel_tableCompartidos.setVisible(false);
         label_titulo.setText("Ver Recientes");
         traerFiles();
         updateTablaRecientes();
-        for (Archivo file : files) {
-            System.out.println(file.getIdLista());
-        }
     }//GEN-LAST:event_label_recientesMouseClicked
 
     private void label_compartidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_compartidosMouseClicked
+        agregarFiles();
+        traerFiles();
         label_titulo.setText("Archivos Compartidos");
         panel_tableRecientes.setVisible(false);
         panel_tablePapelera.setVisible(false);
@@ -1720,11 +1728,13 @@ public class myDrive extends javax.swing.JFrame {
     }//GEN-LAST:event_label_compartidosMouseClicked
 
     private void label_papeleraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_papeleraMouseClicked
-        updateTablaPapelera();
+        agregarFiles();
+        traerFiles();
         label_titulo.setText("Papelera");
         panel_tableRecientes.setVisible(false);
         panel_tablePapelera.setVisible(true);
         panel_tableCompartidos.setVisible(false);
+        updateTablaPapelera();
     }//GEN-LAST:event_label_papeleraMouseClicked
 
     private void label_crearArchivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_crearArchivosMouseClicked
@@ -1736,7 +1746,6 @@ public class myDrive extends javax.swing.JFrame {
             if (jTable1.getSelectedRow() > -1) {
                 jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
             }
-
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -2050,7 +2059,7 @@ public class myDrive extends javax.swing.JFrame {
                 }
                 JOptionPane.showMessageDialog(this, "Archivo Compartido", "Exito", JOptionPane.INFORMATION_MESSAGE);
             }
-            
+
         } catch (Exception e) {
 
         }
@@ -2081,11 +2090,11 @@ public class myDrive extends javax.swing.JFrame {
 
     private void label_exit_inciar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar1MouseClicked
         dialog_crearGrupo.setVisible(false);
-                                                  
+
     }//GEN-LAST:event_label_exit_inciar1MouseClicked
 
     private void label_exit_inciar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar1MouseEntered
-         panel_exit_iniciar1.setBackground(Color.red);
+        panel_exit_iniciar1.setBackground(Color.red);
     }//GEN-LAST:event_label_exit_inciar1MouseEntered
 
     private void label_exit_inciar1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar1MouseExited
@@ -2262,11 +2271,11 @@ public class myDrive extends javax.swing.JFrame {
         } catch (Exception e) {
 
         }
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(330);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(70);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
-        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+//        jTable1.getColumnModel().getColumn(0).setPreferredWidth(330);
+//        jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+//        jTable1.getColumnModel().getColumn(2).setPreferredWidth(70);
+//        jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
+//        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
 
     public void updateTablaPapelera() {
@@ -2282,19 +2291,16 @@ public class myDrive extends javax.swing.JFrame {
                     row[2] = file.getArchivo().length() / 1024 + " KB";
                     row[3] = file.getCreador();
                     m.addRow(row);
+                    System.out.println(Arrays.toString(row));
                 }
             }
-
             jTable5.setModel(m);
+            
+            System.out.println(m + "model de papelera");
             System.out.println("ADD MODEL PAPELERA");
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
-        jTable5.getColumnModel().getColumn(0).setPreferredWidth(330);
-        jTable5.getColumnModel().getColumn(1).setPreferredWidth(50);
-        jTable5.getColumnModel().getColumn(2).setPreferredWidth(70);
-        jTable5.getColumnModel().getColumn(3).setPreferredWidth(50);
-        jTable5.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
 
     public void crearFiles() {
@@ -2372,11 +2378,11 @@ public class myDrive extends javax.swing.JFrame {
         } catch (Exception e) {
 
         }
-        jTable4.getColumnModel().getColumn(0).setPreferredWidth(330);
-        jTable4.getColumnModel().getColumn(1).setPreferredWidth(50);
-        jTable4.getColumnModel().getColumn(2).setPreferredWidth(70);
-        jTable4.getColumnModel().getColumn(3).setPreferredWidth(50);
-        jTable4.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+//        jTable4.getColumnModel().getColumn(0).setPreferredWidth(330);
+//        jTable4.getColumnModel().getColumn(1).setPreferredWidth(50);
+//        jTable4.getColumnModel().getColumn(2).setPreferredWidth(70);
+//        jTable4.getColumnModel().getColumn(3).setPreferredWidth(50);
+//        jTable4.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
 
     public void traerGrupos() {
