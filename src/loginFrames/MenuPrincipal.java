@@ -453,7 +453,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         db.conectar();
         correosUsuarios = new ArrayList();
         try {
-            db.query.execute("select * from borradores");
+            db.query.execute("select * from correos");
             ResultSet rs = db.query.getResultSet();
             correosUsuarios = new ArrayList();
             while (rs.next()) {

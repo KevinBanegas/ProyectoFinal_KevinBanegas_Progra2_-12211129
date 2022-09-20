@@ -6,16 +6,34 @@
 package Correo;
 
 import Conexiones.Dba;
+import com.healthmarketscience.jackcess.PropertyMap;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.Session;
+import javax.mail.Store;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import loginFrames.Administrador;
 import loginFrames.Cuenta;
 import loginFrames.DefaultLoginFrame;
@@ -38,14 +56,41 @@ public class myMail extends javax.swing.JFrame {
         initComponents();
         pack();
         setLocationRelativeTo(null);
+        prop = new Properties();
+        prop.setProperty("mail.pop3.starttls.enable", "false");
+        prop.setProperty("mail.pop3.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        prop.setProperty("mail.pop3.socketFactory.fallback", "false");
+        prop.setProperty("mail.pop3.port", "995");
+        prop.setProperty("mail.pop3.socketFactory.port", "995");
         traerCuenta();
         traerCorreoUsuarios();
         traerContactos();
         traerBorradores();
-        jTable1.getTableHeader().setFont(new java.awt.Font("Litera-Serial", Font.BOLD, 15));
-        jTable1.getTableHeader().setBackground(new Color(255, 152, 204));
-        jTable1.getTableHeader().setForeground(Color.WHITE);
 
+        for (CorreoUsuarios correosUsuario : correosUsuarios) {
+            if (correosUsuario.getIdCuenta() == cuentas.get(this.indexCuenta).getId()) {
+                usuario = correosUsuario.getUsuario();
+                contra = correosUsuario.getContra();
+            }
+        }
+        conect();
+        folders.setEliminados(eliminadosF);
+        folders.setEnviados(enviadosF);
+        folders.setSpam(spamF);
+        folders.setInbox(inboxF);
+
+        tableInbox.getTableHeader().setFont(new java.awt.Font("Litera-Serial", Font.BOLD, 15));
+        tableInbox.getTableHeader().setBackground(new Color(255, 152, 204));
+        tableInbox.getTableHeader().setForeground(Color.WHITE);
+        tableEnviados.getTableHeader().setFont(new java.awt.Font("Litera-Serial", Font.BOLD, 15));
+        tableEnviados.getTableHeader().setBackground(new Color(255, 152, 204));
+        tableEnviados.getTableHeader().setForeground(Color.WHITE);
+        tableElim.getTableHeader().setFont(new java.awt.Font("Litera-Serial", Font.BOLD, 15));
+        tableElim.getTableHeader().setBackground(new Color(255, 152, 204));
+        tableElim.getTableHeader().setForeground(Color.WHITE);
+        tableSpam.getTableHeader().setFont(new java.awt.Font("Litera-Serial", Font.BOLD, 15));
+        tableSpam.getTableHeader().setBackground(new Color(255, 152, 204));
+        tableSpam.getTableHeader().setForeground(Color.WHITE);
     }
 
     /**
@@ -132,9 +177,34 @@ public class myMail extends javax.swing.JFrame {
         label_borradores = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         displayContCorreo = new javax.swing.JEditorPane();
-        listaCorreos = new javax.swing.JPanel();
+        correosInbox = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableInbox = new javax.swing.JTable();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel16 = new javax.swing.JPanel();
+        para_correo = new javax.swing.JLabel();
+        jPanel17 = new javax.swing.JPanel();
+        asunto_correo = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        correosEliminados = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tableElim = new javax.swing.JTable();
+        jPanel20 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        correosSpam = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tableSpam = new javax.swing.JTable();
+        jPanel21 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        correosEnviados = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tableEnviados = new javax.swing.JTable();
+        jPanel22 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
 
         dialogEnviar.setUndecorated(true);
 
@@ -248,6 +318,11 @@ public class myMail extends javax.swing.JFrame {
         enviar.setForeground(new java.awt.Color(255, 255, 255));
         enviar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         enviar.setText("Enviar");
+        enviar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                enviarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -650,6 +725,8 @@ public class myMail extends javax.swing.JFrame {
             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        borradores.setUndecorated(true);
+
         jPanel13.setBackground(new java.awt.Color(255, 204, 204));
 
         header_menu4.setBackground(new java.awt.Color(122, 68, 149));
@@ -713,6 +790,8 @@ public class myMail extends javax.swing.JFrame {
         jScrollPane5.setBorder(null);
 
         jList2.setBackground(new java.awt.Color(153, 102, 255));
+        jList2.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jList2.setForeground(new java.awt.Color(255, 255, 255));
         jList2.setModel(new DefaultListModel());
         jList2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -933,6 +1012,9 @@ public class myMail extends javax.swing.JFrame {
         label_inbox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_inbox.setText("Inbox");
         label_inbox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_inboxMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 label_inboxMouseEntered(evt);
             }
@@ -962,6 +1044,9 @@ public class myMail extends javax.swing.JFrame {
         label_enviados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_enviados.setText("Enviados");
         label_enviados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_enviadosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 label_enviadosMouseEntered(evt);
             }
@@ -991,6 +1076,9 @@ public class myMail extends javax.swing.JFrame {
         label_spam.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_spam.setText("Spam");
         label_spam.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_spamMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 label_spamMouseEntered(evt);
             }
@@ -1020,6 +1108,9 @@ public class myMail extends javax.swing.JFrame {
         label_eliminados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_eliminados.setText("Eliminados");
         label_eliminados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_eliminadosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 label_eliminadosMouseEntered(evt);
             }
@@ -1184,25 +1275,26 @@ public class myMail extends javax.swing.JFrame {
                 .addComponent(panel_favoritos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_borradores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
-        bg_myMail.add(panel_eventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 190, 560));
+        bg_myMail.add(panel_eventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 190, 610));
 
         jScrollPane1.setBorder(null);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         displayContCorreo.setBackground(new java.awt.Color(255, 204, 204));
         jScrollPane1.setViewportView(displayContCorreo);
 
-        bg_myMail.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, 610, 540));
+        bg_myMail.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, 610, 500));
 
-        listaCorreos.setBackground(new java.awt.Color(204, 153, 255));
+        correosInbox.setBackground(new java.awt.Color(204, 153, 255));
 
         jScrollPane2.setBorder(null);
 
-        jTable1.setBackground(new java.awt.Color(102, 0, 102));
-        jTable1.setForeground(new java.awt.Color(255, 255, 255));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableInbox.setBackground(new java.awt.Color(102, 0, 102));
+        tableInbox.setForeground(new java.awt.Color(255, 255, 255));
+        tableInbox.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -1275,32 +1367,557 @@ public class myMail extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setGridColor(new java.awt.Color(153, 0, 153));
-        jTable1.setRowHeight(25);
-        jTable1.setShowVerticalLines(false);
-        jScrollPane2.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
+        tableInbox.setGridColor(new java.awt.Color(153, 0, 153));
+        tableInbox.setRowHeight(25);
+        tableInbox.setShowVerticalLines(false);
+        tableInbox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableInboxMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tableInbox);
+        if (tableInbox.getColumnModel().getColumnCount() > 0) {
+            tableInbox.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        javax.swing.GroupLayout listaCorreosLayout = new javax.swing.GroupLayout(listaCorreos);
-        listaCorreos.setLayout(listaCorreosLayout);
-        listaCorreosLayout.setHorizontalGroup(
-            listaCorreosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(listaCorreosLayout.createSequentialGroup()
+        jPanel15.setBackground(new java.awt.Color(153, 0, 153));
+
+        jLabel9.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Inbox");
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        listaCorreosLayout.setVerticalGroup(
-            listaCorreosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(listaCorreosLayout.createSequentialGroup()
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout correosInboxLayout = new javax.swing.GroupLayout(correosInbox);
+        correosInbox.setLayout(correosInboxLayout);
+        correosInboxLayout.setHorizontalGroup(
+            correosInboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(correosInboxLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                .addGroup(correosInboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        correosInboxLayout.setVerticalGroup(
+            correosInboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, correosInboxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        bg_myMail.add(listaCorreos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 190, 560));
+        bg_myMail.add(correosInbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 190, 610));
+
+        jPanel16.setBackground(new java.awt.Color(172, 112, 168));
+
+        para_correo.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(para_correo, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(para_correo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        bg_myMail.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 490, 30));
+
+        jPanel17.setBackground(new java.awt.Color(172, 112, 168));
+
+        asunto_correo.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
+        asunto_correo.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(asunto_correo, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(asunto_correo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        bg_myMail.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, 490, 30));
+
+        jPanel18.setBackground(new java.awt.Color(153, 0, 153));
+
+        jLabel11.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Para");
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        bg_myMail.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, 100, 30));
+
+        jPanel19.setBackground(new java.awt.Color(153, 0, 153));
+
+        jLabel10.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Asunto");
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        bg_myMail.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, -1, 30));
+
+        correosEliminados.setBackground(new java.awt.Color(204, 153, 255));
+
+        jScrollPane6.setBorder(null);
+
+        tableElim.setBackground(new java.awt.Color(102, 0, 102));
+        tableElim.setForeground(new java.awt.Color(255, 255, 255));
+        tableElim.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Correos"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableElim.setGridColor(new java.awt.Color(153, 0, 153));
+        tableElim.setRowHeight(25);
+        tableElim.setShowVerticalLines(false);
+        tableElim.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableElimMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tableElim);
+        if (tableElim.getColumnModel().getColumnCount() > 0) {
+            tableElim.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        jPanel20.setBackground(new java.awt.Color(153, 0, 153));
+
+        jLabel12.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Eliminados");
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout correosEliminadosLayout = new javax.swing.GroupLayout(correosEliminados);
+        correosEliminados.setLayout(correosEliminadosLayout);
+        correosEliminadosLayout.setHorizontalGroup(
+            correosEliminadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(correosEliminadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(correosEliminadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        correosEliminadosLayout.setVerticalGroup(
+            correosEliminadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, correosEliminadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        bg_myMail.add(correosEliminados, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 190, 610));
+
+        correosSpam.setBackground(new java.awt.Color(204, 153, 255));
+
+        jScrollPane7.setBorder(null);
+
+        tableSpam.setBackground(new java.awt.Color(102, 0, 102));
+        tableSpam.setForeground(new java.awt.Color(255, 255, 255));
+        tableSpam.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Correos"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableSpam.setGridColor(new java.awt.Color(153, 0, 153));
+        tableSpam.setRowHeight(25);
+        tableSpam.setShowVerticalLines(false);
+        tableSpam.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableSpamMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tableSpam);
+        if (tableSpam.getColumnModel().getColumnCount() > 0) {
+            tableSpam.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        jPanel21.setBackground(new java.awt.Color(153, 0, 153));
+
+        jLabel13.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Spam");
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout correosSpamLayout = new javax.swing.GroupLayout(correosSpam);
+        correosSpam.setLayout(correosSpamLayout);
+        correosSpamLayout.setHorizontalGroup(
+            correosSpamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(correosSpamLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(correosSpamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        correosSpamLayout.setVerticalGroup(
+            correosSpamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, correosSpamLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        bg_myMail.add(correosSpam, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 190, 610));
+
+        correosEnviados.setBackground(new java.awt.Color(204, 153, 255));
+
+        jScrollPane8.setBorder(null);
+
+        tableEnviados.setBackground(new java.awt.Color(102, 0, 102));
+        tableEnviados.setForeground(new java.awt.Color(255, 255, 255));
+        tableEnviados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Correos"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableEnviados.setGridColor(new java.awt.Color(153, 0, 153));
+        tableEnviados.setRowHeight(25);
+        tableEnviados.setShowVerticalLines(false);
+        tableEnviados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableEnviadosMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(tableEnviados);
+        if (tableEnviados.getColumnModel().getColumnCount() > 0) {
+            tableEnviados.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        jPanel22.setBackground(new java.awt.Color(153, 0, 153));
+
+        jLabel14.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Enviados");
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout correosEnviadosLayout = new javax.swing.GroupLayout(correosEnviados);
+        correosEnviados.setLayout(correosEnviadosLayout);
+        correosEnviadosLayout.setHorizontalGroup(
+            correosEnviadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(correosEnviadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(correosEnviadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        correosEnviadosLayout.setVerticalGroup(
+            correosEnviadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, correosEnviadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        bg_myMail.add(correosEnviados, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 190, 610));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1310,9 +1927,7 @@ public class myMail extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(bg_myMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(bg_myMail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -1570,6 +2185,7 @@ public class myMail extends javax.swing.JFrame {
     }//GEN-LAST:event_guardarBorradorMouseClicked
 
     private void label_borradoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_borradoresMouseClicked
+        traerBorradores();
         DefaultListModel listB = (DefaultListModel) jList2.getModel();
         listB.removeAllElements();
         for (Correo correo : correos) {
@@ -1593,23 +2209,26 @@ public class myMail extends javax.swing.JFrame {
     }//GEN-LAST:event_label_borradoresMouseExited
 
     private void label_exit_myMail4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myMail4MouseClicked
-        // TODO add your handling code here:
+        borradores.setVisible(false);
     }//GEN-LAST:event_label_exit_myMail4MouseClicked
 
     private void label_exit_myMail4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myMail4MouseEntered
-        // TODO add your handling code here:
+        panel_exit_myMail4.setBackground(Color.red);
     }//GEN-LAST:event_label_exit_myMail4MouseEntered
 
     private void label_exit_myMail4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myMail4MouseExited
-        // TODO add your handling code here:
+        panel_exit_myMail4.setBackground(header_menu1.getBackground());
     }//GEN-LAST:event_label_exit_myMail4MouseExited
 
     private void header_menu4MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_menu4MouseDragged
-        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        borradores.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_header_menu4MouseDragged
 
     private void header_menu4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_menu4MousePressed
-        // TODO add your handling code here:
+        xMouse = evt.getX();
+        yMouse = evt.getY();
     }//GEN-LAST:event_header_menu4MousePressed
 
     private void jList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MouseClicked
@@ -1628,6 +2247,116 @@ public class myMail extends javax.swing.JFrame {
             dialogEnviar.setVisible(true);
         }
     }//GEN-LAST:event_jList2MouseClicked
+
+    private void enviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enviarMouseClicked
+        String correo = "", contra = "";
+        for (CorreoUsuarios correosUsuario : correosUsuarios) {
+            if (correosUsuario.getIdCuenta() == cuentas.get(indexCuenta).getId()) {
+                correo = correosUsuario.getUsuario();
+                contra = correosUsuario.getContra();
+            }
+        }
+        System.out.println(correo);
+        System.out.println(contra);
+        Servidor server = new Servidor("smtp.office365.com", "587", correo, contra);
+        server.conectar();
+        try {
+            ConeccionCorreo mail = new ConeccionCorreo(server.getSession());
+            mail.addRecipient(Message.RecipientType.TO, new InternetAddress(recipiente.getText()));
+            mail.setSubject(asunto.getText());
+            mail.setText(cuerpo.getText());
+            BodyPart parteTexto = new MimeBodyPart();
+            parteTexto.setContent("<b>" + cuerpo.getText() + "</b>", "text/html");
+
+            MimeMultipart todaslasPartes = new MimeMultipart();
+            todaslasPartes.addBodyPart(parteTexto);
+            mail.setContent(todaslasPartes);
+            mail.setFrom(server.getUsuario());
+
+            server.enviarCorreo(mail);
+            JOptionPane.showMessageDialog(this, "Correo Enviado", "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+            cuerpo.setText("");
+            recipiente.setText("");
+            asunto.setText("");
+            dialogEnviar.setVisible(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_enviarMouseClicked
+
+    private void tableInboxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableInboxMouseClicked
+        if (tableInbox.getSelectedRow() > -1) {
+            try {
+                int index = folders.getMensajesInbox().length - (tableInbox.getSelectedRow() - 1);
+                asunto_correo.setText(folders.getMensajesInbox()[index].getSubject());
+                para_correo.setText(folders.getMensajesInbox()[index].getFrom()[0].toString());
+                File html = new File("./correo.html");
+                if (html.exists()) {
+                    html.deleteOnExit();
+                }
+                displayContCorreo.setPage(new File("algo.html").toURI().toURL());
+                folders.partesCorreo(folders.getMensajesInbox()[index]);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_tableInboxMouseClicked
+
+    private void label_inboxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_inboxMouseClicked
+        DefaultTableModel listInbox = (DefaultTableModel) tableInbox.getModel();
+        listInbox.setNumRows(0);
+        try {
+            for (Message message : folders.getMensajesInbox()) {
+                String[] row = new String[1];
+                row[0] = message.getSubject();
+                listInbox.addRow(row);
+            }
+            tableInbox.setModel(listInbox);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        correosEnviados.setVisible(false);
+        correosEliminados.setVisible(false);
+        correosInbox.setVisible(true);
+        correosSpam.setVisible(false);
+    }//GEN-LAST:event_label_inboxMouseClicked
+
+    private void label_enviadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_enviadosMouseClicked
+        correosEnviados.setVisible(true);
+        correosEliminados.setVisible(false);
+        correosInbox.setVisible(false);
+        correosSpam.setVisible(false);
+    }//GEN-LAST:event_label_enviadosMouseClicked
+
+    private void label_spamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_spamMouseClicked
+        correosEnviados.setVisible(false);
+        correosEliminados.setVisible(false);
+        correosInbox.setVisible(false);
+        correosSpam.setVisible(true);
+    }//GEN-LAST:event_label_spamMouseClicked
+
+    private void label_eliminadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_eliminadosMouseClicked
+        correosEnviados.setVisible(false);
+        correosEliminados.setVisible(true);
+        correosInbox.setVisible(false);
+        correosSpam.setVisible(false);
+    }//GEN-LAST:event_label_eliminadosMouseClicked
+
+    private void tableElimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableElimMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableElimMouseClicked
+
+    private void tableSpamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSpamMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableSpamMouseClicked
+
+    private void tableEnviadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEnviadosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableEnviadosMouseClicked
 
     public void traerCuenta() {
         Dba db = new Dba("./DataBase.accdb");
@@ -1687,8 +2416,8 @@ public class myMail extends javax.swing.JFrame {
                 CorreoUsuarios cu = new CorreoUsuarios();
                 cu.setIdCorreo(rs.getInt("idCorreo"));
                 cu.setIdCuenta(rs.getInt("idCuenta"));
-                cu.setContra(rs.getString("correo"));
-                cu.setUsuario(rs.getString("contra"));
+                cu.setContra(rs.getString("contra"));
+                cu.setUsuario(rs.getString("correo"));
                 correosUsuarios.add(cu);
             }
         } catch (SQLException ex) {
@@ -1739,14 +2468,14 @@ public class myMail extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
-    public void updateBorrador(int id){
+
+    public void updateBorrador(int id) {
         Dba db = new Dba("./DataBase.accdb");
         db.conectar();
         try {
             db.query.execute("update borradores set recipiente= '" + recipiente.getText()
-                    + "' , asunto= '" + asunto.getText() 
-                    + "' , cuerpo= '"+ cuerpo.getText()
+                    + "' , asunto= '" + asunto.getText()
+                    + "' , cuerpo= '" + cuerpo.getText()
                     + "' where idBorrador= " + id);
             db.commit();
         } catch (SQLException ex) {
@@ -1754,6 +2483,38 @@ public class myMail extends javax.swing.JFrame {
         }
         db.desconectar();
 
+    }
+
+    public void elimBorrador() {
+
+    }
+
+    public boolean conect() {
+        try {
+            session = Session.getDefaultInstance(prop);
+            store = session.getStore("imap");
+            store.connect("outlook.office365.com", usuario, contra);
+
+            inboxF = store.getFolder("INBOX");
+            inboxF.open(Folder.READ_WRITE);
+            inboxM = inboxF.getMessages();
+
+            enviadosF = store.getFolder("Elementos enviados");
+            enviadosF.open(Folder.READ_WRITE);
+            enviadosM = enviadosF.getMessages();
+
+            eliminadosF = store.getFolder("Elementos eliminados");
+            eliminadosF.open(Folder.READ_WRITE);
+            eliminadosM = eliminadosF.getMessages();
+
+            spamF = store.getFolder("Correo no deseado");
+            spamF.open(Folder.READ_WRITE);
+            spamM = spamF.getMessages();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
@@ -1793,16 +2554,38 @@ public class myMail extends javax.swing.JFrame {
     private int xMouse;
     private int yMouse;
     private int bruh;
+    private String usuario;
+    private String contra;
     private static int indexCuenta;
     private ArrayList<Cuenta> cuentas;
     private ArrayList<Correo> correos;
     private ArrayList<CorreoUsuarios> correosUsuarios;
     private ArrayList<Integer> contactosId;
+    private TodosFolders folders;
+
+    private Folder inboxF;
+    private Folder eliminadosF;
+    private Folder spamF;
+    private Folder enviadosF;
+
+    private Message[] inboxM;
+    private Message[] eliminadosM;
+    private Message[] spamM;
+    private Message[] enviadosM;
+
+    private Properties prop;
+    private Session session;
+    private Store store;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField asunto;
+    private javax.swing.JLabel asunto_correo;
     private javax.swing.JPanel bg_myMail;
     private javax.swing.JDialog borradores;
     private javax.swing.JDialog contactosFavoritos;
+    private javax.swing.JPanel correosEliminados;
+    private javax.swing.JPanel correosEnviados;
+    private javax.swing.JPanel correosInbox;
+    private javax.swing.JPanel correosSpam;
     private javax.swing.JTextArea cuerpo;
     private javax.swing.JDialog dialogAgregar;
     private javax.swing.JDialog dialogEnviar;
@@ -1816,6 +2599,11 @@ public class myMail extends javax.swing.JFrame {
     private javax.swing.JPanel header_menu4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1823,6 +2611,7 @@ public class myMail extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
@@ -1831,7 +2620,15 @@ public class myMail extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1844,7 +2641,9 @@ public class myMail extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JLabel label_agregarContacto;
     private javax.swing.JLabel label_borradores;
     private javax.swing.JLabel label_eliminados;
@@ -1859,7 +2658,6 @@ public class myMail extends javax.swing.JFrame {
     private javax.swing.JLabel label_inbox;
     private javax.swing.JLabel label_minimize_myMail;
     private javax.swing.JLabel label_spam;
-    private javax.swing.JPanel listaCorreos;
     private javax.swing.JLabel myMail_Title;
     private javax.swing.JPanel panel_agregarContacto;
     private javax.swing.JPanel panel_borradores;
@@ -1876,6 +2674,11 @@ public class myMail extends javax.swing.JFrame {
     private javax.swing.JPanel panel_inbox;
     private javax.swing.JPanel panel_minimize_myMail;
     private javax.swing.JPanel panel_spam;
+    private javax.swing.JLabel para_correo;
     private javax.swing.JTextField recipiente;
+    private javax.swing.JTable tableElim;
+    private javax.swing.JTable tableEnviados;
+    private javax.swing.JTable tableInbox;
+    private javax.swing.JTable tableSpam;
     // End of variables declaration//GEN-END:variables
 }
