@@ -23,6 +23,8 @@ public class FirstLoginFrame extends javax.swing.JFrame {
      */
     public FirstLoginFrame() {
         initComponents();
+        pack();
+        setLocationRelativeTo(null);
         traerCuenta();
         textf_contra_iniciar.setEchoChar((char) 0);
         jLabel3.setVisible(false);

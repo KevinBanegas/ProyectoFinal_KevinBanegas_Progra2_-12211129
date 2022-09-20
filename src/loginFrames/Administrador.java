@@ -7,7 +7,9 @@ package loginFrames;
 
 import loginFrames.MenuPrincipal;
 import Conexiones.Dba;
+import Correo.CorreoUsuarios;
 import Correo.myMail;
+import Correo.Ingresar;
 import Drive.myDrive;
 import ToDo.myToDo;
 import com.sun.jdi.connect.spi.Connection;
@@ -41,7 +43,10 @@ public class Administrador extends javax.swing.JFrame {
         this.indexCuenta = indexCuenta;
         System.out.println(this.indexCuenta);
         initComponents();
+        pack();
+        setLocationRelativeTo(null);
         traerCuenta();
+        traerCorreoUsuarios();
         actualizarCB();
         table_verCuentas.getTableHeader().setFont(new java.awt.Font("Litera-Serial", 0, 14));
         table_verCuentas.getTableHeader().setBackground(new Color(255, 152, 204));
@@ -58,7 +63,7 @@ public class Administrador extends javax.swing.JFrame {
         panel_crear.setVisible(false);
         panel_VerCuenta.setVisible(true);
         label_verCuentasMouseClicked(new java.awt.event.MouseEvent(this, 1, 1, 1, 1, 1, 1, true));
-        
+
     }
 
     /**
@@ -92,6 +97,16 @@ public class Administrador extends javax.swing.JFrame {
         deshabilitar_myDrive = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         deshabilitar_myDay = new javax.swing.JLabel();
+        jDialog1 = new javax.swing.JDialog();
+        jPanel9 = new javax.swing.JPanel();
+        header_iniciar2 = new javax.swing.JPanel();
+        panel_exit_iniciar2 = new javax.swing.JPanel();
+        label_exit_inciar2 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        cb_usuariosIngresar = new javax.swing.JComboBox<>();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         header_iniciar = new javax.swing.JPanel();
         panel_exit_iniciar = new javax.swing.JPanel();
@@ -438,6 +453,139 @@ public class Administrador extends javax.swing.JFrame {
         jFrame1Layout.setVerticalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+        );
+
+        jDialog1.setUndecorated(true);
+
+        jPanel9.setBackground(new java.awt.Color(252, 226, 219));
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        header_iniciar2.setBackground(new java.awt.Color(122, 68, 149));
+        header_iniciar2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                header_iniciar2MouseDragged(evt);
+            }
+        });
+        header_iniciar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                header_iniciar2MousePressed(evt);
+            }
+        });
+
+        panel_exit_iniciar2.setBackground(new java.awt.Color(122, 68, 149));
+
+        label_exit_inciar2.setFont(new java.awt.Font("Dialog", 0, 22)); // NOI18N
+        label_exit_inciar2.setForeground(new java.awt.Color(255, 255, 255));
+        label_exit_inciar2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_exit_inciar2.setText("🗙");
+        label_exit_inciar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_exit_inciar2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_exit_inciar2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                label_exit_inciar2MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_exit_iniciar2Layout = new javax.swing.GroupLayout(panel_exit_iniciar2);
+        panel_exit_iniciar2.setLayout(panel_exit_iniciar2Layout);
+        panel_exit_iniciar2Layout.setHorizontalGroup(
+            panel_exit_iniciar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_exit_iniciar2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(label_exit_inciar2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panel_exit_iniciar2Layout.setVerticalGroup(
+            panel_exit_iniciar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(label_exit_inciar2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        javax.swing.GroupLayout header_iniciar2Layout = new javax.swing.GroupLayout(header_iniciar2);
+        header_iniciar2.setLayout(header_iniciar2Layout);
+        header_iniciar2Layout.setHorizontalGroup(
+            header_iniciar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header_iniciar2Layout.createSequentialGroup()
+                .addGap(0, 290, Short.MAX_VALUE)
+                .addComponent(panel_exit_iniciar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        header_iniciar2Layout.setVerticalGroup(
+            header_iniciar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(header_iniciar2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(panel_exit_iniciar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel9.add(header_iniciar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 30));
+
+        jPanel10.setBackground(new java.awt.Color(153, 0, 153));
+
+        jLabel10.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Elija un Usuario");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 160, 40));
+
+        cb_usuariosIngresar.setBackground(new java.awt.Color(153, 102, 255));
+        cb_usuariosIngresar.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
+        cb_usuariosIngresar.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel9.add(cb_usuariosIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 200, 40));
+
+        jPanel11.setBackground(new java.awt.Color(153, 0, 153));
+
+        jLabel11.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Ingresar");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 140, 50));
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1797,20 +1945,18 @@ public class Administrador extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            
-            
-            try{
+
+            try {
                 db.query.execute("delete from listaTareas where idCuenta=" + ((Cuenta) (cb_elim.getSelectedItem())).getId());
                 db.commit();
                 //JOptionPane.showMessageDialog(this, "Usuario Eliminado Exitosamente");
-            }catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
             db.desconectar();
             traerCuenta();
             actualizarCB();
-            
-            
+
         }
     }//GEN-LAST:event_label_elimMouseClicked
 
@@ -1898,21 +2044,69 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_label_PermisosMouseClicked
 
     private void label_myDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_myDayMouseClicked
-        setVisible(false);
-        new myToDo(indexCuenta).setVisible(true);
+        mail = false;
+        todo = true;
+        drive = false;
+        DefaultComboBoxModel cbM = (DefaultComboBoxModel) cb_usuariosIngresar.getModel();
+        cbM.removeAllElements();
+        cbM.addAll(cuentas);
+        cb_usuariosIngresar.setModel(cbM);
+
+        jDialog1.setVisible(true);
+        jDialog1.pack();
+        jDialog1.setModal(true);
+        jDialog1.setLocationRelativeTo(this);
         reset();
     }//GEN-LAST:event_label_myDayMouseClicked
 
     private void label_myDriveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_myDriveMouseClicked
-        setVisible(false);
-        new myDrive(indexCuenta).setVisible(true);
+        mail = false;
+        todo = false;
+        drive = true;
+
+        DefaultComboBoxModel cbM = (DefaultComboBoxModel) cb_usuariosIngresar.getModel();
+        cbM.removeAllElements();
+        cbM.addAll(cuentas);
+        cb_usuariosIngresar.setModel(cbM);
+
+        jDialog1.setVisible(true);
+        jDialog1.pack();
+        jDialog1.setModal(true);
+        jDialog1.setLocationRelativeTo(this);
         reset();
     }//GEN-LAST:event_label_myDriveMouseClicked
 
     private void label_myMailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_myMailMouseClicked
-        setVisible(false);
-        new myMail(indexCuenta).setVisible(true);
-        reset();
+        mail = true;
+        todo = false;
+        drive = false;
+
+        DefaultComboBoxModel cbM = (DefaultComboBoxModel) cb_usuariosIngresar.getModel();
+        cbM.removeAllElements();
+        cbM.addAll(cuentas);
+        cb_usuariosIngresar.setModel(cbM);
+
+        jDialog1.setVisible(true);
+        jDialog1.pack();
+        jDialog1.setModal(true);
+        jDialog1.setLocationRelativeTo(this);
+
+//        boolean ver = false;
+//        for (CorreoUsuarios correosUsuario : correosUsuarios) {
+//            if (correosUsuario.getIdCuenta() == cuentas.get(this.indexCuenta).getId()) {
+//                ver = true;
+//            }
+//        }
+//        if (ver == false) { //Cuenta no existe
+//            System.out.println("no existe");
+//            new Ingresar(this.indexCuenta).setVisible(true);
+//            setVisible(false);
+//            //Crear Cuenta
+//        } else {
+//            new myMail(indexCuenta).setVisible(true);
+//            setVisible(false);
+//            reset();
+//        }
     }//GEN-LAST:event_label_myMailMouseClicked
 
     private void label_cerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_cerrarSesionMouseClicked
@@ -2003,6 +2197,65 @@ public class Administrador extends javax.swing.JFrame {
             deshabilitar_myMail.setEnabled(false);
         }
     }//GEN-LAST:event_deshabilitar_myMailMouseClicked
+
+    private void label_exit_inciar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar2MouseClicked
+        jDialog1.setVisible(false);
+    }//GEN-LAST:event_label_exit_inciar2MouseClicked
+
+    private void label_exit_inciar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar2MouseEntered
+        panel_exit_iniciar1.setBackground(Color.red);
+    }//GEN-LAST:event_label_exit_inciar2MouseEntered
+
+    private void label_exit_inciar2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_inciar2MouseExited
+        panel_minimize_iniciar1.setBackground(header_iniciar.getBackground());
+    }//GEN-LAST:event_label_exit_inciar2MouseExited
+
+    private void header_iniciar2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciar2MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        jDialog1.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_header_iniciar2MouseDragged
+
+    private void header_iniciar2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_header_iniciar2MousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_header_iniciar2MousePressed
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        if (cb_usuariosIngresar.getSelectedIndex() > -1) {
+            indexCuenta = cb_usuariosIngresar.getSelectedIndex();
+
+            jDialog1.setVisible(false);
+            if (todo) {
+                setVisible(false);
+                new myToDo(indexCuenta).setVisible(true);
+            } else if (mail) {
+                boolean ver = false;
+                for (CorreoUsuarios correosUsuario : correosUsuarios) {
+                    if (correosUsuario.getIdCuenta() == cuentas.get(this.indexCuenta).getId()) {
+                        ver = true;
+                    }
+                }
+                if (ver == false) { //Cuenta no existe
+                    System.out.println("no existe");
+                    new Ingresar(this.indexCuenta).setVisible(true);
+                    setVisible(false);
+                    //Crear Cuenta
+                } else {
+                    new myMail(indexCuenta).setVisible(true);
+                    setVisible(false);
+                    reset();
+                }
+            } else if (drive) {
+                setVisible(false);
+                new myDrive(indexCuenta).setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No ingreso una cunta", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_jLabel11MouseClicked
 
     /**
      * @param args the command line arguments
@@ -2142,15 +2395,43 @@ public class Administrador extends javax.swing.JFrame {
         cb_mod.setSelectedIndex(0);
         cb_elim.setSelectedIndex(0);
     }
+
+    public void traerCorreoUsuarios() {
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+        correosUsuarios = new ArrayList();
+        try {
+            db.query.execute("select * from correos");
+            ResultSet rs = db.query.getResultSet();
+            correosUsuarios = new ArrayList();
+            while (rs.next()) {
+
+                CorreoUsuarios cu = new CorreoUsuarios();
+                cu.setIdCorreo(rs.getInt("idCorreo"));
+                cu.setIdCuenta(rs.getInt("idCuenta"));
+                cu.setContra(rs.getString("correo"));
+                cu.setUsuario(rs.getString("contra"));
+                correosUsuarios.add(cu);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+    }
     private int bruh = 0, bruh1 = 0;
     private int xMouse;
     private int yMouse;
     private static int indexCuenta;
+    private boolean mail;
+    private boolean todo;
+    private boolean drive;
+    private ArrayList<CorreoUsuarios> correosUsuarios;
     private ArrayList<Cuenta> cuentas = new ArrayList();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Admin_Title;
     private javax.swing.JComboBox<String> cb_elim;
     private javax.swing.JComboBox<String> cb_mod;
+    private javax.swing.JComboBox<String> cb_usuariosIngresar;
     private javax.swing.JLabel crearCuenta_Title3;
     private javax.swing.JLabel crearCuenta_Title4;
     private javax.swing.JLabel crearCuenta_Title5;
@@ -2163,14 +2444,18 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel habilitar_myMail;
     private javax.swing.JPanel header_iniciar;
     private javax.swing.JPanel header_iniciar1;
+    private javax.swing.JPanel header_iniciar2;
     private javax.swing.JLabel icon_contra_iniciar;
     private javax.swing.JLabel icon_contra_iniciar1;
     private javax.swing.JLabel icon_usuario_iniciar3;
     private javax.swing.JLabel icon_usuario_iniciar4;
     private javax.swing.JLabel icon_visualize_iniciar;
     private javax.swing.JLabel icon_visualize_iniciar1;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
@@ -2182,6 +2467,8 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -2189,6 +2476,7 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel label_Permisos;
@@ -2198,6 +2486,7 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel label_eliminarCuenta;
     private javax.swing.JLabel label_exit_inciar;
     private javax.swing.JLabel label_exit_inciar1;
+    private javax.swing.JLabel label_exit_inciar2;
     private javax.swing.JLabel label_minimize_iniciar;
     private javax.swing.JLabel label_mod;
     private javax.swing.JLabel label_modificarCuenta;
@@ -2220,6 +2509,7 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JPanel panel_eventos;
     private javax.swing.JPanel panel_exit_iniciar;
     private javax.swing.JPanel panel_exit_iniciar1;
+    private javax.swing.JPanel panel_exit_iniciar2;
     private javax.swing.JPanel panel_minimize_iniciar;
     private javax.swing.JPanel panel_minimize_iniciar1;
     private javax.swing.JPanel panel_mod;

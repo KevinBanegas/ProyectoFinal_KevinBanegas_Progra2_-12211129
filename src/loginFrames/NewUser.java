@@ -29,6 +29,8 @@ public class NewUser extends javax.swing.JFrame {
      */
     public NewUser() {
         initComponents();
+        pack();
+        setLocationRelativeTo(null);
         traerCuentas();
         textf_contra_iniciar.setEchoChar((char) 0);
         textf_contraVer_crear.setEchoChar((char) 0);

@@ -40,7 +40,8 @@ public class myToDo extends javax.swing.JFrame {
      */
     public myToDo(int indexCuenta) {
         initComponents();
-
+        pack();
+        setLocationRelativeTo(null);
         this.indexCuenta = indexCuenta;
         traerCuenta();
         traerTareas();
@@ -1783,7 +1784,7 @@ public class myToDo extends javax.swing.JFrame {
         panel_importante.setVisible(false);
         panel_tareasDay.setVisible(false);
         panel_asignados.setVisible(true);
-        
+
         SimpleDateFormat sd = new SimpleDateFormat("yyyy/MM/dd");
         DefaultTableModel asignModel = (DefaultTableModel) table_asignados.getModel();
         asignModel.setNumRows(0);
@@ -2306,7 +2307,7 @@ public class myToDo extends javax.swing.JFrame {
                     updateNotasTareas(tarea.getIdTarea());
                 }
             }
-        }else if(table_asignados.getSelectedRowCount()==1){
+        } else if (table_asignados.getSelectedRowCount() == 1) {
             String nombre = table_asignados.getValueAt(table_asignados.getSelectedRow(), 1).toString();
             for (Tarea tarea : tareas) {
                 if (nombre.equals(tarea.getNombreTarea())) {
@@ -2774,8 +2775,8 @@ public class myToDo extends javax.swing.JFrame {
             }
         }
     }
-    
-    public void showNotasAsignados(){
+
+    public void showNotasAsignados() {
         if (table_asignados.getSelectedRows().length == 1) {
             String nombre = table_asignados.getValueAt(table_asignados.getSelectedRows()[0], 1).toString();
             for (Tarea tarea : tareas) {

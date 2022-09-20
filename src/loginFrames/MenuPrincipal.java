@@ -1,7 +1,9 @@
 package loginFrames;
 
 import Conexiones.Dba;
+import Correo.CorreoUsuarios;
 import Correo.myMail;
+import Correo.Ingresar;
 import Drive.myDrive;
 import ToDo.myToDo;
 import java.awt.Color;
@@ -26,7 +28,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal(int indexCuenta) {
         initComponents();
+        pack();
+        setLocationRelativeTo(null);
         traerCuenta();
+        traerCorreoUsuarios();
         System.out.println(cuentas);
         this.indexCuenta = indexCuenta;
         label_bienvenido_menu.setText("Bienvenido, " + cuentas.get(MenuPrincipal.indexCuenta).getUser());
@@ -59,6 +64,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 ingresarMyMail.setEnabled(false);
             }
         }
+
     }
 
     /**
@@ -397,15 +403,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_ingresarMyDriveMouseClicked
 
     private void ingresarMyMailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMyMailMouseClicked
-        if (myMail && !"Kevin".equals(cuentas.get(indexCuenta).getUser())) {
-            setVisible(false);
-            new myMail(indexCuenta).setVisible(true);
-        } else {
-            if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
-                setVisible(false);
-                new myMail(indexCuenta).setVisible(true);
+        boolean ver = false;
+        for (CorreoUsuarios correosUsuario : correosUsuarios) {
+            if (correosUsuario.getIdCuenta() == cuentas.get(this.indexCuenta).getId()) {
+                ver = true;
             }
         }
+        if (ver == false) { //Cuenta no existe
+            System.out.println("no existe");
+            new Ingresar(this.indexCuenta).setVisible(true);
+            setVisible(false);
+            //Crear Cuenta
+        } else { //Cuenta existe
+            if (myMail && !"Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                setVisible(false);
+                new myMail(indexCuenta).setVisible(true);
+            } else {
+                if ("Kevin".equals(cuentas.get(indexCuenta).getUser())) {
+                    setVisible(false);
+                    new myMail(indexCuenta).setVisible(true);
+                }
+            }
+        }
+
     }//GEN-LAST:event_ingresarMyMailMouseClicked
     public void traerCuenta() {
         Dba db = new Dba("./DataBase.accdb");
@@ -421,6 +441,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 u.setContra(rs.getString("contra"));
                 u.setId(rs.getInt("id"));
                 cuentas.add(u);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+    }
+
+    public void traerCorreoUsuarios() {
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+        correosUsuarios = new ArrayList();
+        try {
+            db.query.execute("select * from borradores");
+            ResultSet rs = db.query.getResultSet();
+            correosUsuarios = new ArrayList();
+            while (rs.next()) {
+
+                CorreoUsuarios cu = new CorreoUsuarios();
+                cu.setIdCorreo(rs.getInt("idCorreo"));
+                cu.setIdCuenta(rs.getInt("idCuenta"));
+                cu.setContra(rs.getString("contra"));
+                cu.setUsuario(rs.getString("usuario"));
+                correosUsuarios.add(cu);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -466,6 +509,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private int yMouse;
     private static int indexCuenta;
     private static ArrayList<Cuenta> cuentas;
+    private ArrayList<CorreoUsuarios> correosUsuarios;
     public static boolean myDay = true;
     public static boolean myDrive = true;
     public static boolean myMail = true;
