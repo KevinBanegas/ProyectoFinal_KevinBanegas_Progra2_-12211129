@@ -66,6 +66,15 @@ public class TodosFolders {
         return enviados.getMessages();
     }
 
+    public String getVacio() {
+        return vacio;
+    }
+
+    public void setVacio(String vacio) {
+        this.vacio = vacio;
+    }
+
+    
     @Override
     public String toString() {
         return "TodosFolders{" + "inbox=" + inbox + ", spam=" + spam + ", eliminados=" + eliminados + ", enviados=" + enviados + '}';
@@ -87,7 +96,7 @@ public class TodosFolders {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -101,7 +110,7 @@ public class TodosFolders {
                 fos.write(bytes, 0, leido);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
     

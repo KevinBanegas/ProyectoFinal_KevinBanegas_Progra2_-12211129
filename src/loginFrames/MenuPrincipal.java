@@ -32,7 +32,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         traerCuenta();
         traerCorreoUsuarios();
-        System.out.println(cuentas);
         this.indexCuenta = indexCuenta;
         label_bienvenido_menu.setText("Bienvenido, " + cuentas.get(MenuPrincipal.indexCuenta).getUser());
         if (myDay) {
@@ -410,7 +409,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         }
         if (ver == false) { //Cuenta no existe
-            System.out.println("no existe");
             new Ingresar(this.indexCuenta).setVisible(true);
             setVisible(false);
             //Crear Cuenta

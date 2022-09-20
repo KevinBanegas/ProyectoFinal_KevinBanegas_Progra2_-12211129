@@ -73,8 +73,6 @@ public class myMail extends javax.swing.JFrame {
                 contra = correosUsuario.getContra();
             }
         }
-        System.out.println(usuario);
-        System.out.println(contra);
         conect();
         folders = new TodosFolders();
         folders.setEliminados(eliminadosF);
@@ -1429,7 +1427,8 @@ public class myMail extends javax.swing.JFrame {
 
         jPanel16.setBackground(new java.awt.Color(172, 112, 168));
 
-        para_correo.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
+        para_correo.setFont(new java.awt.Font("Litera-Serial", 0, 12)); // NOI18N
+        para_correo.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -1473,7 +1472,7 @@ public class myMail extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Para");
+        jLabel11.setText("De");
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -2259,8 +2258,6 @@ public class myMail extends javax.swing.JFrame {
                 contra = correosUsuario.getContra();
             }
         }
-        System.out.println(correo);
-        System.out.println(contra);
         Servidor server = new Servidor("smtp.office365.com", "587", correo, contra);
         server.conectar();
         try {
@@ -2292,7 +2289,7 @@ public class myMail extends javax.swing.JFrame {
     private void tableInboxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableInboxMouseClicked
         if (tableInbox.getSelectedRow() > -1) {
             try {
-                int index = folders.getMensajesInbox().length - (tableInbox.getSelectedRow() - 1);
+                int index = folders.getMensajesInbox().length - (tableInbox.getSelectedRow() + 1);
                 asunto_correo.setText(folders.getMensajesInbox()[index].getSubject());
                 para_correo.setText(folders.getMensajesInbox()[index].getFrom()[0].toString());
                 File html = new File("./correo.html");
@@ -2301,9 +2298,10 @@ public class myMail extends javax.swing.JFrame {
                 }
                 displayContCorreo.setPage(new File("algo.html").toURI().toURL());
                 folders.partesCorreo(folders.getMensajesInbox()[index]);
-
+                Hilo h = new Hilo(displayContCorreo, folders);
+                h.start();
             } catch (Exception e) {
-                e.printStackTrace();
+                
             }
         }
     }//GEN-LAST:event_tableInboxMouseClicked
@@ -2312,14 +2310,14 @@ public class myMail extends javax.swing.JFrame {
         DefaultTableModel listInbox = (DefaultTableModel) tableInbox.getModel();
         listInbox.setNumRows(0);
         try {
-            for (Message message : folders.getMensajesInbox()) {
+            for (int i = folders.getMensajesInbox().length - 1; i >= 0; i--) {
                 String[] row = new String[1];
-                row[0] = message.getSubject();
+                row[0] = folders.getMensajesInbox()[i].getSubject();
                 listInbox.addRow(row);
             }
             tableInbox.setModel(listInbox);
         } catch (Exception e) {
-            e.printStackTrace();
+            
         }
 
         correosEnviados.setVisible(false);
@@ -2329,6 +2327,20 @@ public class myMail extends javax.swing.JFrame {
     }//GEN-LAST:event_label_inboxMouseClicked
 
     private void label_enviadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_enviadosMouseClicked
+        DefaultTableModel listInbox = (DefaultTableModel) tableEnviados.getModel();
+        listInbox.setNumRows(0);
+        try {
+            for (int i = folders.getMensajesEnviados().length - 1; i >= 0; i--) {
+                String[] row = new String[1];
+                row[0] = folders.getMensajesEnviados()[i].getSubject();
+                listInbox.addRow(row);
+            }
+
+            tableEnviados.setModel(listInbox);
+        } catch (Exception e) {
+ 
+        }
+
         correosEnviados.setVisible(true);
         correosEliminados.setVisible(false);
         correosInbox.setVisible(false);
@@ -2336,6 +2348,18 @@ public class myMail extends javax.swing.JFrame {
     }//GEN-LAST:event_label_enviadosMouseClicked
 
     private void label_spamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_spamMouseClicked
+        DefaultTableModel listInbox = (DefaultTableModel) tableSpam.getModel();
+        listInbox.setNumRows(0);
+        try {
+            for (int i = folders.getMensajesSpam().length - 1; i >= 0; i--) {
+                String[] row = new String[1];
+                row[0] = folders.getMensajesSpam()[i].getSubject();
+                listInbox.addRow(row);
+            }
+            tableSpam.setModel(listInbox);
+        } catch (Exception e) {
+            
+        }
         correosEnviados.setVisible(false);
         correosEliminados.setVisible(false);
         correosInbox.setVisible(false);
@@ -2343,6 +2367,19 @@ public class myMail extends javax.swing.JFrame {
     }//GEN-LAST:event_label_spamMouseClicked
 
     private void label_eliminadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_eliminadosMouseClicked
+        DefaultTableModel listInbox = (DefaultTableModel) tableElim.getModel();
+        listInbox.setNumRows(0);
+        try {
+            for (int i = folders.getMensajesEliminados().length - 1; i >= 0; i--) {
+                String[] row = new String[1];
+                row[0] = folders.getMensajesEliminados()[i].getSubject();
+                listInbox.addRow(row);
+            }
+            tableElim.setModel(listInbox);
+        } catch (Exception e) {
+            
+        }
+
         correosEnviados.setVisible(false);
         correosEliminados.setVisible(true);
         correosInbox.setVisible(false);
@@ -2350,15 +2387,63 @@ public class myMail extends javax.swing.JFrame {
     }//GEN-LAST:event_label_eliminadosMouseClicked
 
     private void tableElimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableElimMouseClicked
-        // TODO add your handling code here:
+        if (tableElim.getSelectedRow() > -1) {
+            try {
+                int index = folders.getMensajesEliminados().length - (tableElim.getSelectedRow() + 1);
+                asunto_correo.setText(folders.getMensajesEliminados()[index].getSubject());
+                para_correo.setText(folders.getMensajesEliminados()[index].getFrom()[0].toString());
+                File html = new File("./correo.html");
+                if (html.exists()) {
+                    html.deleteOnExit();
+                }
+                displayContCorreo.setPage(new File("algo.html").toURI().toURL());
+                folders.partesCorreo(folders.getMensajesEliminados()[index]);
+                Hilo h = new Hilo(displayContCorreo, folders);
+                h.start();
+            } catch (Exception e) {
+                
+            }
+        }
     }//GEN-LAST:event_tableElimMouseClicked
 
     private void tableSpamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSpamMouseClicked
-        // TODO add your handling code here:
+        if (tableSpam.getSelectedRow() > -1) {
+            try {
+                int index = folders.getMensajesSpam().length - (tableSpam.getSelectedRow() + 1);
+                asunto_correo.setText(folders.getMensajesSpam()[index].getSubject());
+                para_correo.setText(folders.getMensajesSpam()[index].getFrom()[0].toString());
+                File html = new File("./correo.html");
+                if (html.exists()) {
+                    html.deleteOnExit();
+                }
+                displayContCorreo.setPage(new File("algo.html").toURI().toURL());
+                folders.partesCorreo(folders.getMensajesSpam()[index]);
+                Hilo h = new Hilo(displayContCorreo, folders);
+                h.start();
+            } catch (Exception e) {
+                
+            }
+        }
     }//GEN-LAST:event_tableSpamMouseClicked
 
     private void tableEnviadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEnviadosMouseClicked
-        // TODO add your handling code here:
+        if (tableEnviados.getSelectedRow() > -1) {
+            try {
+                int index = folders.getMensajesEnviados().length - (tableEnviados.getSelectedRow() + 1);
+                asunto_correo.setText(folders.getMensajesEnviados()[index].getSubject());
+                para_correo.setText(folders.getMensajesEnviados()[index].getFrom()[0].toString());
+                File html = new File("./correo.html");
+                if (html.exists()) {
+                    html.deleteOnExit();
+                }
+                displayContCorreo.setPage(new File("algo.html").toURI().toURL());
+                folders.partesCorreo(folders.getMensajesEnviados()[index]);
+                Hilo h = new Hilo(displayContCorreo, folders);
+                h.start();
+            } catch (Exception e) {
+                
+            }
+        }
     }//GEN-LAST:event_tableEnviadosMouseClicked
 
     public void traerCuenta() {
@@ -2456,7 +2541,7 @@ public class myMail extends javax.swing.JFrame {
                     + "VALUES (" + cuentas.get(indexCuenta).getId() + ", " + ((Cuenta) jComboBox1.getSelectedItem()).getId() + ")");
             db.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            
         }
     }
 
@@ -2468,7 +2553,7 @@ public class myMail extends javax.swing.JFrame {
                     + "VALUES (" + cuentas.get(indexCuenta).getId() + ", '" + recipiente.getText() + "', '" + asunto.getText() + "', '" + cuerpo.getText() + "')");
             db.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            
         }
     }
 
@@ -2515,7 +2600,7 @@ public class myMail extends javax.swing.JFrame {
             spamM = spamF.getMessages();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            
         }
         return false;
     }

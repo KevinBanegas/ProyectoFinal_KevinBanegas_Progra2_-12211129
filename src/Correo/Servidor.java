@@ -3,11 +3,13 @@ package Correo;
 import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
 public class Servidor {
+
     private String host;
     private String port;
     private String usuario;
@@ -22,28 +24,22 @@ public class Servidor {
         this.usuario = usuario;
         this.pass = pass;
     }
-    
-    public void conectar(){
-            Properties props = new Properties();
-            props.put("mail.smtp.host", this.host);
-            props.put("mail.smtp.port", this.port);
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");            
-            props.put("mail.smtp.ssl.protocols", "TLSv1.2");
-            props.put("mail.smtp.user", this.usuario);
-            props.put("mail.smtp.clave", this.pass);
-            
- 
-            session = javax.mail.Session.getDefaultInstance(props);
+
+    public void conectar() {
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.office365.com");
+        props.put("mail.smtp.port", "587");
+
+        session = javax.mail.Session.getDefaultInstance(props);
     }
-    
-    public void enviarCorreo(MimeMessage correo) throws NoSuchProviderException, MessagingException{
-        transport = session.getTransport("smtp");                
-        transport.connect("smtp.office365.com", this.usuario, this.pass);
+
+    public void enviarCorreo(MimeMessage correo) throws NoSuchProviderException, MessagingException {
+        transport = session.getTransport("smtp");
+        transport.connect("smtp.office365.com", usuario, pass);
         transport.sendMessage(correo, correo.getAllRecipients());
         transport.close();
     }
-    
 
     public String getHost() {
         return host;
@@ -100,7 +96,5 @@ public class Servidor {
     public void setTransport(Transport transport) {
         this.transport = transport;
     }
-    
-    
-    
+
 }

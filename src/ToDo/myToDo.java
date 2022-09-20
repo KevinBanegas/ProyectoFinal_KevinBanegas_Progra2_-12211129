@@ -2086,7 +2086,6 @@ public class myToDo extends javax.swing.JFrame {
             for (Tarea tarea : tareas) {
                 if (tarea.getNombreTarea().equals(name) && tarea.getIdCuenta() == cuentas.get(indexCuenta).getId()) {
                     idTarea = tarea.getIdTarea();
-                    System.out.println(tarea);
                 }
             }
             ElimTarea(idTarea);
@@ -2236,7 +2235,7 @@ public class myToDo extends javax.swing.JFrame {
                 for (ListaTarea listaTarea : listaTareas) {
                     if (listaTarea.getIdCuenta() == cuentas.get(indexCuenta).getId()) {
                         m.addElement(listaTarea.getNombreLista());
-                        System.out.println(listaTarea.getNombreLista());
+
                     }
                 }
                 jComboBox1.setModel(m);
@@ -2400,7 +2399,7 @@ public class myToDo extends javax.swing.JFrame {
                     traerTareas();
                     asignarTareas.setVisible(false);
                 } catch (Exception e) {
-                    e.printStackTrace();
+
                 }
 
             }
@@ -2603,7 +2602,7 @@ public class myToDo extends javax.swing.JFrame {
                     + " VALUES (" + index + ", " + id + ", '" + jTextField2.getText() + "')");
             db.commit();
         } catch (Exception e) {
-            //e.printStackTrace();
+
             JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
@@ -2619,7 +2618,7 @@ public class myToDo extends javax.swing.JFrame {
                     + " VALUES (" + idLista + ", " + cuenta + ", '" + nombre + "')");
             db.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+
             JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
@@ -2641,7 +2640,7 @@ public class myToDo extends javax.swing.JFrame {
                 listaTareas.add(l);
             }
         } catch (Exception e) {
-            //e.printStackTrace();
+
             JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
@@ -2650,10 +2649,8 @@ public class myToDo extends javax.swing.JFrame {
     public void tableListas() {
         DefaultTableModel m = (DefaultTableModel) table_listaTareas.getModel();
         m.setNumRows(0);
-        System.out.println(cuentas.get(indexCuenta).getId() + "tableListas");
         for (ListaTarea listaTarea : listaTareas) {
             if (listaTarea.getIdLista() > 2 && listaTarea.getIdCuenta() == cuentas.get(indexCuenta).getId()) {
-                System.out.println(listaTarea);
                 String[] row = new String[1];
                 row[0] = listaTarea.getNombreLista();
                 m.addRow(row);

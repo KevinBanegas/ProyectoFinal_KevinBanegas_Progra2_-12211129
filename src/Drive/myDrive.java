@@ -2028,7 +2028,9 @@ public class myDrive extends javax.swing.JFrame {
                 traerFiles();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            
+                
+            
         }
         jTable1.setVisible(true);
         jTable4.setVisible(false);
@@ -2197,7 +2199,7 @@ public class myDrive extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Archivo Compartido", "Exito", JOptionPane.INFORMATION_MESSAGE);
                 dialog_compartirArchivos.setVisible(false);
             } catch (Exception e) {
-                e.printStackTrace();
+
             }
             db.desconectar();
         } catch (Exception e) {
@@ -2693,7 +2695,7 @@ public class myDrive extends javax.swing.JFrame {
                 db.commit();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
         db.desconectar();
     }
@@ -2717,7 +2719,7 @@ public class myDrive extends javax.swing.JFrame {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -2769,7 +2771,7 @@ public class myDrive extends javax.swing.JFrame {
             jTable5.setModel(m);
 
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -2913,7 +2915,7 @@ public class myDrive extends javax.swing.JFrame {
                     + "VALUES (" + index + ", " + idCuenta + ", '" + jTextField2.getText() + "')");
             db.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -2937,7 +2939,7 @@ public class myDrive extends javax.swing.JFrame {
                     + "VALUES (" + index + ", '" + jTextField2.getText() + "', '" + cuentas.get(indexCuenta).getUser() + "')");
             db.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -3010,10 +3012,10 @@ public class myDrive extends javax.swing.JFrame {
                 db.commit();
                 dialog_compartirArchivos.setVisible(false);
             } catch (Exception e) {
-                e.printStackTrace();
+
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -3033,7 +3035,7 @@ public class myDrive extends javax.swing.JFrame {
                 carpetas.add(ca);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
             JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
@@ -3049,7 +3051,7 @@ public class myDrive extends javax.swing.JFrame {
                     + " VALUES (" + index + ", " + id + ", '" + jTextField1.getText() + "')");
             db.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+
             JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
