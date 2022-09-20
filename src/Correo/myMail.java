@@ -57,11 +57,11 @@ public class myMail extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
         prop = new Properties();
-        prop.setProperty("mail.pop3.starttls.enable", "false");
-        prop.setProperty("mail.pop3.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        prop.setProperty("mail.pop3.socketFactory.fallback", "false");
-        prop.setProperty("mail.pop3.port", "995");
-        prop.setProperty("mail.pop3.socketFactory.port", "995");
+        prop.setProperty("mail.imap.starttls.enable", "false");
+        prop.setProperty("mail.imap.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        prop.setProperty("mail.imap.socketFactory.fallback", "false");
+        prop.setProperty("mail.imap.port", "993");
+        prop.setProperty("mail.imap.socketFactory.port", "993");
         traerCuenta();
         traerCorreoUsuarios();
         traerContactos();
@@ -73,7 +73,10 @@ public class myMail extends javax.swing.JFrame {
                 contra = correosUsuario.getContra();
             }
         }
+        System.out.println(usuario);
+        System.out.println(contra);
         conect();
+        folders = new TodosFolders();
         folders.setEliminados(eliminadosF);
         folders.setEnviados(enviadosF);
         folders.setSpam(spamF);
@@ -2499,15 +2502,15 @@ public class myMail extends javax.swing.JFrame {
             inboxF.open(Folder.READ_WRITE);
             inboxM = inboxF.getMessages();
 
-            enviadosF = store.getFolder("Elementos enviados");
+            enviadosF = store.getFolder("Sent Items");
             enviadosF.open(Folder.READ_WRITE);
             enviadosM = enviadosF.getMessages();
 
-            eliminadosF = store.getFolder("Elementos eliminados");
+            eliminadosF = store.getFolder("Deleted Items");
             eliminadosF.open(Folder.READ_WRITE);
             eliminadosM = eliminadosF.getMessages();
 
-            spamF = store.getFolder("Correo no deseado");
+            spamF = store.getFolder("Junk Email");
             spamF.open(Folder.READ_WRITE);
             spamM = spamF.getMessages();
             return true;

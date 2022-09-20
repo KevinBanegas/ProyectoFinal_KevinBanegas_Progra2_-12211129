@@ -15,11 +15,7 @@ public class TodosFolders {
     private Folder enviados;
     private String vacio;
 
-    public TodosFolders(Folder inbox, Folder spam, Folder eliminados, Folder enviados) {
-        this.inbox = inbox;
-        this.spam = spam;
-        this.eliminados = eliminados;
-        this.enviados = enviados;
+    public TodosFolders() {
     }
 
     public Folder getInbox() {
