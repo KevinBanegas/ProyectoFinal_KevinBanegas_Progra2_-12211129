@@ -62,6 +62,7 @@ public class myMail extends javax.swing.JFrame {
         prop.setProperty("mail.imap.socketFactory.fallback", "false");
         prop.setProperty("mail.imap.port", "993");
         prop.setProperty("mail.imap.socketFactory.port", "993");
+        enBorrador=false;
         traerCuenta();
         traerCorreoUsuarios();
         traerContactos();
@@ -151,6 +152,8 @@ public class myMail extends javax.swing.JFrame {
         jList2 = new javax.swing.JList<>();
         jPanel14 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        elimContacto = new javax.swing.JMenuItem();
         bg_myMail = new javax.swing.JPanel();
         header_menu = new javax.swing.JPanel();
         panel_minimize_myMail = new javax.swing.JPanel();
@@ -219,7 +222,9 @@ public class myMail extends javax.swing.JFrame {
         cuerpo.setBackground(new java.awt.Color(204, 166, 255));
         cuerpo.setColumns(20);
         cuerpo.setForeground(new java.awt.Color(255, 255, 255));
+        cuerpo.setLineWrap(true);
         cuerpo.setRows(5);
+        cuerpo.setWrapStyleWord(true);
         jScrollPane3.setViewportView(cuerpo);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -599,6 +604,8 @@ public class myMail extends javax.swing.JFrame {
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
         );
 
+        contactosFavoritos.setUndecorated(true);
+
         jPanel11.setBackground(new java.awt.Color(255, 204, 204));
 
         header_menu3.setBackground(new java.awt.Color(122, 68, 149));
@@ -665,6 +672,11 @@ public class myMail extends javax.swing.JFrame {
         jList1.setFont(new java.awt.Font("Litera-Serial", 0, 18)); // NOI18N
         jList1.setForeground(new java.awt.Color(255, 255, 255));
         jList1.setModel(new DefaultListModel());
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(jList1);
 
         jPanel12.setBackground(new java.awt.Color(172, 112, 168));
@@ -858,6 +870,14 @@ public class myMail extends javax.swing.JFrame {
             borradoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        elimContacto.setText("Eliminar Contacto");
+        elimContacto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elimContactoActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(elimContacto);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -2211,6 +2231,7 @@ public class myMail extends javax.swing.JFrame {
     }//GEN-LAST:event_label_borradoresMouseExited
 
     private void label_exit_myMail4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exit_myMail4MouseClicked
+        enBorrador=false;
         borradores.setVisible(false);
     }//GEN-LAST:event_label_exit_myMail4MouseClicked
 
@@ -2240,6 +2261,8 @@ public class myMail extends javax.swing.JFrame {
                     recipiente.setText(correo.getRecipiente());
                     asunto.setText(jList2.getSelectedValue());
                     cuerpo.setText(correo.getCuerpo());
+                    idCurrentBorrador = correo.getIdCorreo();
+                    enBorrador=true;
                 }
             }
             borradores.setVisible(false);
@@ -2251,14 +2274,14 @@ public class myMail extends javax.swing.JFrame {
     }//GEN-LAST:event_jList2MouseClicked
 
     private void enviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enviarMouseClicked
-        String correo = "", contra = "";
+        String correo = "", contraseña = "";
         for (CorreoUsuarios correosUsuario : correosUsuarios) {
             if (correosUsuario.getIdCuenta() == cuentas.get(indexCuenta).getId()) {
                 correo = correosUsuario.getUsuario();
-                contra = correosUsuario.getContra();
+                contraseña = correosUsuario.getContra();
             }
         }
-        Servidor server = new Servidor("smtp.office365.com", "587", correo, contra);
+        Servidor server = new Servidor("smtp.office365.com", "587", correo, contraseña);
         server.conectar();
         try {
             ConeccionCorreo mail = new ConeccionCorreo(server.getSession());
@@ -2275,7 +2298,10 @@ public class myMail extends javax.swing.JFrame {
 
             server.enviarCorreo(mail);
             JOptionPane.showMessageDialog(this, "Correo Enviado", "Exito", JOptionPane.INFORMATION_MESSAGE);
-
+            if(enBorrador){
+                elimBorrador();
+                traerBorradores();
+            }
             cuerpo.setText("");
             recipiente.setText("");
             asunto.setText("");
@@ -2446,6 +2472,25 @@ public class myMail extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tableEnviadosMouseClicked
 
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        if(evt.isMetaDown()){
+            jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void elimContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elimContactoActionPerformed
+        DefaultListModel newM = (DefaultListModel) jList1.getModel();
+        if (jList1.getSelectedValuesList().size() > 0) {
+            for (Object cuenta : jList1.getSelectedValuesList().toArray()) {
+                newM.removeElement((Cuenta) cuenta);
+                elimContacto(((Cuenta)cuenta).getId());
+            }
+            traerContactos();
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay contacto seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_elimContactoActionPerformed
+
     public void traerCuenta() {
         Dba db = new Dba("./DataBase.accdb");
         db.conectar();
@@ -2574,6 +2619,29 @@ public class myMail extends javax.swing.JFrame {
     }
 
     public void elimBorrador() {
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+        try {
+            db.query.execute("delete from borradores where idBorrador=" + idCurrentBorrador);
+            db.commit();
+        } catch (SQLException ex) {
+        }
+
+        db.desconectar();
+    }
+    
+    public void elimContacto(int id){
+        Dba db = new Dba("./DataBase.accdb");
+        db.conectar();
+        try {
+            db.query.execute("delete from contactosFavoritos where idContacto=" + id);
+            db.commit();
+            JOptionPane.showMessageDialog(this, "Contacto Eliminado Exitosamente");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar contacto", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        db.desconectar();
 
     }
 
@@ -2650,6 +2718,8 @@ public class myMail extends javax.swing.JFrame {
     private ArrayList<CorreoUsuarios> correosUsuarios;
     private ArrayList<Integer> contactosId;
     private TodosFolders folders;
+    private int idCurrentBorrador;
+    private boolean enBorrador;
 
     private Folder inboxF;
     private Folder eliminadosF;
@@ -2678,6 +2748,7 @@ public class myMail extends javax.swing.JFrame {
     private javax.swing.JDialog dialogAgregar;
     private javax.swing.JDialog dialogEnviar;
     private javax.swing.JEditorPane displayContCorreo;
+    private javax.swing.JMenuItem elimContacto;
     private javax.swing.JLabel enviar;
     private javax.swing.JLabel guardarBorrador;
     private javax.swing.JPanel header_menu;
@@ -2724,6 +2795,7 @@ public class myMail extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

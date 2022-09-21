@@ -2467,7 +2467,6 @@ public class myToDo extends javax.swing.JFrame {
                 cuentas.add(u);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
@@ -2494,7 +2493,6 @@ public class myToDo extends javax.swing.JFrame {
                 tareas.add(t);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
@@ -2528,7 +2526,6 @@ public class myToDo extends javax.swing.JFrame {
                     + 0 + ", '')");
             db.commit();
         } catch (SQLException ex) {
-            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
@@ -2558,7 +2555,6 @@ public class myToDo extends javax.swing.JFrame {
             db.query.execute("update Tareas set importante_tarea= " + 1 + " where idTarea= " + id);
             db.commit();
         } catch (SQLException ex) {
-            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
@@ -2572,7 +2568,6 @@ public class myToDo extends javax.swing.JFrame {
             db.query.execute("update Tareas set importante_tarea= " + 0 + " where idTarea= " + id);
             db.commit();
         } catch (SQLException ex) {
-            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
@@ -2585,7 +2580,6 @@ public class myToDo extends javax.swing.JFrame {
             db.query.execute("update Tareas set realizado_tarea= " + 1 + " where idTarea= " + id);
             db.commit();
         } catch (SQLException ex) {
-            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al traer datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();
@@ -2694,7 +2688,6 @@ public class myToDo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Lista y Tareas Eliminadas Exitosamente");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error al eliminar Lista o Tareas", "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
         }
 
         db.desconectar();
@@ -2710,7 +2703,6 @@ public class myToDo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tarea Eliminadas Exitosamente");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error al eliminar tarea", "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
         }
 
         db.desconectar();
@@ -2724,7 +2716,6 @@ public class myToDo extends javax.swing.JFrame {
             db.query.execute("update tareas set idLista= " + idLista + " where idTarea= " + idTarea);
             db.commit();
         } catch (SQLException ex) {
-            ex.printStackTrace();
         }
         db.desconectar();
     }
@@ -2791,7 +2782,6 @@ public class myToDo extends javax.swing.JFrame {
             db.query.execute("update Tareas set nota= '" + notas.getText() + "' where idTarea= " + tareaId);
             db.commit();
         } catch (SQLException ex) {
-            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al poner datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         db.desconectar();

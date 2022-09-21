@@ -460,7 +460,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 cu.setIdCorreo(rs.getInt("idCorreo"));
                 cu.setIdCuenta(rs.getInt("idCuenta"));
                 cu.setContra(rs.getString("contra"));
-                cu.setUsuario(rs.getString("usuario"));
+                cu.setUsuario(rs.getString("correo"));
                 correosUsuarios.add(cu);
             }
         } catch (SQLException ex) {

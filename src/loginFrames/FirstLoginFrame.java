@@ -6,6 +6,8 @@
 package loginFrames;
 
 import Conexiones.Dba;
+import Correo.ConeccionCorreo;
+import Correo.Servidor;
 import java.awt.Color;
 import java.awt.Cursor;
 import static java.awt.event.KeyEvent.VK_ENTER;
@@ -13,6 +15,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.regex.*;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -65,6 +72,7 @@ public class FirstLoginFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -335,14 +343,17 @@ public class FirstLoginFrame extends javax.swing.JFrame {
         panel_ingresar_iniciar.setLayout(panel_ingresar_iniciarLayout);
         panel_ingresar_iniciarLayout.setHorizontalGroup(
             panel_ingresar_iniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_ingresar_iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_ingresar_iniciarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_ingresar_iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panel_ingresar_iniciarLayout.setVerticalGroup(
             panel_ingresar_iniciarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(label_ingresar_iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        panel_bg_iniciar.add(panel_ingresar_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 90, 40));
+        panel_bg_iniciar.add(panel_ingresar_iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, 110, 40));
 
         jLabel1.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(178, 112, 162));
@@ -359,7 +370,7 @@ public class FirstLoginFrame extends javax.swing.JFrame {
                 jLabel1MouseExited(evt);
             }
         });
-        panel_bg_iniciar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 210, -1));
+        panel_bg_iniciar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 210, -1));
 
         jLabel3.setFont(new java.awt.Font("Litera-Serial", 0, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 51, 102));
@@ -384,6 +395,22 @@ public class FirstLoginFrame extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Contraseña Incorrecta. Intente de Nuevo.");
         panel_bg_iniciar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 230, -1));
+
+        jLabel2.setFont(new java.awt.Font("Litera-Serial", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(178, 112, 162));
+        jLabel2.setText("Restaurar Contraseña");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2MouseExited(evt);
+            }
+        });
+        panel_bg_iniciar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -581,6 +608,49 @@ public class FirstLoginFrame extends javax.swing.JFrame {
         new NewUser().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        try {
+            String usuario = JOptionPane.showInputDialog(this, "Ingrese el nombre de su usuario: ");
+            String correo = JOptionPane.showInputDialog(this, "Ingrese el correo para mandar su nueva contraseña: ");
+            if (usuario == null || correo == null) {
+
+            } else {
+                String contra = "";
+                for (Cuenta cuenta : cuentas) {
+                    if (cuenta.getUser().equals(usuario)) {
+                        contra = cuenta.getContra();
+                    }
+                }
+                Servidor server = new Servidor("smtp.office365.com", "587", "kevinandre0504@unitec.edu", "Swfc0521");
+                server.conectar();
+                ConeccionCorreo mail = new ConeccionCorreo(server.getSession());
+                mail.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
+                mail.setSubject("Restauración Contraseña para " + usuario);
+                mail.setText("Su nueva contraseña " + usuario + " es " + contra);
+                BodyPart parteTexto = new MimeBodyPart();
+                parteTexto.setContent("<b>" + "Su nueva contraseña " + usuario + ", es " + contra + "</b>", "text/html");
+
+                MimeMultipart todaslasPartes = new MimeMultipart();
+                todaslasPartes.addBodyPart(parteTexto);
+                mail.setContent(todaslasPartes);
+                mail.setFrom(server.getUsuario());
+
+                server.enviarCorreo(mail);
+                JOptionPane.showMessageDialog(this, "Contraseña Restaurada, revise su correo.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña invalida", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+        setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_jLabel2MouseEntered
+
+    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
+        setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_jLabel2MouseExited
     public void traerCuenta() {
         Dba db = new Dba("./DataBase.accdb");
         db.conectar();
@@ -663,6 +733,7 @@ public class FirstLoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel icon_visualize_iniciar;
     private javax.swing.JLabel img_myOffice;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

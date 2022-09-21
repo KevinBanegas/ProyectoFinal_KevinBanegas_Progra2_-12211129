@@ -423,6 +423,11 @@ public class myDrive extends javax.swing.JFrame {
         jList2.setFont(new java.awt.Font("Litera-Serial", 1, 18)); // NOI18N
         jList2.setModel(new DefaultListModel());
 
+        jList2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList2MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jList2);
 
         jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 210, 210));
@@ -2631,6 +2636,10 @@ public class myDrive extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No ingresó una Carpeta", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jList2MouseClicked
 
     public void traerCuenta() {
         Dba db = new Dba("./DataBase.accdb");

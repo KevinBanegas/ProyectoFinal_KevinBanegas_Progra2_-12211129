@@ -28,15 +28,19 @@ public class Servidor {
     public void conectar() {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.office365.com");
+        props.put("mail.smtp.host", "outlook.office365.com");
         props.put("mail.smtp.port", "587");
 
-        session = javax.mail.Session.getDefaultInstance(props);
+        session = javax.mail.Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(usuario, pass);
+            }
+          });
     }
 
     public void enviarCorreo(MimeMessage correo) throws NoSuchProviderException, MessagingException {
         transport = session.getTransport("smtp");
-        transport.connect("smtp.office365.com", usuario, pass);
+        transport.connect("smtp.office365.com", this.usuario, this.pass);
         transport.sendMessage(correo, correo.getAllRecipients());
         transport.close();
     }

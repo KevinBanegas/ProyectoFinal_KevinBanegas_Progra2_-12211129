@@ -35,7 +35,7 @@ public class Hilo extends Thread {
     @Override
     public void run() {
         try {
-            Thread.sleep(400);
+            Thread.sleep(200);
             File file = new File("correo.html");
             if(file.exists()){
                 editorP.setPage(new File("correo.html").toURI().toURL());
